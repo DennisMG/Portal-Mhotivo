@@ -297,6 +297,7 @@ namespace Mhotivo
                 .ForMember(p => p.Year, o => o.MapFrom(src => src.BirthDate.Year))
                 .ForMember(p => p.Month, o => o.MapFrom(src => src.BirthDate.Month))
                 .ForMember(p => p.Day, o => o.MapFrom(src => src.BirthDate.Day))
+                .ForMember(p => p.Tutor1, o => o.MapFrom(src => src.Tutor1 != null ? src.Tutor1.Id : -1))
                 .ReverseMap()
                 .ForMember(p => p.FullName, o => o.MapFrom(src => src.FirstName + " " + src.LastName))
                 .ForMember(p => p.Tutor1, o => o.MapFrom(src => ((ITutorRepository)DependencyResolver.Current.GetService(
