@@ -17,6 +17,7 @@ namespace Mhotivo.Data.Entities
         [Key, ForeignKey("UserOwner")]
         public long Id { get; set; }
         public virtual PeopleWithUser UserOwner { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string DefaultPassword { get; set; }

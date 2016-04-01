@@ -27,11 +27,11 @@ namespace Mhotivo.Models
         public string Controller { get; set; }
 
         [Required(ErrorMessage = "Debe Ingresar Tipo")]
-        [Display(Name = "Campo (Telefono Movil, Telefono de Casa, etc.)")]
+        [Display(Name = "Ingrese el nombre del campo")]
         public string Type { get; set; }
 
         [Required(ErrorMessage = "Debe Ingresar Valor")]
-        [Display(Name = "Valor")]
+        [Display(Name = "Informacion del campo")]
         public string Value { get; set; }
     }
 }

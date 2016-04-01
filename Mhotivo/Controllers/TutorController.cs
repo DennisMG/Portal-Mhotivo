@@ -246,6 +246,7 @@ namespace Mhotivo.Controllers
             _tutorRepository.Create(tutorModel);
             var newUser = new User
             {
+                Name =  modelTutor.FirstName,
                 UserOwner = tutorModel,
                 Email = modelTutor.Email,
                 Password = _passwordGenerationService.GenerateTemporaryPassword(),

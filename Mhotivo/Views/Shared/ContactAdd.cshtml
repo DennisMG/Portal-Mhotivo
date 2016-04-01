@@ -28,7 +28,7 @@
                 @Html.LabelFor(model => model.Type)
             </div>
             <div class="controls">
-                @Html.EditorFor(model => model.Type)
+                @Html.TextBoxFor(model => model.Type, new { placeholder = "Telefono de Casa,Celular,etc.." })
             </div>
         </div>
 
@@ -39,7 +39,7 @@
                 @Html.LabelFor(model => model.Value)
             </div>
             <div class="controls">
-                @Html.EditorFor(model => model.Value)
+                @Html.TextBoxFor(model => model.Value, new { placeholder = "9999-9999" })
             </div>
         </div>
 

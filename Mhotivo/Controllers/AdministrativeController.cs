@@ -238,6 +238,7 @@ namespace Mhotivo.Controllers
             _peopleWithUserRepository.Create(adminModel);
             var newUser = new User
             {
+                Name = modelAmin.FirstName,
                 Email = modelAmin.Email,
                 Password = _passwordGenerationService.GenerateTemporaryPassword(),
                 IsUsingDefaultPassword = true,
