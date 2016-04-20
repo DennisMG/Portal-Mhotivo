@@ -24,7 +24,7 @@ namespace Mhotivo.Models
         [Display(Name = "Fecha de Nacimiento")]
         public string BirthDate { get; set; }
 
-        [Display(Name = "Numero de Identidad")]
+        [Display(Name = "Número de Identidad")]
         public string IdNumber { get; set; }
 
         [Display(Name = "Ciudad")]

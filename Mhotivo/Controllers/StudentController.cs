@@ -122,7 +122,7 @@ namespace Mhotivo.Controllers
                         .Any())
                 {
                     const string title = "Error!";
-                    const string content = "Ya existe un estudiante con ese numero de identidad o de cuenta.";
+                    const string content = "Ya existe un estudiante con ese número de identidad o de cuenta.";
                     _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.ErrorMessage);
                     return RedirectToAction("Index");
                 }
@@ -234,7 +234,7 @@ namespace Mhotivo.Controllers
                     x => x.AccountNumber.Equals(modelStudent.AccountNumber) || x.IdNumber.Equals(modelStudent.IdNumber))
                     .Any())
             {
-                _viewMessageLogic.SetNewMessage("Dato Invalido", "Ya existe un estudiante con ese numero de Identidad o de cuenta", ViewMessageType.ErrorMessage);
+                _viewMessageLogic.SetNewMessage("Dato Inválido", "Ya existe un estudiante con ese número de Identidad o de cuenta", ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index");
             }
             _studentRepository.Create(studentModel);

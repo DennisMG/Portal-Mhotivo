@@ -155,6 +155,7 @@
     $('#Months').change(updateSections);
     $('#Years').change(updateSections);
     function updateSections() {
+        var firstDay = $('#Day').val();
         $.ajax({
             url: '@Url.Action("GetDaysForMonthAndYear", "DateTime")',
             cache: false,
@@ -167,6 +168,7 @@
                 $.each($(data), function (i, optionavailable) {
                     $('#Day').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
                 });
+                $('#Day').val(firstDay);
             }
         });
     }

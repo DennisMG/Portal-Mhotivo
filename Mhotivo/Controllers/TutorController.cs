@@ -134,7 +134,7 @@ namespace Mhotivo.Controllers
                         .Any())
                 {
                     const string title = "Error!";
-                    const string content = "Ya existe un tutor con ese numero de identidad.";
+                    const string content = "Ya existe un tutor con ese número de identidad.";
                     _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.ErrorMessage);
                     return RedirectToAction("Index");
                 }
@@ -235,12 +235,12 @@ namespace Mhotivo.Controllers
             var tutorModel = Mapper.Map<TutorRegisterModel, Tutor>(modelTutor);
             if (_tutorRepository.Filter(x => x.IdNumber == modelTutor.IdNumber).Any())
             {
-                _viewMessageLogic.SetNewMessage("Dato Invalido", "Ya existe un tutor con ese numero de Identidad", ViewMessageType.ErrorMessage);
+                _viewMessageLogic.SetNewMessage("Dato Inválido", "Ya existe un tutor con ese número de Identidad", ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index");
             }
             if (_peopleWithUserRepository.Filter(x => x.User.Email == modelTutor.Email).Any())
             {
-                _viewMessageLogic.SetNewMessage("Dato Invalido", "El Correo Electronico ya esta en uso", ViewMessageType.ErrorMessage);
+                _viewMessageLogic.SetNewMessage("Dato Inválido", "El Correo Electronico ya esta en uso", ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index");
             }
             _tutorRepository.Create(tutorModel);
