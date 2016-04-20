@@ -16,13 +16,13 @@ namespace Mhotivo.Models
         [Display(Name = "Genero")]
         public string MyGender { get; set; }
 
-        [Display(Name = "Numero de Cuenta")]
+        [Display(Name = "Número de Cuenta")]
         public string AccountNumber { get; set; }
 
         [Display(Name = "Grado")]
         public string Grade { get; set; }
 
-        [Display(Name = "Seccion")]
+        [Display(Name = "Sección")]
         public string Section { get; set; }
     }
 
@@ -33,8 +33,8 @@ namespace Mhotivo.Models
         [Display(Name = "Grado")]
         public long Grade { get; set; }
 
-        [Required(ErrorMessage = "Debe elegir una seccion.")]
-        [Display(Name = "Seccion")]
+        [Required(ErrorMessage = "Debe elegir una sección.")]
+        [Display(Name = "Sección")]
         public long AcademicGrade { get; set; }
 
         [Required(ErrorMessage = "Debe elegir un estudiante.")]
@@ -48,8 +48,8 @@ namespace Mhotivo.Models
         [Display(Name = "Grado")]
         public long Grade { get; set; }
 
-        [Required(ErrorMessage = "Debe elegir una seccion.")]
-        [Display(Name = "Seccion")]
+        [Required(ErrorMessage = "Debe elegir una sección.")]
+        [Display(Name = "Sección")]
         public long AcademicGrade { get; set; }
     }
 }

@@ -87,7 +87,7 @@ namespace Mhotivo.Controllers
             else
             {
                 _areaReposity.Create(area);
-                const string title = "Nivel De Educacion Agregado";
+                const string title = "Nivel De Educación Agregado";
                 var content = "El nivel educaivo \"" + area.Name + "\" ha sido agregado exitosamente.";
                 _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
                 return RedirectToAction("Index");
@@ -103,15 +103,15 @@ namespace Mhotivo.Controllers
             if (!check.Any())
             {
                 var area = _areaReposity.Delete(id);
-                const string title = "Nivel De Educacion Eliminado";
-                var content = "El Nivel De Educacion \"" + area.Name + "\" ha sido eliminado exitosamente.";
+                const string title = "Nivel De Educación Eliminado";
+                var content = "El Nivel De Educación \"" + area.Name + "\" ha sido eliminado exitosamente.";
                 _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
                 return RedirectToAction("Index");
             }
             else
             {
                 const string title = "Error!";
-                const string content = "No se puede borrar el nivel de educacion pues existen uno o mas grados dentro de este.";
+                const string content = "No se puede borrar el nivel de educación pues existen uno o mas grados dentro de este.";
                 _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index");
             }
@@ -140,8 +140,8 @@ namespace Mhotivo.Controllers
             var myArea = _areaReposity.GetById(modelArea.Id);
             myArea = Mapper.Map(modelArea, myArea);
             myArea = _areaReposity.Update(myArea);
-            const string title = "Nivel de Educacion Actualizado";
-            var content = "El Nivel De Educacion" + myArea.Name + " ha sido actualizado exitosamente.";
+            const string title = "Nivel de Educación Actualizado";
+            var content = "El Nivel De Educación" + myArea.Name + " ha sido actualizado exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index");
         }

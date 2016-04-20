@@ -13,7 +13,7 @@ namespace Mhotivo.Models
         [Display(Name = "Activo?")]
         public bool IsActive { get; set; }
 
-        [Display(Name = "Matricula Abierta?")]
+        [Display(Name = "Matrícula Abierta?")]
         public bool EnrollsOpen { get; set; }
     }
 
@@ -35,7 +35,7 @@ namespace Mhotivo.Models
         [Display(Name = "Activo")]
         public bool IsActive { get; set; }
 
-        [Display(Name = "Matricula Abierta")]
+        [Display(Name = "Matrícula Abierta")]
         public bool EnrollsOpen { get; set; }
     }
 

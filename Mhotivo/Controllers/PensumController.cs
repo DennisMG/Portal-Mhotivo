@@ -91,7 +91,7 @@ namespace Mhotivo.Controllers
             var gradeId = pensum.Grade.Id;
             if (_academicGradeRepository.Filter(x => x.ActivePensum.Id == id).Any())
             {
-                _viewMessageLogic.SetNewMessage("Error", "El pensum esta siendo usado por un grado academico y no puede eliminarse.", ViewMessageType.ErrorMessage);
+                _viewMessageLogic.SetNewMessage("Error", "El pensum esta siendo usado por un grado académico y no puede eliminarse.", ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index", new { gradeId });
             }
             pensum = _pensumRepository.Delete(pensum);

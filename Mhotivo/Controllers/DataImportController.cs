@@ -61,7 +61,7 @@ namespace Mhotivo.Controllers
             var academicGrade = _academicGradeRepository.Filter(x => x.AcademicYear.Id == dataImportModel.Year
             && x.Grade.Id == dataImportModel.Grade && x.Section.Equals(dataImportModel.Section)).FirstOrDefault();
             if (academicGrade == null)
-                ModelState.AddModelError("Year", "No existe ese grado academico");
+                ModelState.AddModelError("Year", "No existe ese grado académico");
             else if(academicGrade.Students.Any())
                 ModelState.AddModelError("Year", "Ya hay alumos en este grado, borrelos e ingreselos de nuevo.");
             if (!ModelState.IsValid)

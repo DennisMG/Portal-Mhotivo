@@ -13,8 +13,8 @@ namespace Mhotivo.Models
         [Display(Name = "Grado")]
         public long Grade { get; set; }
 
-        [Required(ErrorMessage = "Debe ingresar la seccion")]
-        [Display(Name = "Seccion")]
+        [Required(ErrorMessage = "Debe ingresar la sección")]
+        [Display(Name = "Sección")]
         public string Section { get; set; }
 
         [Required(ErrorMessage = "Debe especificar el archivo a subir")]

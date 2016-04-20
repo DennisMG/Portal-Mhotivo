@@ -1,7 +1,7 @@
 ﻿@model Mhotivo.Models.EnrollRegisterModel
 
 @{
-    ViewBag.Title = "Matricula";
+    ViewBag.Title = "Matrícula";
     Layout = "";
 }
 
@@ -17,7 +17,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Matricula</legend>
+        <legend>Matrícula</legend>
         
         <p class="text-error">
             @Html.ValidationMessageFor(model => model.Grade)
@@ -50,7 +50,7 @@
                         @Html.DisplayNameFor(model => model.AcademicGrade)
                     </div>
                     <div class="controls">
-                        @Html.DropDownList("AcademicGrade", (List<SelectListItem>) ViewBag.Sections, "  -- Seccion --")
+                        @Html.DropDownList("AcademicGrade", (List<SelectListItem>) ViewBag.Sections, "  -- Sección --")
                     </div>
                 </div>
             }

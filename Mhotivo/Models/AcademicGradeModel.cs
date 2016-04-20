@@ -9,7 +9,7 @@ namespace Mhotivo.Models
         [Display(Name="Grado")]
         public string Grade { get; set; }
 
-        [Display(Name = "Seccion")]
+        [Display(Name = "Sección")]
         public string Section { get; set; }
 
         [Display(Name = "Pensum Elegido")]
@@ -26,7 +26,7 @@ namespace Mhotivo.Models
         [Display(Name = "Grado")]
         public long Grade { get; set; }
 
-        [Display(Name = "Seccion")]
+        [Display(Name = "Sección")]
         public string Section { get; set; }
 
         [Display(Name = "Pensum a usarse")]
@@ -40,7 +40,7 @@ namespace Mhotivo.Models
         [Display(Name = "Grado")]
         public long Grade { get; set; }
 
-        [Display(Name = "Seccion")]
+        [Display(Name = "Sección")]
         public string Section { get; set; }
 
         [Display(Name = "Pensum a usarse")]

@@ -52,7 +52,7 @@
     <br style="clear: left;" />
     <div style="float: left; width: 250px;">
         <div id="sectionList">
-            @Html.DropDownList("Section", (List<SelectListItem>)ViewBag.Section, "  -- Seccion --")
+            @Html.DropDownList("Section", (List<SelectListItem>)ViewBag.Section, "  -- Sección --")
         </div>
         <br /><span class="InputLabel">@Html.DisplayNameFor(model => model.Section)</span>
         <p class="text-error">@Html.ValidationMessageFor(model => model.Section)</p>

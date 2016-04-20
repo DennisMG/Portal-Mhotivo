@@ -101,7 +101,7 @@ namespace Mhotivo.Controllers
                     if (_educationLevelRepository.Filter(x => x.Director != null && x.Director.Id == myUser.Id).Any())
                     {
                         const string title2 = "Error";
-                        var content2 = "Directores no pueden ser promovidos a administradores mientras tienen un nivel de educacion asignado.";
+                        var content2 = "Directores no pueden ser promovidos a administradores mientras tienen un nivel de educación asignado.";
                         _viewMessageLogic.SetNewMessage(title2, content2, ViewMessageType.ErrorMessage);
                         return RedirectToAction("Index");
                     }

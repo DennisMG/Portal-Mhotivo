@@ -6,7 +6,7 @@
     @using (Html.BeginForm())
     {
         <fieldset>
-            <legend>Borrar matriculas por seccion</legend>
+            <legend>Borrar matrículas por sección</legend>
 
             <div class="control-group" id="gradeList">
                 <div class="control-label">
@@ -22,7 +22,7 @@
                     @Html.DisplayNameFor(model => model.AcademicGrade)
                 </div>
                 <div class="controls">
-                    @Html.DropDownList("AcademicGrade", (List<SelectListItem>) ViewBag.Sections, "  -- Seccion --")
+                    @Html.DropDownList("AcademicGrade", (List<SelectListItem>) ViewBag.Sections, "  -- Sección --")
                 </div>
             </div>
 

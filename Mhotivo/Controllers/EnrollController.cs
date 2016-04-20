@@ -158,7 +158,7 @@ namespace Mhotivo.Controllers
             student.MyGrade = null;
             _studentRepository.Update(student);
             _academicGradeRepository.Update(grade);
-            const string title = "Matricula Borrada";
+            const string title = "Matrícula Borrada";
             const string content = "El estudiante ha sido eliminado exitosamente de la lista de matriculados.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return academicGradeId == -1 ? RedirectToAction("Index") : RedirectToAction("GeneralEnrollsFromAcademicGrades", new { gradeId = academicGradeId });
@@ -172,8 +172,8 @@ namespace Mhotivo.Controllers
             var grade = _academicGradeRepository.GetById(gradeId);
             grade.Students.Clear();
             _academicGradeRepository.Update(grade);
-            const string title = "Matricula Borrada";
-            const string content = "Todos los estudiantes de esta seccion han sido eliminados exitosamente.";
+            const string title = "Matrícula Borrada";
+            const string content = "Todos los estudiantes de esta sección han sido eliminados exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("GeneralEnrollsFromAcademicGrades", new { gradeId });
         }
@@ -186,14 +186,14 @@ namespace Mhotivo.Controllers
             if (grade == null)
             {
                 const string title = "Error";
-                const string content = "No  hay un año academico con ese grado y seccion";
+                const string content = "No  hay un año académico con ese grado y sección";
                 _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index");
             }
             grade.Students.Clear();
             _academicGradeRepository.Update(grade);
-            const string title2 = "Matricula Borrada";
-            const string content2 = "Todos los estudiantes de ese grado y seccion han sido eliminados exitosamente.";
+            const string title2 = "Matrícula Borrada";
+            const string content2 = "Todos los estudiantes de ese grado y sección han sido eliminados exitosamente.";
             _viewMessageLogic.SetNewMessage(title2, content2, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index");
         }

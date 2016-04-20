@@ -103,7 +103,7 @@ namespace Mhotivo.Models
         [Display(Name = "Tipo de Sangre")]
         public string BloodType { get; set; }
 
-        [Required(ErrorMessage = "Debe Ingresar un Numero de Cuenta")]
+        [Required(ErrorMessage = "Debe Ingresar un Número de Cuenta")]
         [Display(Name = "Número de Cuenta")]
         public string AccountNumber { get; set; }
 

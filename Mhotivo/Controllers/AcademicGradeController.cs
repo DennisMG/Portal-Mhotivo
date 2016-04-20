@@ -114,7 +114,7 @@ namespace Mhotivo.Controllers
             if (toCheck.Any())
             {
                 title = "Error!";
-                content = "El Grado Academico ya existe.";
+                content = "El Grado Académico ya existe.";
                 _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index", new { yearId = model.AcademicYear });
             }
@@ -128,8 +128,8 @@ namespace Mhotivo.Controllers
                 };
                 _academicCourseRepository.Create(academicCourse);
             }
-            title = "Grado Academico Agregado";
-            content = "El Grado Academico " + toCreate.Grade.Name + " " +toCreate.Section + " ha sido guardado exitosamente.";
+            title = "Grado Académico Agregado";
+            content = "El Grado Académico " + toCreate.Grade.Name + " " + toCreate.Section + " ha sido guardado exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index", new { yearId = model.AcademicYear });
         }
@@ -150,8 +150,8 @@ namespace Mhotivo.Controllers
             var grade = _academicGradeRepository.GetById(model.Id);
             grade = Mapper.Map(model, grade);
             grade = _academicGradeRepository.Update(grade);
-            const string title = "Maestro de Seccion Asignado";
-            var content = "Se ha asignado el maestro de seccion de " + grade.Grade.Name + " " + grade.Section + ".";
+            const string title = "Maestro de Sección Asignado";
+            var content = "Se ha asignado el maestro de sección de " + grade.Grade.Name + " " + grade.Section + ".";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index", new{yearId = grade.AcademicYear.Id});
         }
@@ -184,7 +184,7 @@ namespace Mhotivo.Controllers
             if (list2.Any())
             {
                 title = "Error!";
-                content = "Ese grado academico ya existe.";
+                content = "Ese grado Académico ya existe.";
                 _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.ErrorMessage);
             }
             else if (!list.Any())
@@ -213,8 +213,8 @@ namespace Mhotivo.Controllers
                         _academicCourseRepository.Create(academicCourse);
                     }
                 }
-                title = "Grado Academico Actualizado!";
-                content = "El Grado Academico " + item.Grade.Name + " "+ item.Section + " fue actualizado exitosamente.";
+                title = "Grado Académico Actualizado!";
+                content = "El Grado Académico " + item.Grade.Name + " " + item.Section + " fue actualizado exitosamente.";
                 _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             }
             return RedirectToAction("Index", new { yearId = item.AcademicYear.Id });
@@ -233,8 +233,8 @@ namespace Mhotivo.Controllers
                 _academicCourseRepository.Delete(academicCourse);
             }
             item = _academicGradeRepository.Delete(item);
-            const string title = "Grado Academico Eliminado!";
-            var content = "El Grado Academico " + gradeName + " " + item.Section + " fue eliminado exitosamente.";
+            const string title = "Grado Académico Eliminado!";
+            var content = "El Grado Académico " + gradeName + " " + item.Section + " fue eliminado exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index", new { yearId });
         }

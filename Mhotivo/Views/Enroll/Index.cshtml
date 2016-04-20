@@ -13,15 +13,15 @@
 @{
     if (ViewBag.GradeId == -1)
     {
-        <a class="toEdit" data-toggle="modal" role="button" data-target="#EditModal" id="/Enroll/DeleteAll/"><span class="btn btn-small btn-primary">Eliminar matriculas por seccion</span></a>
+        <a class="toEdit" data-toggle="modal" role="button" data-target="#EditModal" id="/Enroll/DeleteAll/"><span class="btn btn-small btn-primary">Eliminar matrículas por sección</span></a>
     }
     else
     {
-        <a class="toDelete" role="button" id="Grade_Val"><span class="btn btn-small btn-primary">Eliminar Matriculas Para Esta Seccion</span></a>
+        <a class="toDelete" role="button" id="Grade_Val"><span class="btn btn-small btn-primary">Eliminar Matrículas Para Esta Sección</span></a>
         using (Html.BeginForm("DeleteAllFromCurrentAcademicGrade", "Enroll", new { gradeId = ViewBag.GradeId }, FormMethod.Post,
                                 new { id = "Form_Grade_Val", style = "display: none" })) { }
         <input type="hidden" id="Grade_Val_Message"
-               value="¿Realmente desea eliminar todas las matriculas de esta seccion?" />
+               value="¿Realmente desea eliminar todas las matrículas de esta sección?" />
     }
 }
 
@@ -42,7 +42,7 @@
 @if(!Model.Any())
 {
     <div class="well well-large">
-		<h4 class="blue">Tabla Vacia</h4>
+		<h4 class="blue">Tabla Vacía</h4>
 		No hay estudiantes a mostrar.
 	</div>
 }

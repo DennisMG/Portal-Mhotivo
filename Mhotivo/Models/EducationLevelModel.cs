@@ -6,7 +6,7 @@ namespace Mhotivo.Models
     {
         public long Id { get; set; }
 
-        [Display(Name = "Nombre del Nivel de Educacion")]
+        [Display(Name = "Nombre del Nivel de Educación")]
         public string Name { get; set; }
 
         [Display(Name = "Director(a) a cargo del Nivel")]
@@ -14,7 +14,7 @@ namespace Mhotivo.Models
     }
     public class EducationLevelRegisterModel
     {
-        [Required(ErrorMessage = "Debe Ingresar en nombre del Nivel de Educacion")]
+        [Required(ErrorMessage = "Debe Ingresar en nombre del Nivel de Educación")]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
     }
