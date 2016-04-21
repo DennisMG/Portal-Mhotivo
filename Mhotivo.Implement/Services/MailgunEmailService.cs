@@ -39,8 +39,7 @@ namespace Mhotivo.Implement.Services
             request.AddParameter("from", "Fundacion Mhotivo <mhotivo@sandboxce1b0c48aca04155828bb554357ae733.mailgun.org>");
             request.AddParameter("to",user.Name + " " +"<" + user.Email + ">");
             request.AddParameter("subject", notification.Title);
-            request.AddParameter("html", "<html>Estimado " +  user.Name  + ", <br>Se ha creado una notificacion en la cual usted ha sido incluido. Mensaje: " +
-                        notification.Message + "</html>");
+            request.AddParameter("html", "<html>Estimado " +  user.Name  + ", <br>Se ha creado una notificacion en la cual usted ha sido incluido. Favor revisar el portal </html>");
             request.Method = Method.POST;
             client.Execute(request);
            
