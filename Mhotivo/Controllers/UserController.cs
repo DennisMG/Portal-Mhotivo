@@ -17,16 +17,14 @@ namespace Mhotivo.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ViewMessageLogic _viewMessageLogic;
         private readonly IPasswordGenerationService _passwordGenerationService;
-        private readonly IRoleRepository _rolesRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IEducationLevelRepository _educationLevelRepository;
 
         public UserController(IUserRepository userRepository, IPasswordGenerationService passwordGenerationService,
-            IRoleRepository rolesRepository, IRoleRepository roleRepository, IEducationLevelRepository educationLevelRepository)
+           IRoleRepository roleRepository, IEducationLevelRepository educationLevelRepository)
         {
             _userRepository = userRepository;
             _passwordGenerationService = passwordGenerationService;
-            _rolesRepository = rolesRepository;
             _roleRepository = roleRepository;
             _educationLevelRepository = educationLevelRepository;
             _viewMessageLogic = new ViewMessageLogic(this);
@@ -93,6 +91,7 @@ namespace Mhotivo.Controllers
         public ActionResult Edit(UserEditModel modelUser)
         {
             User myUser = _userRepository.GetById(modelUser.Id);
+            modelUser.Role = myUser.Role.Id;
             var directorRole = _roleRepository.Filter(x => x.Name.Equals("Director")).FirstOrDefault();
             if (directorRole != null && myUser.Role.Id == directorRole.Id)
             {

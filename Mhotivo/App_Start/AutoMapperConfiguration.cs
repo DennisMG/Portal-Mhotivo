@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
 using AutoMapper;
 using Mhotivo.Data.Entities;
 using Mhotivo.Implement.Utils;
@@ -262,9 +263,11 @@ namespace Mhotivo
             Mapper.CreateMap<User, UserEditModel>()
                 .ForMember(p => p.Role, o => o.MapFrom(src => src.Role.Id))
                 .ReverseMap()
-                .ForMember(p => p.Role,
-                    o => o.MapFrom(src => ((IRoleRepository)DependencyResolver.Current.GetService(
-                        typeof(IRoleRepository))).GetById(src.Role)));
+                .ForMember(g => g.Role,
+                    o => o.MapFrom(src => ((IRoleRepository) DependencyResolver.Current.GetService(
+                        typeof (IRoleRepository))).GetById(src.Role)));
+
+
         }
 
         private static void MapTutorModels()
