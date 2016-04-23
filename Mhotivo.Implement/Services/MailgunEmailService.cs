@@ -39,7 +39,7 @@ namespace Mhotivo.Implement.Services
             request.AddParameter("from", "Fundacion Mhotivo <mhotivo@sandboxce1b0c48aca04155828bb554357ae733.mailgun.org>");
             request.AddParameter("to",user.Name + " " +"<" + user.Email + ">");
             request.AddParameter("subject", notification.Title);
-            request.AddParameter("html", "<html>Estimado/a " +  user.Name  + ", <br>Se le notifica que ha recibido un nuevo mensaje en el portal, porfavor ingrese a:<br> http://padres.mhotivo.tk/Account/Login <br> Atentamente,<br> Fundación Mhotivo <br> <p style=\"font-size:12px;line-height:16px;font-family:Helvetica,Arial,sans-serif;color:#999;\"> Por favor, NO responda a este mensaje, es un envío automático</p></html>");
+            request.AddParameter("html", "<html>Estimado/a " +  user.Name  + ",<br><br>Se le notifica que ha recibido un nuevo mensaje en el portal, porfavor ingrese a:<br><br> http://padres.mhotivo.tk/Account/Login <br><br>Atentamente,<br><br>Fundación Mhotivo <br><p style=\"font-size:12px;line-height:16px;font-family:Helvetica,Arial,sans-serif;color:#999;\"> Por favor, NO responda a este mensaje, es un envío automático</p></html>");
             request.Method = Method.POST;
             client.Execute(request);
            
