@@ -169,7 +169,7 @@
                 @Html.LabelFor(model => model.Tutor1)
             </div>
             <div class="controls">
-                @Html.DropDownList("Tutor1Id", "--Tutor--")
+                @Html.DropDownListFor(model => model.Tutor1, (SelectList) ViewBag.Tutor1Id, new {style = "width:200px"})
             </div>
         </div>
         
