@@ -101,7 +101,8 @@ namespace Mhotivo
                 .ForMember(p => p.People,
                     o => o.MapFrom( src => ((IPeopleRepository) DependencyResolver.Current.GetService(
                         typeof (IPeopleRepository))).GetById(src.People)));
-            Mapper.CreateMap<ContactInformation, ContactInformationEditModel>().ReverseMap();
+            Mapper.CreateMap<ContactInformation, ContactInformationEditModel>()
+                       .ReverseMap();
         }
 
         private static void MapCourseModels()

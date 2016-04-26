@@ -28,7 +28,9 @@ namespace Mhotivo.Controllers
         public ActionResult Edit(ContactInformationEditModel modelContactInformation)
         {
             ContactInformation myContactInformation = _contactInformationRepository.GetById(modelContactInformation.Id);
+            var people = myContactInformation.People;
             myContactInformation = Mapper.Map(modelContactInformation, myContactInformation);
+            myContactInformation.People = people;
             ContactInformation contactInformation = _contactInformationRepository.Update(myContactInformation);
             const string title = "Contacto Actualizado";
             _viewMessageLogic.SetNewMessage(title, "", ViewMessageType.SuccessMessage);
