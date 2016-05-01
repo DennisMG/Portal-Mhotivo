@@ -38,7 +38,8 @@ else
 		        <th>@Html.ActionLink("Grado", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Nivel de Educación", "Index", new { sortOrder = ViewBag.EducationLevelSortParam, currentFilter = ViewBag.CurrentFilter })</th>
 		        <th>Pensums</th>
-                <th>Modificar</th>
+                <th>Estudiantes</th>
+		        <th>Modificar</th>
                 <th>Borrar</th>
 		    </tr>
 	    </thead>
@@ -50,7 +51,11 @@ else
                     <td>@Html.DisplayFor(modelItem => item.EducationLevel)</td>
                     <td>
                         @*<a href="/Pensum/Index/@item.Id"><i class="icon-edit bigger-120"></i></a>*@
-                        @Html.ActionLink("Ver Pensums", "Index", "Pensum", new {gradeId=item.Id},null)
+                        @Html.ActionLink("Ver Pensums", "Index", "Pensum", new {gradeId = item.Id}, null)
+                    </td>
+                    <td>
+                        @*<a href="/Pensum/Index/@item.Id"><i class="icon-edit bigger-120"></i></a>*@
+                        @Html.ActionLink("Ver Estudiantes", "StudentByGrade", "Student", new { gradeId = item.Id }, null)
                     </td>
                     <td>
                         <a class="toEdit" data-toggle="modal" role="button" data-target="#EditModal" id="/Grade/Edit/@Html.DisplayFor(modelItem => item.Id)"><i class="icon-edit bigger-120"></i></a>

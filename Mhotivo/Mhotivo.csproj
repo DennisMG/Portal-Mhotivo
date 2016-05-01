@@ -540,6 +540,7 @@
     <Content Include="Views\AcademicYear\EditorTemplates\NewAcademicYearGradeSpecModel.cshtml" />
     <None Include="Views\CustomError\Index.cshtml" />
     <Content Include="Views\MyAccount\Index.cshtml" />
+    <None Include="Views\Student\StudentByGrade.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mhotivo.Data\Mhotivo.Data.csproj">
