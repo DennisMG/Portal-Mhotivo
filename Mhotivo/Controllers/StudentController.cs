@@ -19,15 +19,19 @@ namespace Mhotivo.Controllers
     public class StudentController : Controller
     {
         private IAcademicGradeRepository _academicGradeRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ISessionManagementService _sessionManagementService;
         private readonly IContactInformationRepository _contactInformationRepository;
         private readonly ITutorRepository _tutorRepository;
         private readonly IStudentRepository _studentRepository;
         private readonly ViewMessageLogic _viewMessageLogic;
 
         public StudentController(IStudentRepository studentRepository, ITutorRepository tutorRepository,
-            IContactInformationRepository contactInformationRepository, IAcademicGradeRepository academicGradeRepository)
+            IContactInformationRepository contactInformationRepository, IAcademicGradeRepository academicGradeRepository, IUserRepository userRepository, ISessionManagementService sessionManagementService)
         {
             _academicGradeRepository = academicGradeRepository;
+            _userRepository = userRepository;
+            _sessionManagementService = sessionManagementService;
             _studentRepository = studentRepository;
             _tutorRepository = tutorRepository;
             _contactInformationRepository = contactInformationRepository;
@@ -260,56 +264,54 @@ namespace Mhotivo.Controllers
 
         [HttpGet]
         [AuthorizeAdminDirector]
-        public ActionResult StudentByGrade(string sortOrder, string currentFilter, string searchString, string gradeSection, int? page, long gradeId)
+        public ActionResult StudentByGrade(string gradeSection, int? page, long gradeId)
         {
+          
             _viewMessageLogic.SetViewMessageIfExist();
             ViewBag.gradeId = gradeId;
-            var allStudents = _studentRepository.GetAllStudents();
-            var students = allStudents.Where(x => x.MyGrade != null && x.MyGrade.Grade.Id == ViewBag.gradeId);
-            if (gradeSection != null && !gradeSection.IsEmpty() && !gradeSection.Equals("N/A"))
-            {
-                students = students.Where(x =>x.MyGrade != null && x.MyGrade.Section == gradeSection);
-            }
-            ViewBag.CurrentSort = sortOrder;
-            var gradeQuery = _academicGradeRepository.Filter( x =>  x.Grade != null && x.Grade.Id == gradeId);
-            var sections = gradeQuery.ToList().Select(grade => grade.Section).ToList();
+            ViewBag.gradeSection = gradeSection;
+          
+            var user = _userRepository.GetById(Convert.ToInt64(_sessionManagementService.GetUserLoggedId()));
+            var isDirector = user.Role.Name.Equals("Director");
+            var grades = isDirector
+                ? _academicGradeRepository.Filter(
+                    x =>
+                        x.AcademicYear.IsActive && x.Grade.EducationLevel.Director != null &&
+                        x.Grade.EducationLevel.Director.Id == user.Id).ToList()
+                : _academicGradeRepository.Filter(x => x.AcademicYear.IsActive && x.Grade.Id == gradeId).ToList();
 
-            var listSelectedSections= new List<SelectListItem> { new SelectListItem { Value = "N/A", Text = "Sin Filtro" } };
+            var sections = grades.ToList().Select(grade => grade.Section).ToList();
+
+            var listSelectedSections = new List<SelectListItem> { new SelectListItem { Selected = true, Value = "N/A", Text = "Sin Filtro" } };
             for (int i = 0; i < sections.Count; i++)
             {
-                listSelectedSections.Add(new SelectListItem { Value = sections[i], Text = sections[i]});
+                listSelectedSections.Add(new SelectListItem { Value = sections[i], Text = sections[i] });
             }
             ViewBag.Sections = listSelectedSections;
-
-
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            if (searchString != null)
+            if (gradeSection != null && !gradeSection.IsEmpty() && !gradeSection.Equals("N/A"))
             {
-                page = 1;
+                grades = grades.FindAll( x => x.Section == gradeSection);
             }
-            else
+            if (!grades.Any())
+                return View();
+            var model = new List<EnrollDisplayModel>();
+            foreach (var academicGrade in grades)
             {
-                searchString = currentFilter;
-            }
-            if (!String.IsNullOrWhiteSpace(searchString))
-            {
-                students = students.Where(x => x.FullName.Contains(searchString) || x.AccountNumber.Contains(searchString)).ToList();
-            }
-            var allStudentDisplaysModel = students.Select(Mapper.Map<Student, StudentDisplayModel>).ToList();
-            ViewBag.CurrentFilter = searchString;
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    allStudentDisplaysModel = allStudentDisplaysModel.OrderByDescending(s => s.FullName).ToList();
-                    break;
-                default:  // Name ascending 
-                    allStudentDisplaysModel = allStudentDisplaysModel.OrderBy(s => s.FullName).ToList();
-                    break;
+                model.AddRange(academicGrade.Students.Select(n => new EnrollDisplayModel
+                {
+                    AcademicGradeId = academicGrade.Id,
+                    StudentId = n.Id,
+                    FullName = n.FullName,
+                    Photo = n.Photo,
+                    MyGender = n.MyGender.ToString("G"),
+                    AccountNumber = n.AccountNumber,
+                    Grade = academicGrade.Grade.Name,
+                    Section = academicGrade.Section
+                }));
             }
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
-            return View(allStudentDisplaysModel.ToPagedList(pageNumber, pageSize));
+            return View(model.ToPagedList(pageNumber, pageSize));
         }
 
         
