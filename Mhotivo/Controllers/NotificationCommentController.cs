@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
 using Mhotivo.Authorizations;
+using Mhotivo.Data.Entities;
+using Mhotivo.Implement.Repositories;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.Models;
 
@@ -15,11 +17,40 @@ namespace Mhotivo.Controllers
     {
         private readonly INotificationRepository _notificationRepository;
         private readonly INotificationCommentRepository _notificationCommentRepository;
+        private readonly IUserRepository _userRepository;
 
-        public NotificationCommentController(INotificationRepository notificationRepository, INotificationCommentRepository notificationCommentRepository)
+        public NotificationCommentController(INotificationRepository notificationRepository, 
+            INotificationCommentRepository notificationCommentRepository,
+            IUserRepository userRepository)
         {
             _notificationRepository = notificationRepository;
             _notificationCommentRepository = notificationCommentRepository;
+            _userRepository = userRepository;
+        }
+
+        [HttpGet]
+        [AuthorizeNewUser]
+        public ActionResult Add(long id)
+        {
+          return PartialView(new NotificationCommentRegisterModel() { Notification = id});
+        }
+
+        [HttpPost]
+        [AuthorizeNewUser]
+        public ActionResult Add(NotificationCommentRegisterModel notificationCommentRegister)
+        {
+
+            var loggedUserEmail = System.Web.HttpContext.Current.Session["loggedUserEmail"].ToString();
+            var loggedUser = _userRepository.Filter(y => y.Email == loggedUserEmail).FirstOrDefault();
+            var selectedNotification = _notificationRepository.GetById(notificationCommentRegister.Notification);
+            selectedNotification.NotificationComments.Add(new NotificationComment
+            {
+                CommentText = notificationCommentRegister.CommentText,
+                Commenter = loggedUser
+            });
+            _notificationRepository.Update(selectedNotification);
+            var notificationId = notificationCommentRegister.Notification;
+            return RedirectToAction("Index", new { notificationId });
         }
 
         [AuthorizeNewUser]

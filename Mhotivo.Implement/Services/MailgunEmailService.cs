@@ -13,15 +13,15 @@ namespace Mhotivo.Implement.Services
 {
     public class MailgunEmailService
     {
-        public static void SendEmailToUsers(List<User> userList, Notification notification)
+        public static void SendEmailToUsers(List<User> userList, string message)
         {
             foreach (var user in userList)
             {
-                SendEmailToUser(user, notification);
+                SendEmailToUser(user, message);
             }
         }
 
-        public static void SendEmailToUser(User user, Notification notification)
+        public static void SendEmailToUser(User user, string message)
         {
             if (String.IsNullOrWhiteSpace(user.Email))
                 return;
@@ -38,11 +38,14 @@ namespace Mhotivo.Implement.Services
             request.Resource = "{domain}/messages";
             request.AddParameter("from", "Fundacion Mhotivo <mhotivo@sandboxce1b0c48aca04155828bb554357ae733.mailgun.org>");
             request.AddParameter("to",user.Name + " " +"<" + user.Email + ">");
-            request.AddParameter("subject", notification.Title);
-            request.AddParameter("html", "<html>Estimado/a " +  user.Name  + ",<br><br>Se le notifica que ha recibido un nuevo mensaje en el portal, porfavor ingrese a:<br><br> http://padres.mhotivo.tk/Account/Login <br><br>Atentamente,<br><br>Fundación Mhotivo <br><p style=\"font-size:12px;line-height:16px;font-family:Helvetica,Arial,sans-serif;color:#999;\"> Por favor, NO responda a este mensaje, es un envío automático</p></html>");
+            request.AddParameter("subject", "Nueva Notificacion El Portal");
+            request.AddParameter("html", "<html>Estimado/a " +  user.Name  + message);
             request.Method = Method.POST;
             client.Execute(request);
            
         }
+
+
+       
     }
 }

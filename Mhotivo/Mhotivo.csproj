@@ -197,9 +197,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeworkController.cs" />
     <Compile Include="Controllers\DataImportController.cs" />
+    <Compile Include="Controllers\IPersonalMessageHandlerService.cs" />
     <Compile Include="Controllers\MyAccountController.cs" />
     <Compile Include="Controllers\NewUserController.cs" />
     <Compile Include="Controllers\NotificationCommentController.cs" />
+    <Compile Include="Controllers\PersonalMessageController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\TutorController.cs" />
@@ -223,7 +225,9 @@
     <Compile Include="Models\GradeModel.cs" />
     <Compile Include="Models\HomeworkModel.cs" />
     <Compile Include="Models\DataImportModel.cs" />
+    <Compile Include="Models\MessageCommentModel.cs" />
     <Compile Include="Models\NotificationCommentModel.cs" />
+    <Compile Include="Models\PersonalMessageDisplayModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\NotificationModel.cs" />
@@ -541,7 +545,10 @@
     <Content Include="Views\AcademicYear\EditorTemplates\NewAcademicYearGradeSpecModel.cshtml" />
     <None Include="Views\CustomError\Index.cshtml" />
     <Content Include="Views\MyAccount\Index.cshtml" />
-	<Content Include="Views\Student\StudentByGrade.cshtml" />
+    <Content Include="Views\Student\StudentByGrade.cshtml" />
+    <None Include="Views\NotificationComment\Add.cshtml" />
+    <None Include="Views\NotificationComment\Create.cshtml" />
+    <Content Include="Views\PersonalMessage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mhotivo.Data\Mhotivo.Data.csproj">

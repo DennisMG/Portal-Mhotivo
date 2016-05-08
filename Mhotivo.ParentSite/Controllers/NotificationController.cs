@@ -69,10 +69,10 @@ namespace Mhotivo.ParentSite.Controllers
                             .ToList();
                     break;
 
-                case "Personal":
+                case "Student":
                     notifications =
                         _loggedTutor
-                            .User.Notifications.Where(x => x.NotificationType == NotificationType.Personal && x.AcademicYear.IsActive)
+                            .User.Notifications.Where(x => x.NotificationType == NotificationType.Student && x.AcademicYear.IsActive)
                             .ToList();
                     break;
                 default:

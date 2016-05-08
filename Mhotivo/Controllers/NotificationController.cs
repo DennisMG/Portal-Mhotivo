@@ -68,7 +68,7 @@ namespace Mhotivo.Controllers
             var notifications = new List<Notification>();
             if (isAdmin)
             {
-                notifications = _notificationRepository.GetAllNotifications().ToList();
+                notifications = _notificationRepository.Filter( personal => personal.NotificationType != NotificationType.Personal).OrderByDescending( x => x.CreationDate).ToList();
             }
             else if (isDirector)
             {
@@ -92,7 +92,7 @@ namespace Mhotivo.Controllers
                     var tutorIds =
                         _studentRepository.Filter(x => x.MyGrade != null && academicGradeIds.Contains(x.MyGrade.Id))
                             .Select(x => x.Tutor1.Id);
-                    notifications.AddRange(_notificationRepository.Filter(x => x.NotificationType == NotificationType.Personal && tutorIds.Contains(x.DestinationId)));
+                    notifications.AddRange(_notificationRepository.Filter(x => x.NotificationType == NotificationType.Student && tutorIds.Contains(x.DestinationId)));
                 }
             }else
                 notifications = _notificationRepository.Filter(x => x.NotificationCreator.Id == user.UserOwner.Id).ToList();
@@ -236,7 +236,7 @@ namespace Mhotivo.Controllers
                     notifications.AddRange(
                         _notificationRepository.Filter(
                             x =>
-                                x.NotificationType == NotificationType.Personal && tutorIds.Contains(x.DestinationId) &&
+                                x.NotificationType == NotificationType.Student && tutorIds.Contains(x.DestinationId) &&
                                 !x.Approved));
                 }
             }
@@ -499,7 +499,7 @@ namespace Mhotivo.Controllers
                 {NotificationType.Grade, LoadGrades},
                 {NotificationType.Section, LoadAcademicGrades},
                 {NotificationType.Course, LoadAcademicCourses},
-                {NotificationType.Personal, LoadStudents}
+                {NotificationType.Student, LoadStudents}
             };
             selectListsModel = dict[registerModel.NotificationType](registerModel, selectListsModel);
             return Json(selectListsModel, JsonRequestBehavior.AllowGet);
@@ -520,7 +520,7 @@ namespace Mhotivo.Controllers
             {
                 {NotificationType.Section, LoadAcademicGradesFromList1},
                 {NotificationType.Course, LoadAcademicCoursesFromList1},
-                {NotificationType.Personal, LoadStudentsFromList1}
+                {NotificationType.Student, LoadStudentsFromList1}
             };
             selectListsModel = dict[registerModel.NotificationType](registerModel, selectListsModel);
             return Json(selectListsModel, JsonRequestBehavior.AllowGet);
@@ -540,7 +540,7 @@ namespace Mhotivo.Controllers
             var dict = new Dictionary<NotificationType, Func<NotificationRegisterModel, NotificationSelectListsModel, NotificationSelectListsModel>>
             {
                 {NotificationType.Course, LoadAcademicCoursesFromList2},
-                {NotificationType.Personal, LoadStudentsFromList2}
+                {NotificationType.Student, LoadStudentsFromList2}
             };
             selectListsModel = dict[registerModel.NotificationType](registerModel, selectListsModel);
             return Json(selectListsModel, JsonRequestBehavior.AllowGet);

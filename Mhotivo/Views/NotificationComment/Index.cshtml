@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<Mhotivo.Models.NotificationCommentDisplayModel>
-
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("~/Views/Shared/_MessageArea.cshtml")
-
+<a class="toEdit btn" style="float: right" data-toggle="modal" role="button" data-target="#EditModal" id="/NotificationComment/Add/@ViewBag.NotificationId">Agregar comentario</a>
 <h2>Comentarios</h2>
 @if (!Model.Any())
 {
@@ -42,3 +41,8 @@ else
         </tbody>
     </table>
 }
+<div tabindex="-1" class="modal hide fade" id="EditModal" style="display: none;" aria-hidden="true">
+    <div id="body" class="modal-body">
+
+    </div>
+</div>

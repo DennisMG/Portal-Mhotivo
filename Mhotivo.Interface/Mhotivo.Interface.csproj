@@ -53,6 +53,7 @@
     <Compile Include="Interfaces\INotificationHandlerService.cs" />
     <Compile Include="Interfaces\IPasswordGenerationService.cs" />
     <Compile Include="Interfaces\IPeopleWithUserRepository.cs" />
+    <Compile Include="Interfaces\IPersonalMessageRepository.cs" />
     <Compile Include="Interfaces\IPrivilegeRepository.cs" />
     <Compile Include="Interfaces\IRoleRepository.cs" />
     <Compile Include="Interfaces\ITeacherRepository.cs" />

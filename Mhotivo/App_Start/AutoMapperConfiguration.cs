@@ -202,20 +202,26 @@ namespace Mhotivo
                     : src.NotificationType == NotificationType.Course
                         ? ((ICourseRepository) DependencyResolver.Current.GetService(
                             typeof (ICourseRepository))).GetById(src.DestinationId).Name
-                    : src.NotificationType == NotificationType.Personal
+                    : src.NotificationType == NotificationType.Student
                         ? ((IStudentRepository) DependencyResolver.Current.GetService(
                             typeof (IStudentRepository))).GetById(src.DestinationId).FullName
                         : ""));
+
+            Mapper.CreateMap<Notification, PersonalMessageDisplayModel>()
+                .ForMember(p => p.NotificationCreator,
+                    o => o.MapFrom(src => src.NotificationCreator.FirstName))
+                .ForMember(p => p.CreationDate, o => o.MapFrom(src => src.CreationDate.ToLocalTime().ToString()));
+           
             Mapper.CreateMap<Notification, NotificationEditModel>()
                 .ForMember(p => p.Id1, o => o.MapFrom(src =>
                     src.NotificationType == NotificationType.Section || 
                     src.NotificationType == NotificationType.Course || 
-                    src.NotificationType == NotificationType.Personal
+                    src.NotificationType == NotificationType.Student
                     ? ((IGradeRepository)DependencyResolver.Current.GetService(
                             typeof(IGradeRepository))).GetById(src.DestinationId).Id : -1))
                 .ForMember(p => p.Id2, o => o.MapFrom(src =>
                     src.NotificationType == NotificationType.Course ||
-                    src.NotificationType == NotificationType.Personal
+                    src.NotificationType == NotificationType.Student
                     ? ((IAcademicGradeRepository)DependencyResolver.Current.GetService(
                             typeof(IAcademicGradeRepository))).GetById(src.DestinationId).Id : -1))
                 .ReverseMap();
@@ -235,6 +241,21 @@ namespace Mhotivo
                 .ForMember(p => p.CreationDate, o => o.MapFrom(src => src.CreationDate.ToLocalTime().ToString()));
             Mapper.CreateMap<NotificationComment, NotificationCommentEditModel>().ReverseMap();
         }
+
+        /*private static void MapMessageCommentModels()
+        {
+            Mapper.CreateMap<MessageCommentRegisterModel, PersonalMessageComment>()
+               .ForMember(p => p.Commenter,
+                   o => o.MapFrom(src => ((IUserRepository)DependencyResolver.Current.GetService(
+                       typeof(IUserRepository))).GetById(src.Commenter)))
+               .ForMember(p => p.Message,
+                   o => o.MapFrom(src => ((IPersonalMessageRepository)DependencyResolver.Current.GetService(
+                       typeof(IPersonalMessageRepository))).GetById(src.)));
+            Mapper.CreateMap<NotificationComment, NotificationCommentDisplayModel>()
+                .ForMember(p => p.Commenter, o => o.MapFrom(src => src.Commenter.UserOwner.FullName))
+                .ForMember(p => p.CreationDate, o => o.MapFrom(src => src.CreationDate.ToLocalTime().ToString()));
+            Mapper.CreateMap<NotificationComment, NotificationCommentEditModel>().ReverseMap();
+        }*/
 
         private static void MapPensumModels()
         {

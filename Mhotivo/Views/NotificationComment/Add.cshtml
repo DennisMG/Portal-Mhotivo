@@ -1,0 +1,39 @@
+﻿@model Mhotivo.Models.NotificationCommentRegisterModel
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div id="body" class="modal-body" style="max-height: 500px;">
+   
+        <fieldset>
+            <legend class="pagination-centered">Agregar un comentario</legend>
+            @using (Html.BeginForm("Add", "NotificationComment", FormMethod.Post, new { id = "Form", @class = "form-horizontal", @Style = "margin:0;" }))
+            {
+                @Html.HiddenFor(x => x.Notification)
+
+                <div class="pagination-centered">
+                    
+                    <div class="control-group">
+
+                        @Html.EditorFor(model => model.CommentText)
+                        <br/>
+                        <p class="text-error">@Html.ValidationMessageFor(model => model.CommentText)</p>
+
+
+                    </div>
+                    <button type="submit" class="btn btn-small btn-primary">
+                        <i class="icon-ok"></i>
+                        Agregar
+                    </button>
+                </div>
+                
+
+            }
+        </fieldset>
+
+</div>
+
+
+
+
+

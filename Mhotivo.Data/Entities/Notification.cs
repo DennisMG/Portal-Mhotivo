@@ -19,17 +19,36 @@ namespace Mhotivo.Data.Entities
         [Description("Materia")]
         Course = 5, //AcademicCourse ID needed
         [Description("Estudiante")]
-        Personal = 6 //Student ID needed
+        Student = 6, //Student ID needed
+        [Description("Personal")]
+        Personal = 7, //Personal Message
     }
 
     public class Notification
     {
+
         public Notification()
         {
             NotificationComments = new HashSet<NotificationComment>();
             RecipientUsers = new HashSet<User>();
             CreationDate = DateTime.UtcNow;
         }
+
+        
+
+        public Notification(string subject, string message, PeopleWithUser @from,PeopleWithUser to, NotificationType personal, AcademicYear academicYear)
+        {
+            AcademicYear = academicYear;
+            Title = subject;
+            Message = message;
+            NotificationCreator = @from;
+            To = to;
+            NotificationType = personal;
+            NotificationComments = new HashSet<NotificationComment>();
+            RecipientUsers = new HashSet<User>();
+            CreationDate = DateTime.UtcNow;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
@@ -37,12 +56,14 @@ namespace Mhotivo.Data.Entities
         public string Message { get; set; }
         public NotificationType NotificationType { get; set; }
         public long DestinationId { get; set; }
+        public virtual PeopleWithUser To { get; set; }
         public virtual PeopleWithUser NotificationCreator { get; set; }
         public DateTime CreationDate { get; set; }
         public bool Approved { get; set; }
         public bool Sent { get; set; }
         public bool SendEmail { get; set; }
-        public virtual AcademicYear AcademicYear { get; set; } //used to show only pertinent Notifications
+        public virtual AcademicYear AcademicYear { get; set; } //used to show only pertinent 
+
         public virtual ICollection<NotificationComment> NotificationComments { get; set; }
         public virtual ICollection<User> RecipientUsers { get; set; }
     }
