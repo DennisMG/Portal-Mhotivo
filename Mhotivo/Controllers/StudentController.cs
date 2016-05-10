@@ -271,14 +271,7 @@ namespace Mhotivo.Controllers
             ViewBag.gradeId = gradeId;
             ViewBag.gradeSection = gradeSection;
           
-            var user = _userRepository.GetById(Convert.ToInt64(_sessionManagementService.GetUserLoggedId()));
-            var isDirector = user.Role.Name.Equals("Director");
-            var grades = isDirector
-                ? _academicGradeRepository.Filter(
-                    x =>
-                        x.AcademicYear.IsActive && x.Grade.EducationLevel.Director != null &&
-                        x.Grade.EducationLevel.Director.Id == user.Id).ToList()
-                : _academicGradeRepository.Filter(x => x.AcademicYear.IsActive && x.Grade.Id == gradeId).ToList();
+            var grades = _academicGradeRepository.Filter(x => x.AcademicYear.IsActive && x.Grade.Id == gradeId).ToList();
 
             var sections = grades.ToList().Select(grade => grade.Section).ToList();
 

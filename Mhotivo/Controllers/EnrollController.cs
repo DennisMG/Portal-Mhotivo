@@ -70,7 +70,7 @@ namespace Mhotivo.Controllers
                         x.Grade.EducationLevel.Director.Id == user.Id).ToList()
                 : _academicGradeRepository.Filter(x => x.AcademicYear.IsActive).ToList();
             if (!grades.Any())
-                return View();
+                return View(new List<EnrollDisplayModel>().ToPagedList(1,10));
             var model = new List<EnrollDisplayModel>();
             foreach (var academicGrade in grades)
             {
@@ -224,6 +224,7 @@ namespace Mhotivo.Controllers
             ViewBag.Id = new SelectList(availableStudents, "Id", "FullName");
             var grades = isDirector? _gradeRepository.Filter(x => x.EducationLevel.Director != null && x.EducationLevel.Director.Id == user.Id).ToList() : _gradeRepository.GetAllGrade().ToList();
             ViewBag.Grades = new SelectList(grades, "Id", "Name");
+            if (grades.Count == 0) return Redirect("Index");
             var firstGradeId = grades.First().Id;
             ViewBag.Sections = new List<SelectListItem>();
             ((List<SelectListItem>)ViewBag.Sections).AddRange(_academicGradeRepository.Filter(
