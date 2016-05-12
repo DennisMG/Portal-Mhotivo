@@ -286,7 +286,7 @@ namespace Mhotivo.Controllers
                 grades = grades.FindAll( x => x.Section == gradeSection);
             }
             if (!grades.Any())
-                return View();
+                return View(new List<EnrollDisplayModel>().ToPagedList(1,10));
             var model = new List<EnrollDisplayModel>();
             foreach (var academicGrade in grades)
             {

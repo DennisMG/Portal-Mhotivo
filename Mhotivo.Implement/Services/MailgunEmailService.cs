@@ -21,11 +21,13 @@ namespace Mhotivo.Implement.Services
             }
         }
 
+        
+
         public static void SendEmailToUser(User user, string message)
         {
             if (String.IsNullOrWhiteSpace(user.Email))
                 return;
-
+         
             RestClient client = new RestClient
             {
                 BaseUrl = new Uri("https://api.mailgun.net/v3"),
@@ -44,8 +46,5 @@ namespace Mhotivo.Implement.Services
             client.Execute(request);
            
         }
-
-
-       
     }
 }

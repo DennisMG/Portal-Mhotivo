@@ -117,6 +117,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\DataImportService.cs" />
     <Compile Include="Services\MailgunEmailService.cs" />
+    <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\NotificationHandlerService.cs" />
     <Compile Include="Services\RandomPasswordGenerationService.cs" />
     <Compile Include="Services\SecurityService.cs" />

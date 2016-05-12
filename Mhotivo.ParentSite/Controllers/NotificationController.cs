@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Mhotivo.Data.Entities;
+using Mhotivo.Implement.Services;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.ParentSite.Authorization;
 using Mhotivo.ParentSite.Models;
@@ -21,7 +22,7 @@ namespace Mhotivo.ParentSite.Controllers
         private Tutor _loggedTutor;
         public static IStudentRepository StudentRepository;
         public static ISecurityService SecurityService;
-
+        
         public static List<long> StudentsId;
 
         public NotificationController(INotificationRepository notificationRepository, IAcademicYearRepository academicYearRepository,
@@ -69,11 +70,15 @@ namespace Mhotivo.ParentSite.Controllers
                             .ToList();
                     break;
 
-                case "Student":
+                case "Personal":
                     notifications =
-                        _loggedTutor
-                            .User.Notifications.Where(x => x.NotificationType == NotificationType.Student && x.AcademicYear.IsActive)
-                            .ToList();
+                       _notificationRepository.Filter(
+                            x =>
+                                (x.NotificationType == NotificationType.Student && x.AcademicYear.IsActive &&
+                                 x.RecipientUsers.Any(user => user.Id == _loggedTutor.User.Id))
+                                ||
+                                (x.NotificationType == NotificationType.Personal && x.AcademicYear.IsActive &&
+                                 x.NotificationCreator.User.Id == _loggedTutor.User.Id)).ToList();
                     break;
                 default:
                     notifications =
@@ -138,6 +143,12 @@ namespace Mhotivo.ParentSite.Controllers
                 Commenter = _loggedTutor.User
             });
             _notificationRepository.Update(selectedNotification);
+            var users = selectedNotification.RecipientUsers.ToList();
+            foreach (var user in users)
+            {
+                if (!user.Email.Equals(loggedUserEmail))
+                    MailgunEmailService.SendEmailToUser(user, MessageService.ConstruirMensaje(user.Role, selectedNotification.Title));
+            }
             return RedirectToAction("Index");
         }
     }

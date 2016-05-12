@@ -4,8 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<a class="toEdit btn" style="float: right" data-toggle="modal" role="button" data-target="#EditModal" id="/NotificationComment/Add/@ViewBag.NotificationId">Agregar comentario</a>
+<a class="toEdit btn btn-small btn-primary" style="float: right" data-toggle="modal" role="button" data-target="#EditModal" id="/NotificationComment/Add/@ViewBag.NotificationId">Agregar comentario</a>
 <h2>Comentarios</h2>
 @if (!Model.Any())
 {

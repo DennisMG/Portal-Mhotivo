@@ -17,9 +17,6 @@ namespace Mhotivo.ParentSite.Controllers
         private readonly ITutorRepository _tutorRepository;
         private readonly INotificationRepository _notificationRepository;
 
-        public string message =
-            ",<br><br>Se le notifica que ha recibido un nuevo mensaje en el portal, porfavor ingrese a:<br><br> http://www.mhotivo.tk/Account/Login?ReturnUrl=%2f <br><br>Atentamente,<br><br>Fundación Mhotivo <br><p style=\"font-size:12px;line-height:16px;font-family:Helvetica,Arial,sans-serif;color:#999;\"> Por favor, NO responda a este mensaje, es un envío automático</p></html>";
-
         private readonly IAcademicYearRepository _academicYearRepository;
         private readonly IUserRepository _userRepository;
 
@@ -73,7 +70,7 @@ namespace Mhotivo.ParentSite.Controllers
 
 
                 if (teacher == null) return RedirectToAction("Index");
-                MailgunEmailService.SendEmailToUser(teacher.User, message);
+                MailgunEmailService.SendEmailToUser(teacher.User, MessageService.ConstruirMensaje(teacher.User.Role));
                 ViewBag.Message = "Mensaje Enviado!";
             }
             else

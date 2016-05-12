@@ -116,7 +116,7 @@ namespace Mhotivo.Models
     {
         [Required(ErrorMessage = "Debe Ingresar Nombres")]
         [Display(Name = "Nombres")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = "";
 
         [Required(ErrorMessage = "Debe Ingresar Número de Identidad")]
         [Display(Name = "Número de Identidad")]
@@ -124,7 +124,7 @@ namespace Mhotivo.Models
 
         [Required(ErrorMessage = "Debe Ingresar Apellidos")]
         [Display(Name = "Apellidos")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = "";
 
         //[Required(ErrorMessage = "Debe Ingresar Fecha de Nacimiento")]
         //[Display(Name = "Fecha de Nacimiento")]
@@ -136,20 +136,20 @@ namespace Mhotivo.Models
 
         [Required(ErrorMessage = "Debe Ingresar Ciudad")]
         [Display(Name = "Ciudad")]
-        public string City { get; set; }
+        public string City { get; set; } = "San Pedro Sula";
 
         [Required(ErrorMessage = "Debe Ingresar Estado")]
         [Display(Name = "Estado")]
-        public string State { get; set; }
+        public string State { get; set; } = "Cortes";
 
         [Required(ErrorMessage = "Debe Ingresar Dirección")]
         [StringLength(300, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 10)]
         [Display(Name = "Dirección")]
-        public string Address { get; set; }
+        public string Address { get; set; } = "Jardines del valle cuarta calle";
 
         [Required(ErrorMessage = "Debe Ingresar Sexo")]
         [Display(Name = "Sexo")]
-        public Gender MyGender { get; set; }
+        public Gender MyGender { get; set; } = Gender.Masculino;
 
         [Required(ErrorMessage = "Debe Ingresar Tipo de Sangre")]
         [Display(Name = "Tipo de Sangre")]

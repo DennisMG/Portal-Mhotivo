@@ -8,6 +8,7 @@ using AutoMapper;
 using Mhotivo.Authorizations;
 using Mhotivo.Data.Entities;
 using Mhotivo.Implement.Repositories;
+using Mhotivo.Implement.Services;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.Models;
 
@@ -18,6 +19,7 @@ namespace Mhotivo.Controllers
         private readonly INotificationRepository _notificationRepository;
         private readonly INotificationCommentRepository _notificationCommentRepository;
         private readonly IUserRepository _userRepository;
+      
 
         public NotificationCommentController(INotificationRepository notificationRepository, 
             INotificationCommentRepository notificationCommentRepository,
@@ -49,6 +51,13 @@ namespace Mhotivo.Controllers
                 Commenter = loggedUser
             });
             _notificationRepository.Update(selectedNotification);
+
+            var users = selectedNotification.RecipientUsers.ToList();
+            foreach (var user in users)
+            {
+                if(!user.Email.Equals(loggedUserEmail))
+                    MailgunEmailService.SendEmailToUser(user, MessageService.ConstruirMensaje(user.Role, selectedNotification.Title) );
+            }
             var notificationId = notificationCommentRegister.Notification;
             return RedirectToAction("Index", new { notificationId });
         }

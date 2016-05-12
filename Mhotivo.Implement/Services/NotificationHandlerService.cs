@@ -13,8 +13,7 @@ namespace Mhotivo.Implement.Services
         private readonly IAcademicCourseRepository _academicCourseRepository;
         private readonly IUserRepository _userRepository;
 
-        public string message =
-            ",<br><br>Se le notifica que ha recibido un nuevo mensaje en el portal, porfavor ingrese a:<br><br> http://padres.mhotivo.tk/Account/Login <br><br>Atentamente,<br><br>Fundación Mhotivo <br><p style=\"font-size:12px;line-height:16px;font-family:Helvetica,Arial,sans-serif;color:#999;\"> Por favor, NO responda a este mensaje, es un envío automático</p></html>";
+
         public NotificationHandlerService(INotificationRepository notificationRepository, IStudentRepository suStudentRepository, 
             IAcademicGradeRepository academicGradeRepository, IAcademicCourseRepository academicCourseRepository, IUserRepository userRepository)
         {
@@ -117,7 +116,7 @@ namespace Mhotivo.Implement.Services
                 _userRepository.Update(user);
                 _notificationRepository.Update(notification);
                 if (notification.SendEmail)
-                    MailgunEmailService.SendEmailToUser(student.Tutor1.User, message);
+                    MailgunEmailService.SendEmailToUser(student.Tutor1.User, MessageService.ConstruirMensaje(user.Role));
             }
             if (student.Tutor2 != null && !student.Tutor2.User.Notifications.Contains(notification))
             {
@@ -127,7 +126,7 @@ namespace Mhotivo.Implement.Services
                 _userRepository.Update(user);
                 _notificationRepository.Update(notification);
                 if (notification.SendEmail)
-                    MailgunEmailService.SendEmailToUser(student.Tutor2.User, message);
+                    MailgunEmailService.SendEmailToUser(student.Tutor2.User, MessageService.ConstruirMensaje(user.Role));
             }
         }
 
