@@ -114,9 +114,18 @@ namespace Mhotivo.Models
 
     public class StudentRegisterModel
     {
+        private string firstName="";
+        private string lastName = "";
+        private string city = "San Pedro Sula";
+        private string state = "Cortés";
+        private string address = "Jardines del valle cuarta calle";
+
         [Required(ErrorMessage = "Debe Ingresar Nombres")]
         [Display(Name = "Nombres")]
-        public string FirstName { get; set; } = "";
+        public string FirstName {
+            get { return firstName; }
+            set { firstName = value; }
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Número de Identidad")]
         [Display(Name = "Número de Identidad")]
@@ -124,7 +133,11 @@ namespace Mhotivo.Models
 
         [Required(ErrorMessage = "Debe Ingresar Apellidos")]
         [Display(Name = "Apellidos")]
-        public string LastName { get; set; } = "";
+        public string LastName
+        {
+            get { return lastName; }
+            set { lastName = value; }      
+        }
 
         //[Required(ErrorMessage = "Debe Ingresar Fecha de Nacimiento")]
         //[Display(Name = "Fecha de Nacimiento")]
@@ -136,20 +149,32 @@ namespace Mhotivo.Models
 
         [Required(ErrorMessage = "Debe Ingresar Ciudad")]
         [Display(Name = "Ciudad")]
-        public string City { get; set; } = "San Pedro Sula";
+        public string City
+        {
+            get { return city; }
+            set { city = value; }           
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Estado")]
         [Display(Name = "Estado")]
-        public string State { get; set; } = "Cortes";
+        public string State
+        {
+            get { return state; }
+            set { state = value; } 
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Dirección")]
         [StringLength(300, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 10)]
         [Display(Name = "Dirección")]
-        public string Address { get; set; } = "Jardines del valle cuarta calle";
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }             
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Sexo")]
         [Display(Name = "Sexo")]
-        public Gender MyGender { get; set; } = Gender.Masculino;
+        public Gender MyGender { get; set; }
 
         [Required(ErrorMessage = "Debe Ingresar Tipo de Sangre")]
         [Display(Name = "Tipo de Sangre")]
