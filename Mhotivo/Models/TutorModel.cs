@@ -95,9 +95,19 @@ namespace Mhotivo.Models
 
     public class TutorRegisterModel
     {
+        private string firstName = "";
+        private string lastName = "";
+        private string city = "San Pedro Sula";
+        private string state = "Cortés";
+        private string address = "San Pedro Sula, Cortés";
+
         [Required(ErrorMessage = "Debe Ingresar Nombres")]
         [Display(Name = "Nombres")]
-        public string FirstName { get; set; }
+        public string FirstName
+        {
+            get { return firstName; }
+            set { firstName = value; }
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Número de Identidad")]
         [Display(Name = "Número de Identidad")]
@@ -105,7 +115,11 @@ namespace Mhotivo.Models
 
         [Required(ErrorMessage = "Debe Ingresar Apellidos")]
         [Display(Name = "Apellidos")]
-        public string LastName { get; set; }
+        public string LastName
+        {
+            get { return lastName; }
+            set { lastName = value; }
+        }
 
         //[Required(ErrorMessage = "Debe Ingresar Fecha de Nacimiento")]
         //[Display(Name = "Fecha de Nacimiento")]
@@ -117,7 +131,11 @@ namespace Mhotivo.Models
 
         [Required(ErrorMessage = "Debe Ingresar Ciudad")]
         [Display(Name = "Ciudad")]
-        public string City { get; set; }
+        public string City
+        {
+            get { return city; }
+            set { city = value; }
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Un Correo Electronico")]
         [DataType(DataType.EmailAddress)]
@@ -126,12 +144,20 @@ namespace Mhotivo.Models
 
         [Required(ErrorMessage = "Debe Ingresar Estado o Departamento")]
         [Display(Name = "Estado o Departamento")]
-        public string State { get; set; }
+        public string State
+        {
+            get { return state; }
+            set { state = value; }
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Dirección")]
         [StringLength(300, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 10)]
         [Display(Name = "Dirección")]
-        public string Address { get; set; }
+        public string Address
+        {
+            get {return address;}
+            set { address = value; }
+        }
 
         [Required(ErrorMessage = "Debe Ingresar Sexo")]
         [Display(Name = "Sexo")]
