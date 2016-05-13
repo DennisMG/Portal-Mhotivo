@@ -118,7 +118,7 @@ namespace Mhotivo.Models
         private string lastName = "";
         private string city = "San Pedro Sula";
         private string state = "Cortés";
-        private string address = "Jardines del valle cuarta calle";
+        private string address = "San Pedro Sula, Cortés";
 
         [Required(ErrorMessage = "Debe Ingresar Nombres")]
         [Display(Name = "Nombres")]

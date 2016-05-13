@@ -75,7 +75,7 @@ namespace Mhotivo.Controllers
                     displayGradeModels = displayGradeModels.OrderByDescending(s => s.Name).ToList();
                     break;
                 default:  // Name ascending 
-                    displayGradeModels = displayGradeModels.OrderBy(s => s.Name).ToList();
+                    displayGradeModels = displayGradeModels.OrderBy(s => s.EducationLevel).ToList();
                     break;
             }
             const int pageSize = 10;

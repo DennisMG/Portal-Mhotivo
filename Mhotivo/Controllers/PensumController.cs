@@ -94,6 +94,11 @@ namespace Mhotivo.Controllers
                 _viewMessageLogic.SetNewMessage("Error", "El pensum esta siendo usado por un grado académico y no puede eliminarse.", ViewMessageType.ErrorMessage);
                 return RedirectToAction("Index", new { gradeId });
             }
+            if (pensum.Courses.Any())
+            {
+                _viewMessageLogic.SetNewMessage("Error", "El pensum tiene cursos, elimine los cursos primero para posteriormente poder eliminar el pensum.", ViewMessageType.ErrorMessage);
+                return RedirectToAction("Index", new { gradeId });
+            }
             pensum = _pensumRepository.Delete(pensum);
             const string title = "Pensum Eliminado";
             string content = "El Pesum " + pensum.Name + " ha sido eliminado exitosamente.";
