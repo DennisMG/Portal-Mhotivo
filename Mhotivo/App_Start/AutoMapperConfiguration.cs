@@ -155,13 +155,12 @@ namespace Mhotivo
         private static void MapHomeworkModels()
         {
             Mapper.CreateMap<HomeworkRegisterModel, Homework>()
-                .ForMember(p => p.AcademicCourse,
-                    o => o.MapFrom(src => ((IAcademicCourseRepository)DependencyResolver.Current.GetService(
-                        typeof(IAcademicCourseRepository))).GetById(src.AcademicCourse)))
-                .ForMember(p => p.DeliverDate, o => o.MapFrom(src => new DateTime(src.Year, src.Month, src.Day, src.Hour.Hours, src.Hour.Minutes, src.Hour.Seconds)));
+               .ForMember(p => p.DeliverDate, o => o.MapFrom(src => new DateTime(src.Year, src.Month, src.Day, src.Hour.Hours, src.Hour.Minutes, src.Hour.Seconds)));
             Mapper.CreateMap<Homework, HomeworkDisplayModel>()
-                .ForMember(p => p.DeliverDate, o => o.MapFrom(src => src.DeliverDate))
-                .ForMember(p => p.AcademicCourse, o => o.MapFrom(src => src.AcademicCourse.Course.Name));
+                .ForMember(p => p.DeliverDate,
+                    o => o.MapFrom(src => src.DeliverDate.ToString(CultureInfo.InvariantCulture)))
+                .ForMember(p => p.AcademicCourse, o => o.MapFrom(src => src.AcademicCourse.Course.Name))
+                .ForMember(p => p.Points, o => o.MapFrom(src => src.Points.ToString(CultureInfo.InvariantCulture)));
             Mapper.CreateMap<Homework, HomeworkEditModel>()
                 .ForMember(p => p.Year, o => o.MapFrom(src => src.DeliverDate.Year))
                 .ForMember(p => p.Month, o => o.MapFrom(src => src.DeliverDate.Month))

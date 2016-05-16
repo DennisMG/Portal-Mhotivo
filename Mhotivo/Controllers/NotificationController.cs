@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using AutoMapper;
 using Mhotivo.Authorizations;
@@ -9,6 +10,8 @@ using Mhotivo.Logic.ViewMessage;
 using Mhotivo.Models;
 using Mhotivo.Data.Entities;
 using Mhotivo.Interface.Interfaces;
+using Microsoft.Ajax.Utilities;
+using Microsoft.Office.Interop.Excel;
 using PagedList;
 
 
@@ -116,6 +119,17 @@ namespace Mhotivo.Controllers
                 Value = c.ToString("D")
             }).ToList();
 
+            var user =
+                _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
+            var roleName = user.Role.Name;
+            items = items.FindAll(x => x.Text != "Personal");
+            if (roleName.Equals("Director"))
+            {
+                items = items.FindAll(x => x.Text != "General");
+            }else if (roleName.Equals("Maestro"))
+            {
+                items = items.FindAll(x => x.Text != "General" && x.Text != "Nivel de Educación");
+            }
             ViewBag.NotificationTypes = new List<SelectListItem>(items);
             var list = new List<SelectListItem> { new SelectListItem { Value = "-1", Text = "N/A" } };
             ViewBag.List1 = new List<SelectListItem>(list);
@@ -290,32 +304,70 @@ namespace Mhotivo.Controllers
         {
             var user =
                 _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
-            var isDirector = user.Role.Name.Equals("Director");
-            toReturn.Grades =
-                new SelectList(
-                    isDirector
-                        ? _gradeRepository.Filter(
-                            x => x.EducationLevel.Director != null && x.EducationLevel.Director.Id == user.Id)
-                        : _gradeRepository.GetAllGrade(), "Id", "Name");
+            var userRoleName = user.Role.Name;
+
+             toReturn.Grades = new SelectList(GetGradesByRole(userRoleName, user), "Id", "Name");
+                  
             return toReturn;
         }
+
+        private IEnumerable<Grade> GetGradesByRole(string userRoleName, User user)
+        {
+            IEnumerable<Grade> grades = _gradeRepository.GetAllGrade();
+            if (userRoleName.Equals("Director"))
+            {
+                grades = grades.Where(
+                    x => x.EducationLevel.Director != null && x.EducationLevel.Director.Id == user.Id);
+            }
+            else if (userRoleName.Equals("Maestro"))
+            {
+                var gradesList = _academicGradeRepository.Filter(
+                    x => x.SectionTeacher != null && x.SectionTeacher.User.Id == user.Id)
+                    .Select(y => y.Grade).ToList();
+                gradesList.AddRange(_academicCourseRepository.Filter(x => x.Teacher != null && x.Teacher.User.Id == user.Id)
+                .Select(y => y.AcademicGrade.Grade)
+                .ToList());
+
+                grades = gradesList.Distinct();
+            }
+            return grades;
+        }
+
+        private List<AcademicGrade> GetAcademicGradesByTeacherCourse(User user)
+        {
+            return _academicCourseRepository.Filter(x => x.Teacher != null && x.Teacher.User.Id == user.Id)
+                .Select(y => y.AcademicGrade)
+                .ToList();
+        }
+
+        private List<AcademicGrade> GetAcademicGradesByDirectorCourse(User user)
+        {
+            return _academicCourseRepository.Filter(x => x.AcademicGrade.Grade.EducationLevel.Director != null && x.AcademicGrade.Grade.EducationLevel
+            .Director.Id == user.Id)
+                .Select(y => y.AcademicGrade)
+                .ToList();
+        }
+
+        private List<AcademicGrade> GetAcademicGradesByAdmin()
+        {
+            return _academicCourseRepository.GetAllAcademicYearDetails().Select( x => x.AcademicGrade).ToList();
+        }
+
+
 
         private NotificationSelectListsModel LoadAcademicGrades(NotificationRegisterModel model, NotificationSelectListsModel toReturn)
         {
             var list = new List<SelectListItem> { new SelectListItem { Value = "-1", Text = "N/A" } };
             var user =
                 _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
-            var isDirector = user.Role.Name.Equals("Director");
-            var items = isDirector
-                        ? _gradeRepository.Filter(
-                            x => x.EducationLevel.Director != null && x.EducationLevel.Director.Id == user.Id).ToList()
-                        : _gradeRepository.GetAllGrade().ToList();
+
+            var items = GetGradesByRole(user.Role.Name, user).ToList();
             toReturn.Grades = new SelectList(items, "Id", "Name");
             if (items.Any())
             {
                 var first = items.First();
-                var sList = _academicGradeRepository.Filter(
-                    x => x.Grade.Id == first.Id).ToList();
+                List<AcademicGrade> sList = GetSectionByRole(first.Id, user);
+               
                 toReturn.AcademicGrades =
                     new SelectList(sList
                         , "Id", "Section");
@@ -327,30 +379,62 @@ namespace Mhotivo.Controllers
             return toReturn;
         }
 
+        private List<AcademicGrade> GetSectionByRole(long gradeId, User user)
+        {
+            var roleName = user.Role.Name;
+            if (roleName.Equals("Maestro"))
+            {
+               return  _academicGradeRepository
+                    .Filter(x => x.Grade.Id == gradeId && x.SectionTeacher.User.Id == user.Id)
+                    .ToList();
+            }
+            return _academicGradeRepository.Filter(x => x.Grade.Id == gradeId).ToList();
+        }
+
+      
+
         private NotificationSelectListsModel LoadAcademicCourses(NotificationRegisterModel model, NotificationSelectListsModel toReturn)
         {
             var list = new List<SelectListItem> { new SelectListItem { Value = "-1", Text = "N/A" } };
             var user =
                 _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
-            var isDirector = user.Role.Name.Equals("Director");
-            var items = isDirector
-                        ? _gradeRepository.Filter(
-                            x => x.EducationLevel.Director != null && x.EducationLevel.Director.Id == user.Id).ToList()
-                        : _gradeRepository.GetAllGrade().ToList();
-            toReturn.Grades = new SelectList(items, "Id", "Name");
-            if (items.Any())
+            var roleName = user.Role.Name;
+            List<AcademicGrade> academicGrades;
+            if (roleName.Equals("Director"))
             {
-                var first = items.First();
-                var sList = _academicGradeRepository.Filter(
-                    x => x.Grade.Id == first.Id).ToList();
+                academicGrades = GetAcademicGradesByDirectorCourse(user);
+            }else if (roleName.Equals("Maestro"))
+            {
+                academicGrades = GetAcademicGradesByTeacherCourse(user);
+            }
+            else
+            {
+                academicGrades = GetAcademicGradesByAdmin();
+            }
+            var grades = academicGrades.Select(x => x.Grade).Distinct().ToList();
+            toReturn.Grades = new SelectList(grades, "Id", "Name");
+            if (academicGrades.Any())
+            {
+                var first = grades.First();
+                var sList = academicGrades.Where(x => x.Grade.Id == first.Id).ToList();
                 toReturn.AcademicGrades =
                     new SelectList(
                         sList, "Id", "Section");
                 if (sList.Any())
                 {
+                    List<AcademicCourse> sList2;
                     var first2 = sList.First();
-                    var sList2 = _academicCourseRepository.Filter(
-                        x => x.AcademicGrade.Id == first2.Id).ToList();
+                    if (roleName.Equals("Maestro"))
+                    {
+                        sList2 = _academicCourseRepository.Filter(
+                      x => x.AcademicGrade.Id == first2.Id && x.Teacher != null && x.Teacher.User.Id == user.Id).ToList();
+                    }
+                    else
+                    {
+                        sList2 = _academicCourseRepository.Filter(
+                      x => x.AcademicGrade.Id == first2.Id).ToList();
+                    }
+                  
                     toReturn.AcademicCourses = new SelectList(
                         sList2, "Id", "Course.Name");
                 }
@@ -371,20 +455,32 @@ namespace Mhotivo.Controllers
             var list = new List<SelectListItem> { new SelectListItem { Value = "-1", Text = "N/A" } };
             var user =
                 _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
-            var isDirector = user.Role.Name.Equals("Director");
-            var items = isDirector
-                        ? _gradeRepository.Filter(
-                            x => x.EducationLevel.Director != null && x.EducationLevel.Director.Id == user.Id).ToList()
-                        : _gradeRepository.GetAllGrade().ToList();
+            var roleName = user.Role.Name;
+           
+            var items = GetGradesByRole(roleName, user).ToList();
             toReturn.Grades = new SelectList(items, "Id", "Name");
             if (items.Any())
             {
                 var first = items.First();
-                var sList = _academicGradeRepository.Filter(
-                    x => x.Grade.Id == first.Id).ToList();
+                List<AcademicGrade> sList;
+                if (roleName.Equals("Maestro"))
+                {
+
+                    sList  =_academicGradeRepository
+                             .Filter(x => x.Grade.Id == first.Id && x.SectionTeacher.User.Id == user.Id)
+                             .ToList();
+                    sList.AddRange( _academicCourseRepository.Filter( x => x.Teacher != null && x.Teacher.User.Id == user.Id).Select( y => y.AcademicGrade).ToList());
+                 
+                }
+                else
+                {
+                    sList = _academicGradeRepository.Filter(
+                  x => x.Grade.Id == first.Id).ToList();
+                }
+             
                 toReturn.AcademicGrades =
                     new SelectList(
-                        sList, "Id", "Section");
+                        sList.DistinctBy(x => x.Section), "Id", "Section");
                 if (sList.Any())
                 {
                     var first2 = sList.First();
@@ -407,8 +503,22 @@ namespace Mhotivo.Controllers
 
         private NotificationSelectListsModel LoadAcademicGradesFromList1(NotificationRegisterModel model, NotificationSelectListsModel toReturn)
         {
-            var sList = _academicGradeRepository.Filter(
+            var user =
+               _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
+            var roleName = user.Role.Name;
+            List<AcademicGrade> sList;
+            if (roleName.Equals("Maestro"))
+            {
+                sList =
+                    _academicGradeRepository.Filter(x => x.SectionTeacher != null && x.SectionTeacher.User.Id == user.Id && x.Grade.Id == model.Id1)
+                        .ToList();
+            }
+            else
+            {
+                sList  = _academicGradeRepository.Filter(
                     x => x.Grade.Id == model.Id1).ToList();
+            }
+          
             toReturn.AcademicGrades =
                 new SelectList(
                     sList, "Id", "Section");
@@ -418,16 +528,42 @@ namespace Mhotivo.Controllers
         private NotificationSelectListsModel LoadAcademicCoursesFromList1(NotificationRegisterModel model, NotificationSelectListsModel toReturn)
         {
             var list = new List<SelectListItem> { new SelectListItem { Value = "-1", Text = "N/A" } };
-            var sList = _academicGradeRepository.Filter(
-                    x => x.Grade.Id == model.Id1).ToList();
+            var user =
+               _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
+            List<AcademicGrade> sList;
+            var roleName = user.Role.Name;
+            if (roleName.Equals("Maestro"))
+            {
+                sList =
+                    _academicCourseRepository.Filter(
+                        x => x.Teacher != null && x.Teacher.User.Id == user.Id && x.AcademicGrade.Grade.Id == model.Id1)
+                        .Select(y => y.AcademicGrade).ToList();
+            }
+            else
+            {
+                sList = _academicGradeRepository.Filter(
+                   x => x.Grade.Id == model.Id1).ToList();
+            }            
+            
             toReturn.AcademicGrades =
                 new SelectList(
                     sList, "Id", "Section");
             if (sList.Any())
             {
                 var first2 = sList.First();
-                var sList2 = _academicCourseRepository.Filter(
-                    x => x.AcademicGrade.Id == first2.Id).ToList();
+                List<AcademicCourse> sList2;
+                if (roleName.Equals("Maestro"))
+                {
+                    sList2 = _academicCourseRepository
+                        .Filter( x => x.AcademicGrade.Id == first2.Id && x.Teacher != null && x.Teacher.User.Id == user.Id)
+                        .ToList();
+                }
+                else
+                {
+                    sList2 = _academicCourseRepository.Filter(
+                     x => x.AcademicGrade.Id == first2.Id).ToList();
+                }
+                
                 toReturn.AcademicCourses = new SelectList(
                     sList2, "Id", "Course.Name");
             }

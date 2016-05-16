@@ -10,15 +10,15 @@ namespace Mhotivo.Data.Entities
     {
         [Description("General")]
         General = 1, //No destination ID needed
-        [Description("Nivel de Educacion")]
+        [Description("Nivel de Educación")]
         EducationLevel = 2, //EducationLevel ID needed
         [Description("Grado")]
         Grade = 3, //Grade ID needed
-        [Description("Seccion")]
+        [Description("Sección")]
         Section= 4, //AcademicGrade ID needed
         [Description("Materia")]
         Course = 5, //AcademicCourse ID needed
-        [Description("Estudiante")]
+        [Description("Tutor")]
         Student = 6, //Student ID needed
         [Description("Personal")]
         Personal = 7, //Personal Message

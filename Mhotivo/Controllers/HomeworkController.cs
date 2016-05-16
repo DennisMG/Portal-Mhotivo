@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Mhotivo.App_Data;
 using Mhotivo.Authorizations;
+using PagedList;
 
 namespace Mhotivo.Controllers
 {
@@ -17,43 +18,40 @@ namespace Mhotivo.Controllers
     {
 
         private readonly IAcademicCourseRepository _academicCourseRepository;
+        private readonly ISessionManagementService _sessionManagement;
         private readonly IHomeworkRepository _homeworkRepository;
-        private readonly ICourseRepository _courseRepository;
-        private readonly ITeacherRepository _teacherRepository;
         private readonly ViewMessageLogic _viewMessageLogic;
         public long TeacherId = -1;
 
         public HomeworkController(IHomeworkRepository homeworkRepository,
-            IAcademicCourseRepository academicCourseRepository, ICourseRepository courseRepository, ITeacherRepository teacherRepository)
+            IAcademicCourseRepository academicCourseRepository, ISessionManagementService sessionManagement)
         {
             _homeworkRepository = homeworkRepository;
             _viewMessageLogic = new ViewMessageLogic(this);
-            _courseRepository = courseRepository;
             _academicCourseRepository = academicCourseRepository;
-            _teacherRepository = teacherRepository;
+            _sessionManagement = sessionManagement;
         }
 
         [AuthorizeTeacher]
-        public ActionResult Index()
+        public ActionResult Index(int ?page)
         {
             _viewMessageLogic.SetViewMessageIfExist();
             TeacherId = GetTeacherId();
-            var allAcademicYearsDetails = GetAllAcademicYearsDetail(TeacherId);
-            var academicYearsDetails = allAcademicYearsDetails as AcademicCourse[] ?? allAcademicYearsDetails.ToArray();
-            var academicY = academicYearsDetails.Select((t, a) => academicYearsDetails.ElementAt(a).Id).ToList();
-            IEnumerable<Homework> allHomeworks = _homeworkRepository.GetAllHomeworks().Where(x => academicY.Contains(x.AcademicCourse.Id));
+            var allAcademicYearsDetails = GetAllAcademicYearsDetail(TeacherId).Select( x => x.Id);
+
+            IEnumerable<Homework> allHomeworks = _homeworkRepository.GetAllHomeworks().Where(x => allAcademicYearsDetails.Any( y =>  x.AcademicCourse != null && y == x.AcademicCourse.Id));
+           
+            
             IEnumerable<HomeworkDisplayModel> allHomeworkDisplaysModel =
                 allHomeworks.Select(Mapper.Map<Homework, HomeworkDisplayModel>).ToList();
-            return View(allHomeworkDisplaysModel);
+            const int pageSize = 10;
+            var pageNumber = (page ?? 1);
+            return View(allHomeworkDisplaysModel.ToPagedList(pageNumber, pageSize));
         }
 
         private long GetTeacherId()
         {
-            var idUser = (long)System.Web.HttpContext.Current.Session["loggedUserId"];
-            var firstOrDefault = _teacherRepository.Filter(x => x.User.Id == idUser).FirstOrDefault();
-            if (firstOrDefault == null) return -1;
-            var toReturn = firstOrDefault.Id;
-            return toReturn;
+            return Convert.ToInt64(_sessionManagement.GetUserLoggedId());
         }
 
         // GET: /Homework/Create
@@ -70,13 +68,13 @@ namespace Mhotivo.Controllers
             ViewBag.Months = DateTimeController.GetMonths();
             ViewBag.Days = DateTimeController.GetDaysForMonthAndYearStatic(1, DateTime.UtcNow.Year);
             var modelRegister = new HomeworkRegisterModel { Year = ((KeyValuePair<int, int>)((SelectList)ViewBag.Years).SelectedValue).Value };
-            return View(modelRegister);;
+            return View(modelRegister);
         }
 
         private IEnumerable<AcademicCourse> GetAllAcademicYearsDetail(long id)
         {
             IEnumerable<AcademicCourse> allAcademicYearsDetail =
-                _academicCourseRepository.GetAllAcademicYearDetails().Where(x => x.Teacher != null && x.Teacher.Id.Equals(id));
+                _academicCourseRepository.Filter(x => x.Teacher != null && x.Teacher.User.Id == id);
             return allAcademicYearsDetail;
         }
 
@@ -84,7 +82,10 @@ namespace Mhotivo.Controllers
         [AuthorizeTeacher]
         public ActionResult Create(HomeworkRegisterModel registerModelHomework)
         {
+         
             var toCreate = Mapper.Map<Homework>(registerModelHomework);
+            var teacherId = GetTeacherId();
+            toCreate.AcademicCourse = _academicCourseRepository.Filter(x => x.Teacher != null && x.Teacher.User.Id == teacherId && x.Course.Id == registerModelHomework.Course).FirstOrDefault();
             _homeworkRepository.Create(toCreate);
             const string title = "Tarea agregada";
             string content = "La tarea " + toCreate.Title + " ha sido agregado exitosamente.";

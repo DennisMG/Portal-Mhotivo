@@ -50,7 +50,7 @@ namespace Mhotivo.Models
         [Display(Name = "Puntaje")]
         public float Points { get; set; }
 
-        public long AcademicCourse { get; set; }
+        public long Course { get; set; }
     }
 
     public class HomeworkEditModel
