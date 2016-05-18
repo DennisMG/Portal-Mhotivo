@@ -110,11 +110,12 @@
     $("#Form").submit(function (event) {
         var sHTML = $('#htmlMessage').code();
         $('#Message').val(sHTML);
-       // alert("Handler for .submit() called. : <br />" + $('#Message').val());
+        // alert("Handler for .submit() called. : <br />" + $('#Message').val());
         //event.preventDefault();
     });
 </script>
 <script type="text/javascript">
+    updateSelectLists();
     function updateSelectLists() {
         $.ajax({
             url: '@Url.Action("LoadFromNotificationTypeList")',
@@ -127,78 +128,78 @@
                 var ntype = parseInt(e.options[e.selectedIndex].value);
                 //use Mhotivo/Data/Notification/NotificationType enum values
                 switch (ntype) {
-                    case 1:
-                        $('#Id1List').hide();
-                        $('#Id2List').hide();
-                        $('#DestinationIdList').hide();
-                        break;
-                    case 2:
-                        $('#Id1List').hide();
-                        $('#Id2List').hide();
-                        $('#DestinationIdList').show();
-                        $('#DestinationId').empty();
-                        $.each($(data.EducationLevels), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    case 3:
-                        $('#Id1List').hide();
-                        $('#Id2List').hide();
-                        $('#DestinationIdList').show();
-                        $('#DestinationId').empty();
-                        $.each($(data.Grades), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    case 4:
-                        $('#Id1List').show();
-                        $('#Id2List').hide();
-                        $('#DestinationIdList').show();
-                        $('#Id1').empty();
-                        $.each($(data.Grades), function (i, optionavailable) {
-                            $('#Id1').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        $('#DestinationId').empty();
-                        $.each($(data.AcademicGrades), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    case 5:
-                        $('#Id1List').show();
-                        $('#Id2List').show();
-                        $('#DestinationIdList').show();
-                        $('#Id1').empty();
-                        $.each($(data.Grades), function (i, optionavailable) {
-                            $('#Id1').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        $('#Id2').empty();
-                        $.each($(data.AcademicGrades), function (i, optionavailable) {
-                            $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        $('#DestinationId').empty();
-                        $.each($(data.AcademicCourses), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    case 6:
-                        $('#Id1List').show();
-                        $('#Id2List').show();
-                        $('#DestinationIdList').show();
-                        $('#Id1').empty();
-                        $.each($(data.Grades), function (i, optionavailable) {
-                            $('#Id1').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        $('#Id2').empty();
-                        $.each($(data.AcademicGrades), function (i, optionavailable) {
-                            $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        $('#DestinationId').empty();
-                        $.each($(data.Personals), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    default:
-                        break;
+                case 1:
+                    $('#Id1List').hide();
+                    $('#Id2List').hide();
+                    $('#DestinationIdList').hide();
+                    break;
+                case 2:
+                    $('#Id1List').hide();
+                    $('#Id2List').hide();
+                    $('#DestinationIdList').show();
+                    $('#DestinationId').empty();
+                    $.each($(data.EducationLevels), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                case 3:
+                    $('#Id1List').hide();
+                    $('#Id2List').hide();
+                    $('#DestinationIdList').show();
+                    $('#DestinationId').empty();
+                    $.each($(data.Grades), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                case 4:
+                    $('#Id1List').show();
+                    $('#Id2List').hide();
+                    $('#DestinationIdList').show();
+                    $('#Id1').empty();
+                    $.each($(data.Grades), function (i, optionavailable) {
+                        $('#Id1').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    $('#DestinationId').empty();
+                    $.each($(data.AcademicGrades), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                case 5:
+                    $('#Id1List').show();
+                    $('#Id2List').show();
+                    $('#DestinationIdList').show();
+                    $('#Id1').empty();
+                    $.each($(data.Grades), function (i, optionavailable) {
+                        $('#Id1').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    $('#Id2').empty();
+                    $.each($(data.AcademicGrades), function (i, optionavailable) {
+                        $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    $('#DestinationId').empty();
+                    $.each($(data.AcademicCourses), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                case 6:
+                    $('#Id1List').show();
+                    $('#Id2List').show();
+                    $('#DestinationIdList').show();
+                    $('#Id1').empty();
+                    $.each($(data.Grades), function (i, optionavailable) {
+                        $('#Id1').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    $('#Id2').empty();
+                    $.each($(data.AcademicGrades), function (i, optionavailable) {
+                        $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    $('#DestinationId').empty();
+                    $.each($(data.Personals), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                default:
+                    break;
                 }
             }
         });
@@ -215,34 +216,34 @@
                 var ntype = parseInt(e.options[e.selectedIndex].value);
                 //use Mhotivo/Data/Notification/NotificationType enum values
                 switch (ntype) {
-                    case 4:
-                        $('#DestinationId').empty();
-                        $.each($(data.AcademicGrades), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    case 5:
-                        $('#Id2').empty();
-                        $.each($(data.AcademicGrades), function (i, optionavailable) {
-                            $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        $('#DestinationId').empty();
-                        $.each($(data.AcademicCourses), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    case 6:
-                        $('#Id2').empty();
-                        $.each($(data.AcademicGrades), function (i, optionavailable) {
-                            $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        $('#DestinationId').empty();
-                        $.each($(data.Personals), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    default:
-                        break;
+                case 4:
+                    $('#DestinationId').empty();
+                    $.each($(data.AcademicGrades), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                case 5:
+                    $('#Id2').empty();
+                    $.each($(data.AcademicGrades), function (i, optionavailable) {
+                        $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    $('#DestinationId').empty();
+                    $.each($(data.AcademicCourses), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                case 6:
+                    $('#Id2').empty();
+                    $.each($(data.AcademicGrades), function (i, optionavailable) {
+                        $('#Id2').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    $('#DestinationId').empty();
+                    $.each($(data.Personals), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                default:
+                    break;
                 }
             }
         });
@@ -259,20 +260,20 @@
                 var ntype = parseInt(e.options[e.selectedIndex].value);
                 //use Mhotivo/Data/Notification/NotificationType enum values
                 switch (ntype) {
-                    case 5:
-                        $('#DestinationId').empty();
-                        $.each($(data.AcademicCourses), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    case 6:
-                        $('#DestinationId').empty();
-                        $.each($(data.Personals), function (i, optionavailable) {
-                            $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
-                        });
-                        break;
-                    default:
-                        break;
+                case 5:
+                    $('#DestinationId').empty();
+                    $.each($(data.AcademicCourses), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                case 6:
+                    $('#DestinationId').empty();
+                    $.each($(data.Personals), function (i, optionavailable) {
+                        $('#DestinationId').append("<option value='" + optionavailable.Value + "'>" + optionavailable.Text + "</option>");
+                    });
+                    break;
+                default:
+                    break;
                 }
             }
         });

@@ -36,6 +36,8 @@ namespace Mhotivo.Controllers
             ViewBag.gradeId = gradeId;
             _viewMessageLogic.SetViewMessageIfExist();
             var temp = _pensumRepository.Filter(x => x.Grade.Id == gradeId).ToList();
+            ViewBag.gradeName = _gradeRepository.GetById(gradeId).Name;
+           
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CourseSortParm = string.IsNullOrEmpty(sortOrder) ? "course_desc" : "";
             if (searchString != null)

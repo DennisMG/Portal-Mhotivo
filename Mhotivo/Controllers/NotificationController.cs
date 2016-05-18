@@ -577,11 +577,28 @@ namespace Mhotivo.Controllers
         private NotificationSelectListsModel LoadStudentsFromList1(NotificationRegisterModel model, NotificationSelectListsModel toReturn)
         {
             var list = new List<SelectListItem> { new SelectListItem { Value = "-1", Text = "N/A" } };
-            var sList = _academicGradeRepository.Filter(
-                    x => x.Grade.Id == model.Id1).ToList();
+            var user =
+               _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId()));
+            var roleName = user.Role.Name;
+            List<AcademicGrade> sList;
+            if (roleName.Equals("Maestro"))
+            {
+
+                sList = _academicGradeRepository
+                         .Filter(x => x.Grade.Id == model.Id1 && x.SectionTeacher.User.Id == user.Id)
+                         .ToList();
+                sList.AddRange(_academicCourseRepository.Filter(x => x.Teacher != null && x.Teacher.User.Id == user.Id).Select(y => y.AcademicGrade).ToList());
+
+            }
+            else
+            {
+                sList = _academicGradeRepository.Filter(
+              x => x.Grade.Id == model.Id1).ToList();
+            }
+           
             toReturn.AcademicGrades =
                 new SelectList(
-                    sList, "Id", "Section");
+                    sList.DistinctBy(x => x.Section), "Id", "Section");
             if (sList.Any())
             {
                 var first2 = sList.First();
