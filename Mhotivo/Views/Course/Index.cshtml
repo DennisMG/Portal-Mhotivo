@@ -52,7 +52,7 @@ else
 </p>
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }));
+        new { @ViewBag.PensumId, page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }));
 <!-- Modal -->
 <div tabindex="-1" class="modal hide fade" id="EditModal" style="display: none;" aria-hidden="true">
     <div id="body" class="modal-body">

@@ -261,7 +261,7 @@ namespace Mhotivo.Controllers
             const string title = "Tutor Agregado";
             var content = "El Tutor " + tutorModel.FullName + " ha sido agregado exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
-            return RedirectToAction("Index");
+            return RedirectToAction("Create");
         }
 
         [AuthorizeAdminDirector]
