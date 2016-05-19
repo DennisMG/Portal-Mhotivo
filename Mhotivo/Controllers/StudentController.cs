@@ -249,7 +249,7 @@ namespace Mhotivo.Controllers
             const string title = "Estudiante Agregado";
             var content = "El estudiante " + studentModel.FullName + " ha sido agregado exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
-            return RedirectToAction("Index");
+            return RedirectToAction("Add");
         }
 
         [HttpGet]
