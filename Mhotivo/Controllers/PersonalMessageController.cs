@@ -14,47 +14,21 @@ namespace Mhotivo.Controllers
 {
     public class PersonalMessageController : Controller
     {
-        private readonly IAcademicCourseRepository _academicCourseRepository;
         private readonly IAcademicGradeRepository _academicGradeRepository;
-        private readonly IAcademicYearRepository _academicYearRepository;
-        private readonly IEducationLevelRepository _areaReporsitory;
-        private readonly IEducationLevelRepository _educationLevelRepository;
-        private readonly IGradeRepository _gradeRepository;
-        private readonly INotificationHandlerService _notificationHandlerService;
         private readonly INotificationRepository _notificationRepository;
-        private readonly IPeopleRepository _peopleRepository;
         private readonly ISessionManagementService _sessionManagement;
-        private readonly IStudentRepository _studentRepository;
-        private readonly ITeacherRepository _teacherRepository;
-        private readonly ITutorRepository _tutorRepository;
         private readonly IUserRepository _userRepository;
         private readonly ViewMessageLogic _viewMessageLogic;
 
         public PersonalMessageController(ISessionManagementService sessionManagement, IUserRepository userRepository,
-            INotificationRepository notificationRepository, IPeopleRepository peopleRepository,
-            ITeacherRepository teacherRepository,
-            IAcademicCourseRepository academicCourseRepository, IStudentRepository studentRepository,
-            ITutorRepository tutorRepository, IGradeRepository gradeRepository,
-            IAcademicYearRepository academicYearRepository,
-            IEducationLevelRepository areaReporsitory,
-            INotificationHandlerService notificationHandlerService,
-            IAcademicGradeRepository academicGradeRepository, IEducationLevelRepository educationLevelRepository)
+            INotificationRepository notificationRepository, 
+            IAcademicGradeRepository academicGradeRepository)
         {
             _sessionManagement = sessionManagement;
             _userRepository = userRepository;
             _notificationRepository = notificationRepository;
-            _peopleRepository = peopleRepository;
-            _teacherRepository = teacherRepository;
-            _academicCourseRepository = academicCourseRepository;
-            _studentRepository = studentRepository;
-            _tutorRepository = tutorRepository;
-            _gradeRepository = gradeRepository;
-            _academicYearRepository = academicYearRepository;
-            _areaReporsitory = areaReporsitory;
-            _notificationHandlerService = notificationHandlerService;
-            _academicGradeRepository = academicGradeRepository;
-            _educationLevelRepository = educationLevelRepository;
-            _viewMessageLogic = new ViewMessageLogic(this);
+           _academicGradeRepository = academicGradeRepository;
+           _viewMessageLogic = new ViewMessageLogic(this);
         }
 
         // GET: /PersonalMessage/
@@ -100,7 +74,7 @@ namespace Mhotivo.Controllers
 
             if (!string.IsNullOrWhiteSpace(searchName))
                 notifications = notifications.ToList().FindAll(x => x.Title.Contains(searchName));
-
+            ViewBag.RoleName = roleName;
             var notificationsModel = notifications.Select(Mapper.Map<PersonalMessageDisplayModel>);
             const int pageSize = 10;
             var pageNumber = page ?? 1;

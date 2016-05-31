@@ -25,5 +25,7 @@ namespace Mhotivo.Implement.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Privilege> Privileges { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
     }
 }

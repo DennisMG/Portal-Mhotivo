@@ -23,8 +23,9 @@ else
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.First().Title)</th>
+                <th>@Html.DisplayNameFor(model => model.First().NotificationCreator)</th>
                 <th>@Html.DisplayNameFor(model => model.First().CreationDate)</th>
-                <th></th>
+                <th>Aprobar</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@ else
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NotificationCreator)</td>
                     <td>@Html.DisplayFor(modelItem => item.CreationDate)</td>
                     <td>
                         <a class="toAutorizar" role="button" id="@Html.DisplayFor(modelItem => item.Id)_Val"><i class="icon-ok-sign bigger-120"></i></a>

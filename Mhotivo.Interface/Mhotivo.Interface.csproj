@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IEducationLevelRepository.cs" />
     <Compile Include="Interfaces\IContactInformationRepository.cs" />
     <Compile Include="Interfaces\ICourseRepository.cs" />
+    <Compile Include="Interfaces\IEventRepository.cs" />
     <Compile Include="Interfaces\IGradeRepository.cs" />
     <Compile Include="Interfaces\IHomeworkRepository.cs" />
     <Compile Include="Interfaces\IDataImportService.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Interfaces\IPeopleWithUserRepository.cs" />
     <Compile Include="Interfaces\IPersonalMessageRepository.cs" />
     <Compile Include="Interfaces\IPrivilegeRepository.cs" />
+    <Compile Include="Interfaces\IProfileRepository.cs" />
     <Compile Include="Interfaces\IRoleRepository.cs" />
     <Compile Include="Interfaces\ITeacherRepository.cs" />
     <Compile Include="Interfaces\INotificationRepository.cs" />

@@ -34,7 +34,10 @@ else
         <tr>
 
             <th>@Html.DisplayNameFor(model => model.First().NotificationCreator)</th>
-            
+            @if (ViewBag.RoleName != "Maestro")
+            {
+              <th>@Html.DisplayNameFor(model => model.First().Receiver)</th>
+            }
             <th>@Html.DisplayNameFor(model => model.First().Title)</th>
             <th>@Html.DisplayNameFor(model => model.First().Message)</th>
             <th>@Html.DisplayNameFor(model => model.First().CreationDate)</th>
@@ -46,6 +49,10 @@ else
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.NotificationCreator)</td>
+                    @if (ViewBag.RoleName != "Maestro")
+                    {
+                        <td>@Html.DisplayFor(modelItem => item.Receiver)</td>
+                    }
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
                     <td>@Html.DisplayFor(modelItem => item.Message)</td>
                     <td>@Html.DisplayFor(modelItem => item.CreationDate)</td>

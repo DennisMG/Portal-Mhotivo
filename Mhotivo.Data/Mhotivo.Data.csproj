@@ -65,12 +65,14 @@
     <Compile Include="Entities\EducationLevel.cs" />
     <Compile Include="Entities\ContactInformation.cs" />
     <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\Homework.cs" />
     <Compile Include="Entities\PeopleWithUser.cs" />
     <Compile Include="Entities\PersonalMessage.cs" />
     <Compile Include="Entities\PersonalMessageComment.cs" />
     <Compile Include="Entities\Privilege.cs" />
+    <Compile Include="Entities\Profile.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Teacher.cs" />
     <Compile Include="Entities\Notification.cs" />

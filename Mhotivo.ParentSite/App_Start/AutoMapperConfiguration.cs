@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mhotivo.Data.Entities;
 using Mhotivo.ParentSite.Models;
+using Profile = Mhotivo.Data.Entities.Profile;
 
 namespace Mhotivo.ParentSite
 {
@@ -16,6 +17,10 @@ namespace Mhotivo.ParentSite
                 .ReverseMap();
             Mapper.CreateMap<Homework, HomeworkModel>()
                 .ForMember(p => p.AcademicCourse, o => o.MapFrom(src => src.AcademicCourse.Course.Name));
+            Mapper.CreateMap<Profile, ProfileDisplayModel>();
+            Mapper.CreateMap<Event, EventDisplayModel>()
+               .ForMember(p => p.EventDate, o => o.MapFrom(src => src.EventDate.ToShortDateString()))
+               .ForMember(p => p.ScheduleTime, o => o.MapFrom(src => src.StartTime.ToString() + " - " + src.FinishTime.ToString()));
         }
     }
 }

@@ -99,6 +99,7 @@
     <Compile Include="Repositories\AcademicCourseRepository.cs" />
     <Compile Include="Repositories\AcademicGradeRepository.cs" />
     <Compile Include="Repositories\AcademicYearRepository.cs" />
+    <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\PrivilegeRepository.cs" />
     <Compile Include="Repositories\EducationLevelRepository.cs" />
     <Compile Include="Repositories\ContactRepository.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Repositories\HomeworkRepository.cs" />
     <Compile Include="Repositories\NotificationCommentRepository.cs" />
     <Compile Include="Repositories\PeopleWithUserRepository.cs" />
+    <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\TeacherRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />

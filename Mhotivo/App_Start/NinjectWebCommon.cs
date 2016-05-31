@@ -85,6 +85,8 @@ namespace Mhotivo
             kernel.Bind<IAcademicGradeRepository>().To<AcademicGradeRepository>().InRequestScope();
             kernel.Bind<INotificationHandlerService>().To<NotificationHandlerService>().InRequestScope();
             kernel.Bind<IPrivilegeRepository>().To<PrivilegeRepository>().InRequestScope();
+            kernel.Bind<IEventRepository>().To<EventRepository>().InRequestScope();
+            kernel.Bind<IProfileRepository>().To<ProfileRepository>().InRequestScope();
         }        
     }
 }

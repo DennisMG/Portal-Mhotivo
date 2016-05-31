@@ -74,6 +74,8 @@ namespace Mhotivo.ParentSite
             kernel.Bind<INotificationCommentRepository>().To<NotificationCommentRepository>().InRequestScope();
             kernel.Bind<ITeacherRepository>().To<TeacherRepository>().InRequestScope();
             kernel.Bind<IRoleRepository>().To<RoleRepository>().InRequestScope();
+            kernel.Bind<IProfileRepository>().To<ProfileRepository>().InRequestScope();
+            kernel.Bind<IEventRepository>().To<EventRepository>().InRequestScope();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Mhotivo.ParentSite.Controllers
         [AuthorizeNewUser]
         public ActionResult Index(int notificationId)
         {
+            ViewBag.NotificationId = notificationId;
             var selectedNotification = _notificationRepository.GetById(notificationId);
             var selectedNotificationModel = Mapper.Map<NotificationModel>(selectedNotification);
             var commentsList = selectedNotification.NotificationComments.Select(Mapper.Map<NotificationCommentsModel>).ToList();

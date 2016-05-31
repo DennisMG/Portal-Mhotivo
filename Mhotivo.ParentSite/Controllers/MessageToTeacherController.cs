@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Mhotivo.Data.Entities;
+using Mhotivo.Implement.Repositories;
 using Mhotivo.Implement.Services;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.ParentSite.Authorization;
@@ -19,18 +20,22 @@ namespace Mhotivo.ParentSite.Controllers
 
         private readonly IAcademicYearRepository _academicYearRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IPeopleRepository _peopleRepository;
+        private readonly IStudentRepository _studentRepository;
 
         public MessageToTeacherController(ITeacherRepository teacherRepository,
             ITutorRepository tutorRepository, 
             INotificationRepository notificationRepository, 
             IAcademicYearRepository academicYearRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IStudentRepository studentRepository)
         {
             _teacherRepository = teacherRepository;
             _tutorRepository = tutorRepository;
             _notificationRepository = notificationRepository;
             _academicYearRepository = academicYearRepository;
             _userRepository = userRepository;
+            _studentRepository = studentRepository;
         }
 
         //
@@ -39,6 +44,13 @@ namespace Mhotivo.ParentSite.Controllers
         public ActionResult Index()
         {
             var allTeachers = _teacherRepository.GetAllTeachers().ToList();
+            var loggedUserEmail = System.Web.HttpContext.Current.Session["loggedUserEmail"].ToString();
+            var students = _studentRepository.Filter(x => (x.Tutor1.User.Email == loggedUserEmail || x.Tutor1.User.Email == loggedUserEmail) && x.MyGrade != null);
+
+            var grades = students.Select(x => x.MyGrade.Grade).Distinct();
+            var educationLevels = grades.Select(x => x.EducationLevel).Distinct();
+            var directors = educationLevels.Where(x => x.Director != null).Select( x => x.Director).Distinct();
+
             var allTeachersModel = new List<TeacherModel>();
             foreach (var teacher in allTeachers)
             {
@@ -47,6 +59,15 @@ namespace Mhotivo.ParentSite.Controllers
                 {
                     Name = teacher.FullName,
                     Email = teacher.User.Email
+                });
+            }
+
+            foreach (var director in directors)
+            {
+                allTeachersModel.Add(new TeacherModel()
+                {
+                    Name = director.Name,
+                    Email = director.Email
                 });
             }
             return View(new Tuple<IEnumerable<TeacherModel>, MessageToTeacherModel>(allTeachersModel,null));

@@ -7,7 +7,7 @@
     ViewBag.Title = "Homework";
     Layout = "~/Views/Shared/_LayoutSmall.cshtml";
 }
-<link rel="stylesheet" type="text/css" href="~/Content/css/homework.css"/>
+<link rel="stylesheet" type="text/css" href="~/Content/css/homework.css" />
 
 <section id="nicdark_parallax_title" class="nicdark_section nicdark_imgparallax nicdark_parallaxx_img7">
     <div class="nicdark_filter greydark">
@@ -54,7 +54,7 @@
 
                         foreach (var thisStudent in @allstudents.ToList())
                         {
-                            @Html.ActionLink(thisStudent.FullName, "index", new {student = thisStudent.Id }, new { @class = "nicdark_btn nicdark_bg_grey2 small nicdark_shadow nicdark_radius grey subtitle nicdark_margin10" })
+                            @Html.ActionLink(thisStudent.FullName, "index", new { student = thisStudent.Id }, new { @class = "nicdark_btn nicdark_bg_grey2 small nicdark_shadow nicdark_radius grey subtitle nicdark_margin10" })
                         }
                     }
                 </div>
@@ -62,148 +62,148 @@
             </div>
         </div>
         <!--sidebar-->
-        
+
         <div class="grid grid_10">
             <div class="ful">
                 <div class="center_block container">
 
                     <div class="ful center_text container_head">Lista de Tareas</div>
                     <div class="ful max">
-                    @{
-                        if (!Model.PastHomeworks.Any())
-                        {
-                             <div class="fourth column pillers left all_col" id="all">
-                                <div class="ful center_text list_head">Entregadas</div>
-                                <div class="tasks ful">
-                                    <div class="nicdark_space20"></div>
-                                    <div style="width:80%">
-                                        <div class="nicdark_alerts nicdark_bg_red nicdark_radius nicdark_shadow">
-                                            <p class="white nicdark_size_small"><i class="icon-cancel-circled-outline iconclose"></i>&nbsp;&nbsp;&nbsp;No hay tarea.</p>
-                                            <i class="icon-warning-empty nicdark_iconbg right small red"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="fourth column pillers left all_col" id="all">
-                                <div class="ful center_text list_head">Entregadas</div>
-                                <div class="tasks ful">
-                                    
-                                    @foreach (var homeworkModel in Model.PastHomeworks)
-                                    {
-                                        <br />
-                                        <div class="nicdark_toogle">
-                                            <h5 class="nicdark_toogle_header small nicdark_bg_grey2 nicdark_shadow nicdark_radius" style="width:90% !important; align-content:center !important;">@Html.DisplayFor(modelItem => homeworkModel.Title) </h5>
-                                            <div class="nicdark_toogle_content">
-                                                <div class="paper">
-                                                    <div style="margin-left: 11%">
-                                                        <i class="fa fa-book" style="color: orangered"></i>  Materia: @Html.DisplayFor(modelItem => homeworkModel.AcademicCourse) <br />
-                                                        <i class="fa fa-calendar" style="color: cornflowerblue"></i> @Html.DisplayFor(modelItem => homeworkModel.DeliverDate.Date) <br />
-                                                        <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => homeworkModel.Points)<br />
-                                                    </div>
-                                                    <p>
-                                                        @Html.DisplayFor(modelItem => homeworkModel.Description)
-                                                    </p>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-                                    }
-                                </div>
-                            </div>
-                        }
-                        if (!Model.CurrentHomeworks.Any())
-                        {
-                             <div class="fourth column pillers left progress_col" id="progress">
-                                <div class="ful center_text list_head">Hoy</div>
-                                <div class="tasks ful">
-                                    <div class="nicdark_space20"></div>
-                                    <div style="width:80%">
-                                        <div class="nicdark_alerts nicdark_bg_red nicdark_radius nicdark_shadow">
-                                            <p class="white nicdark_size_small"><i class="icon-cancel-circled-outline iconclose"></i>&nbsp;&nbsp;&nbsp;No hay tarea.</p>
-                                            <i class="icon-warning-empty nicdark_iconbg right small red"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>
-                        }
-                        else
-                        {   
-                             <div class="fourth column pillers left progress_col" id="progress">
-                                <div class="ful center_text list_head">Hoy</div>
-                                <div class="tasks ful">
-                                @foreach (var currentHomework in Model.CurrentHomeworks)
-                                {
-                                    <br />
-                                    <div class="nicdark_toogle">
-                                        <h5 class="nicdark_toogle_header small nicdark_bg_grey2 nicdark_shadow nicdark_radius" style="width:90% !important; align-content:center !important;">@Html.DisplayFor(modelItem => currentHomework.Title) </h5>
-                                        <div class="nicdark_toogle_content">
-                                            <div class="paper">
-                                                <div style="margin-left: 11%">
-                                                    <i class="fa fa-book" style="color: orangered"></i>  Materia: @Html.DisplayFor(modelItem => currentHomework.AcademicCourse) <br />
-                                                    <i class="fa fa-calendar" style="color: cornflowerblue"></i> @Html.DisplayFor(modelItem => currentHomework.DeliverDate.Date) <br />
-                                                    <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => currentHomework.Points)<br />
-                                                </div>
-                                                <p>
-                                                    @Html.DisplayFor(modelItem => currentHomework.Description)
-                                                </p>
-                                                <br />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                }
-                                </div>
-                             </div>
-                        }
-                        if (!Model.FutureHomeworks.Any())
-                        {
-                            <div class="fourth column pillers left complet_col" id="complete">
-                                <div class="ful center_text list_head">Por Entregar</div>
-                                <div class="tasks ful">
-                                    <div class="nicdark_space20"></div>
-                                    <div style="width:80%">
-                                        <div class="nicdark_alerts nicdark_bg_red nicdark_radius nicdark_shadow">
-                                            <p class="white nicdark_size_small"><i class="icon-cancel-circled-outline iconclose"></i>&nbsp;&nbsp;&nbsp;No hay tarea.</p>
-                                            <i class="icon-warning-empty nicdark_iconbg right small red"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                             <div class="fourth column pillers left complet_col" id="complete">
-                                <div class="ful center_text list_head">Por Entregar</div>
-                                <div class="tasks ful">
-                            @foreach (var futureHomework in Model.FutureHomeworks)
+                        @{
+                            if (!Model.PastHomeworks.Any())
                             {
-                                <br />
-                                    <div class="nicdark_toogle">
-                                        <h5 class="nicdark_toogle_header small nicdark_bg_grey2 nicdark_shadow nicdark_radius" style="width:90% !important; align-content:center !important;">@Html.DisplayFor(modelItem => futureHomework.Title) </h5>
-                                        <div class="nicdark_toogle_content">
-                                            <div class="paper">
-                                                <div style="margin-left: 11%">
-                                                    <i class="fa fa-book" style="color: orangered"></i>  Materia: @Html.DisplayFor(modelItem => futureHomework.AcademicCourse) <br />
-                                                    <i class="fa fa-calendar" style="color: cornflowerblue"></i> @Html.DisplayFor(modelItem => futureHomework.DeliverDate.Date) <br />
-                                                    <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => futureHomework.Points)<br />
-                                                </div>
-                                                <p>
-                                                    @Html.DisplayFor(modelItem => futureHomework.Description)
-                                                </p>
-                                                <br />
+                                <div class="fourth column pillers left all_col" id="all">
+                                    <div class="ful center_text list_head">Entregadas</div>
+                                    <div class="tasks ful">
+                                        <div class="nicdark_space20"></div>
+                                        <div style="width:80%">
+                                            <div class="nicdark_alerts nicdark_bg_red nicdark_radius nicdark_shadow">
+                                                <p class="white nicdark_size_small"><i class="icon-cancel-circled-outline iconclose"></i>&nbsp;&nbsp;&nbsp;No hay tarea.</p>
+                                                <i class="icon-warning-empty nicdark_iconbg right small red"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <br />
-                            }
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div class="fourth column pillers left all_col" id="all">
+                                    <div class="ful center_text list_head">Entregadas</div>
+                                    <div class="tasks ful">
+
+                                        @foreach (var homeworkModel in Model.PastHomeworks)
+                                        {
+                                            <br />
+                                            <div class="nicdark_toogle">
+                                                <h5 class="nicdark_toogle_header small nicdark_bg_grey2 nicdark_shadow nicdark_radius" style="width:90% !important; align-content:center !important;">@Html.DisplayFor(modelItem => homeworkModel.Title) </h5>
+                                                <div class="nicdark_toogle_content">
+                                                    <div class="paper">
+                                                        <div style="margin-left: 11%">
+                                                            <i class="fa fa-book" style="color: orangered"></i>  Materia: @Html.DisplayFor(modelItem => homeworkModel.AcademicCourse) <br />
+                                                            <i class="fa fa-calendar" style="color: cornflowerblue"></i> @Html.DisplayFor(modelItem => homeworkModel.DeliverDate.Date) <br />
+                                                            <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => homeworkModel.Points)<br />
+                                                        </div>
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => homeworkModel.Description)
+                                                        </p>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            if (!Model.CurrentHomeworks.Any())
+                            {
+                                <div class="fourth column pillers left progress_col" id="progress">
+                                    <div class="ful center_text list_head">Hoy</div>
+                                    <div class="tasks ful">
+                                        <div class="nicdark_space20"></div>
+                                        <div style="width:80%">
+                                            <div class="nicdark_alerts nicdark_bg_red nicdark_radius nicdark_shadow">
+                                                <p class="white nicdark_size_small"><i class="icon-cancel-circled-outline iconclose"></i>&nbsp;&nbsp;&nbsp;No hay tarea.</p>
+                                                <i class="icon-warning-empty nicdark_iconbg right small red"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="fourth column pillers left progress_col" id="progress">
+                                    <div class="ful center_text list_head">Hoy</div>
+                                    <div class="tasks ful">
+                                        @foreach (var currentHomework in Model.CurrentHomeworks)
+                                        {
+                                            <br />
+                                            <div class="nicdark_toogle">
+                                                <h5 class="nicdark_toogle_header small nicdark_bg_grey2 nicdark_shadow nicdark_radius" style="width:90% !important; align-content:center !important;">@Html.DisplayFor(modelItem => currentHomework.Title) </h5>
+                                                <div class="nicdark_toogle_content">
+                                                    <div class="paper">
+                                                        <div style="margin-left: 11%">
+                                                            <i class="fa fa-book" style="color: orangered"></i>  Materia: @Html.DisplayFor(modelItem => currentHomework.AcademicCourse) <br />
+                                                            <i class="fa fa-calendar" style="color: cornflowerblue"></i> @Html.DisplayFor(modelItem => currentHomework.DeliverDate.Date) <br />
+                                                            <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => currentHomework.Points)<br />
+                                                        </div>
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => currentHomework.Description)
+                                                        </p>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            if (!Model.FutureHomeworks.Any())
+                            {
+                                <div class="fourth column pillers left complet_col" id="complete">
+                                    <div class="ful center_text list_head">Por Entregar</div>
+                                    <div class="tasks ful">
+                                        <div class="nicdark_space20"></div>
+                                        <div style="width:80%">
+                                            <div class="nicdark_alerts nicdark_bg_red nicdark_radius nicdark_shadow">
+                                                <p class="white nicdark_size_small"><i class="icon-cancel-circled-outline iconclose"></i>&nbsp;&nbsp;&nbsp;No hay tarea.</p>
+                                                <i class="icon-warning-empty nicdark_iconbg right small red"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="fourth column pillers left complet_col" id="complete">
+                                    <div class="ful center_text list_head">Por Entregar</div>
+                                    <div class="tasks ful">
+                                        @foreach (var futureHomework in Model.FutureHomeworks)
+                                        {
+                                            <br />
+                                            <div class="nicdark_toogle">
+                                                <h5 class="nicdark_toogle_header small nicdark_bg_grey2 nicdark_shadow nicdark_radius" style="width:90% !important; align-content:center !important;">@Html.DisplayFor(modelItem => futureHomework.Title) </h5>
+                                                <div class="nicdark_toogle_content">
+                                                    <div class="paper">
+                                                        <div style="margin-left: 11%">
+                                                            <i class="fa fa-book" style="color: orangered"></i>  Materia: @Html.DisplayFor(modelItem => futureHomework.AcademicCourse) <br />
+                                                            <i class="fa fa-calendar" style="color: cornflowerblue"></i> @Html.DisplayFor(modelItem => futureHomework.DeliverDate.Date) <br />
+                                                            <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => futureHomework.Points)<br />
+                                                        </div>
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => futureHomework.Description)
+                                                        </p>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        }
+                                    </div>
+                                </div>
+                            }
                         }
-                    }
 
                     </div>
                 </div>

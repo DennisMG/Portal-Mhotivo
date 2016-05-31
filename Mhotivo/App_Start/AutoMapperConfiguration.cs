@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
 using AutoMapper;
+using Mhotivo.Controllers;
 using Mhotivo.Data.Entities;
 using Mhotivo.Implement.Utils;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.Models;
+using Profile = Mhotivo.Data.Entities.Profile;
 
 namespace Mhotivo
 {
@@ -33,6 +35,8 @@ namespace Mhotivo
             MapStudentModels();
             MapTeacherModels();
             MapAdministrativeModels();
+            MapEventModels();
+            MapProfileModels();
         }
 
         private static void MapAcademicYearModels()
@@ -208,7 +212,9 @@ namespace Mhotivo
 
             Mapper.CreateMap<Notification, PersonalMessageDisplayModel>()
                 .ForMember(p => p.NotificationCreator,
-                    o => o.MapFrom(src => src.NotificationCreator.FirstName))
+                    o => o.MapFrom(src => src.NotificationCreator.FullName))
+                 .ForMember(p => p.Receiver,
+                    o => o.MapFrom(src => src.To.FullName))
                 .ForMember(p => p.CreationDate, o => o.MapFrom(src => src.CreationDate.ToLocalTime().ToString()));
            
             Mapper.CreateMap<Notification, NotificationEditModel>()
@@ -360,6 +366,21 @@ namespace Mhotivo
                 .ReverseMap()
                 .ForMember(p => p.FullName, o => o.MapFrom(src => src.FirstName + " " + src.LastName))
                 .ForMember(p => p.BirthDate, o => o.MapFrom(src => new DateTime(src.Year, src.Month, src.Day)));
+        }
+
+        public static void MapEventModels()
+        {
+            Mapper.CreateMap<Event, EventDisplayModel>()
+                .ForMember(p => p.EventDate, o => o.MapFrom(src => src.EventDate.ToShortDateString()))
+                .ForMember(p => p.ScheduleTime, o => o.MapFrom(src => src.StartTime.ToString() +" - "+ src.FinishTime.ToString()));
+            Mapper.CreateMap<EventRegisterModel, Event>();
+                //.ForMember(p => p.EventDate, o => o.MapFrom(src => DateTime.Parse(src.EventDate)));
+        }
+
+        public static void MapProfileModels()
+        {
+            Mapper.CreateMap<Profile, ProfileDisplayModel>();
+            Mapper.CreateMap<ProfileRegisterModel, Profile>();
         }
     }
 }

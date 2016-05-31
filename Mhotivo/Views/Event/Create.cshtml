@@ -1,0 +1,82 @@
+﻿@model Mhotivo.Models.EventRegisterModel
+
+@{
+    ViewBag.Title = "Eventos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.hotkeys.min.js"></script>
+<script src="~/Scripts/bootstrap-tagsinput.min.js"></script>
+<link href="~/Content/bootstrap-tagsinput.css" rel="stylesheet" />
+<script src="~/Scripts/typeahead.js"></script>
+
+<link href="~/Content/summernote.css" rel="stylesheet" />
+<link href="~/Content/summernote-bs3.css" rel="stylesheet"/>
+<script src="~/Scripts/summernote.min.js"></script>
+
+
+
+    @using (Html.BeginForm("Add", "Event", FormMethod.Post, new { enctype = "multipart/form-data", id = "Form", @class = "form-horizontal", @Style = "margin:0;" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="center">
+            <h2>Agregar Evento</h2>
+
+
+            <p>Titulo:</p>@Html.EditorFor(model => model.Title)
+            <div id="Photo">
+                @{
+                    var imgSrc = "";
+                    if (Model.Photo != null)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Photo);
+                        imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                    }
+                }
+                @Html.HiddenFor(model => model.Photo)
+                <img height="150" width="150" src="@imgSrc" />
+
+            </div>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.UploadPhoto, new { type = "file" })<br />
+                @Html.ValidationMessageFor(model => model.UploadPhoto)
+            </div>
+           
+            <p>Fecha del Evento:</p>@Html.TextBoxFor(model => model.EventDate, new {@Value = DateTime.Now.ToShortDateString(), id = "datepicker" } )
+            <p>Hora Inicio:</p>@Html.EditorFor(model => model.StartTime)  <p>Hora Finalización:</p>@Html.EditorFor(model => model.FinishTime)
+            <p>Lugar: </p> @Html.EditorFor(model => model.Place)
+            <div class="space"></div>
+            <div class="space"></div>
+            <div id="htmlMessage"></div>
+        </div>
+      
+            @Html.HiddenFor(model => model.Description)
+            <div class="space"></div>
+            <div class="space"></div>
+            <div class="modal-footer">
+                @Html.ActionLink("Regresar", "Index", "Event", null, new { @class = "btn btn-small icon-remove" })
+                <button type="submit" class="btn btn-small btn-primary">
+                    <i class="icon-ok"></i>
+                    Crear
+                </button>
+            </div>
+            }
+
+
+            <script type="text/javascript">
+               
+                $(document).ready(function () {
+                    $('#htmlMessage').summernote();
+                    $("#datepicker").datepicker();
+                });
+
+                $("#Form").submit(function (event) {
+                    var sHTML = $('#htmlMessage').code();
+                    $('#Description').val(sHTML);
+
+                    // alert("Handler for .submit() called. : <br />" + $('#Message').val());
+                    //event.preventDefault();
+                });
+            </script>

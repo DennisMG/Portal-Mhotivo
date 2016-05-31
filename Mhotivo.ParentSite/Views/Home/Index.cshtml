@@ -1,132 +1,6 @@
-﻿
-<section class="nicdark_section">
-
-    <!--start nicdark_container-->
-    <div class="nicdark_container nicdark_clearfix">
-
-
-        <div class="nicdark_space50"></div>
-
-
-        <div class="grid grid_12">
-            <h1 class="subtitle greydark">NUESTRAS ACTIVIDADES</h1>
-            <div class="nicdark_space20"></div>
-            <h3 class="subtitle grey">NUESTROS MEJORES SERVICIOS PARA SUS HIJOS</h3>
-            <div class="nicdark_space20"></div>
-            <div class="nicdark_divider left big"><span class="nicdark_bg_yellow nicdark_radius"></span></div>
-            <div class="nicdark_space10"></div>
-        </div>
-
-
-        <div class="grid grid_4 nicdark_relative">
-
-            <div class="nicdark_btn_iconbg nicdark_bg_yellow nicdark_absolute extrabig nicdark_shadow nicdark_radius">
-                <div>
-                    <i class="icon-leaf-1 nicdark_iconbg left big white"></i>
-                </div>
-            </div>
-
-            <div class="nicdark_activity nicdark_marginleft100">
-                <h4>CUSTOM FOOD</h4>
-                <div class="nicdark_space20"></div>
-                <p>Lorem ipsum dolor sit amet, consec adipiscing elit. Pellentesque tincidunt rutrum sapien, sed ultricies diam.</p>
-               
-                <div class="nicdark_space20"></div>
-            </div>
-
-        </div>
-
-        <div class="grid grid_4 nicdark_relative">
-
-            <div class="nicdark_btn_iconbg nicdark_bg_orange nicdark_absolute extrabig nicdark_shadow nicdark_radius">
-                <div>
-                    <i class="icon-stopwatch nicdark_iconbg left big white"></i>
-                </div>
-            </div>
-
-            <div class="nicdark_activity nicdark_marginleft100">
-                <h4>MANY SPORTS</h4>
-                <div class="nicdark_space20"></div>
-                <p>Lorem ipsum dolor sit amet, consec adipiscing elit. Pellentesque tincidunt rutrum sapien, sed ultricies diam.</p>
-
-                <div class="nicdark_space20"></div>
-            </div>
-
-        </div>
-
-        <div class="grid grid_4 nicdark_relative">
-
-            <div class="nicdark_btn_iconbg nicdark_bg_green nicdark_absolute extrabig nicdark_shadow nicdark_radius">
-                <div>
-                    <i class="icon-cab nicdark_iconbg left big white"></i>
-                </div>
-            </div>
-
-            <div class="nicdark_activity nicdark_marginleft100">
-                <h4>BUS SERVICE</h4>
-                <div class="nicdark_space20"></div>
-                <p>Lorem ipsum dolor sit amet, consec adipiscing elit. Pellentesque tincidunt rutrum sapien, sed ultricies diam.</p>
-
-                <div class="nicdark_space20"></div>
-            </div>
-
-        </div>
-
-
-        <div class="grid grid_4 nicdark_relative">
-
-            <div class="nicdark_btn_iconbg nicdark_bg_blue nicdark_absolute extrabig nicdark_shadow nicdark_radius">
-                <div>
-                    <i class="icon-headphones-1 nicdark_iconbg left big white"></i>
-                </div>
-            </div>
-
-            <div class="nicdark_activity nicdark_marginleft100">
-                <h4>MUSIC LESSON</h4>
-                <div class="nicdark_space20"></div>
-                <p>Lorem ipsum dolor sit amet, consec adipiscing elit. Pellentesque tincidunt rutrum sapien, sed ultricies diam.</p>
-
-            </div>
-
-        </div>
-
-        <div class="grid grid_4 nicdark_relative">
-
-            <div class="nicdark_btn_iconbg nicdark_bg_violet nicdark_absolute extrabig nicdark_shadow nicdark_radius">
-                <div>
-                    <i class="icon-map nicdark_iconbg left big white"></i>
-                </div>
-            </div>
-
-            <div class="nicdark_activity nicdark_marginleft100">
-                <h4>EXCURSIONS</h4>
-                <div class="nicdark_space20"></div>
-                <p>Lorem ipsum dolor sit amet, consec adipiscing elit. Pellentesque tincidunt rutrum sapien, sed ultricies diam.</p>
-
-            </div>
-
-        </div>
-
-        <div class="grid grid_4 nicdark_relative">
-
-            <div class="nicdark_btn_iconbg nicdark_bg_red nicdark_absolute extrabig nicdark_shadow nicdark_radius">
-                <div>
-                    <i class="icon-globe-2 nicdark_iconbg left big white"></i>
-                </div>
-            </div>
-
-            <div class="nicdark_activity nicdark_marginleft100">
-                <h4>LANGUAGES</h4>
-                <div class="nicdark_space20"></div>
-                <p>Lorem ipsum dolor sit amet, consec adipiscing elit. Pellentesque tincidunt rutrum sapien, sed ultricies diam.</p>
-
-            </div>
-
-        </div>
-    </div>
-    <!--end nicdark_container-->
-
-</section>
+﻿@using System.Drawing
+@using System.Globalization
+@model Mhotivo.ParentSite.Models.HomeDisplayModel
 
 <section class="nicdark_section">
 
@@ -146,126 +20,59 @@
             <div class="nicdark_space10"></div>
         </div>
 
+            @foreach (var @event in Model.EventDisplayModels)
+            {
+                <div class="grid grid_3">
 
-        <div class="grid grid_3">
+                    <!--archive1-->
+                    <div class="nicdark_archive1 nicdark_bg_green nicdark_radius nicdark_shadow">
 
-            <!--archive1-->
-            <div class="nicdark_archive1 nicdark_bg_green nicdark_radius nicdark_shadow">
+                        <a href="#" class="nicdark_btn nicdark_bg_greydark white medium nicdark_radius nicdark_absolute_left">@Html.DisplayFor( model => @event.EventDate)<br /><small></small></a>
 
-                <a href="#" class="nicdark_btn nicdark_bg_greydark white medium nicdark_radius nicdark_absolute_left">21<br /><small>DEC</small></a>
+                        <div id="Photo" style="height: 270px">
+                           
+                            @{
+                                var imgSrc = "";
+                                if (@event.Photo != null)
+                                {
+                                    var base64 = Convert.ToBase64String(@event.Photo);
+                                    imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                                }
+                                else
+                                {
+                                    var image = new Bitmap(Mhotivo.Implement.Properties.Resources.default_avatar);
+                                    var defaultAvatar = new MemoryStream();
+                                    image.Save(defaultAvatar, System.Drawing.Imaging.ImageFormat.Png);
+                                    var base64 = Convert.ToBase64String(defaultAvatar.ToArray());
+                                    imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                                }
+                            }
+                            <img alt="" src="@imgSrc" style="max-width:100%;max-height:100%;"/>
+                            </div>
+                            <div class="nicdark_textevidence nicdark_bg_greydark">
+                                <h4 class="white nicdark_margin20">@Html.DisplayFor(modelItem => @event.Title)</h4>
+                            </div>
 
-                <img alt="" src="~/Content/img/events/img1.jpg">
+                            <div class="nicdark_margin20">
+                                <h5 class="white"><i class="icon-pin-outline"></i>@Html.DisplayFor(modelItem => @event.Place)</h5>
+                                <div class="nicdark_space10"></div>
+                                <h5 class="white"><i class="icon-clock-1"></i>@Html.DisplayFor(modelItem => @event.ScheduleTime)</h5>
+                                <div class="nicdark_space20"></div>
+                                <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
+                                <div class="nicdark_space20"></div>
+                                <p><font color="white">@Html.Raw(@event.Description)</font></p>
+                                <div class="nicdark_space20"></div>
 
-                <div class="nicdark_textevidence nicdark_bg_greydark">
-                    <h4 class="white nicdark_margin20">A DAY IN THE PARK</h4>
+                            </div>
+
+                        </div>
+                    <!--archive1-->
+
                 </div>
+            }
+      
 
-                <div class="nicdark_margin20">
-                    <h5 class="white"><i class="icon-pin-outline"></i> New York, Times Square</h5>
-                    <div class="nicdark_space10"></div>
-                    <h5 class="white"><i class="icon-clock-1"></i> 9:00 To 14:00</h5>
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                    <div class="nicdark_space20"></div>
-                    <p class="white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tincidunt rutrum.</p>
-                    <div class="nicdark_space20"></div>
-                    <a href="#" class=" nicdark_press nicdark_btn nicdark_bg_greendark white nicdark_radius nicdark_shadow medium">CHECK IT</a>
-                </div>
-
-            </div>
-            <!--archive1-->
-
-        </div>
-
-        <div class="grid grid_3">
-
-            <!--archive1-->
-            <div class="nicdark_archive1 nicdark_bg_blue nicdark_radius nicdark_shadow">
-
-                <a href="#" class="nicdark_btn nicdark_bg_greydark white medium nicdark_radius nicdark_absolute_left">10<br /><small>MAY</small></a>
-
-                <img alt="" src="~/Content/img/events/img2.jpg">
-
-                <div class="nicdark_textevidence nicdark_bg_greydark">
-                    <h4 class="white nicdark_margin20">ART SESSION</h4>
-                </div>
-
-                <div class="nicdark_margin20">
-                    <h5 class="white"><i class="icon-pin-outline"></i> Our School</h5>
-                    <div class="nicdark_space10"></div>
-                    <h5 class="white"><i class="icon-clock-1"></i> 9:00 To 14:00</h5>
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                    <div class="nicdark_space20"></div>
-                    <p class="white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tincidunt rutrum.</p>
-                    <div class="nicdark_space20"></div>
-                    <a href="#" class="nicdark_press nicdark_btn nicdark_bg_bluedark white nicdark_radius nicdark_shadow medium">CHECK IT</a>
-                </div>
-
-            </div>
-            <!--archive1-->
-
-        </div>
-
-        <div class="grid grid_3">
-
-            <!--archive1-->
-            <div class="nicdark_archive1 nicdark_bg_yellow nicdark_radius nicdark_shadow">
-
-                <a href="#" class="nicdark_btn nicdark_bg_greydark white medium nicdark_radius nicdark_absolute_left">24<br /><small>MAR</small></a>
-
-                <img alt="" src="~/Content/img/events/img3.jpg">
-
-                <div class="nicdark_textevidence nicdark_bg_greydark">
-                    <h4 class="white nicdark_margin20">WATERCOLOR PRACTICE</h4>
-                </div>
-
-                <div class="nicdark_margin20">
-                    <h5 class="white"><i class="icon-pin-outline"></i> Secondary School</h5>
-                    <div class="nicdark_space10"></div>
-                    <h5 class="white"><i class="icon-clock-1"></i> 9:00 To 14:00</h5>
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                    <div class="nicdark_space20"></div>
-                    <p class="white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tincidunt rutrum.</p>
-                    <div class="nicdark_space20"></div>
-                    <a href="#" class="nicdark_press nicdark_btn nicdark_bg_yellowdark white nicdark_radius nicdark_shadow medium">CHECK IT</a>
-                </div>
-
-            </div>
-            <!--archive1-->
-
-        </div>
-
-        <div class="grid grid_3">
-
-            <!--archive1-->
-            <div class="nicdark_archive1 nicdark_bg_orange nicdark_radius nicdark_shadow">
-
-                <a href="#" class="nicdark_btn nicdark_bg_greydark white medium nicdark_radius nicdark_absolute_left">30<br /><small>DEC</small></a>
-
-                <img alt="" src="~/Content/img/events/img4.jpg">
-
-                <div class="nicdark_textevidence nicdark_bg_greydark">
-                    <h4 class="white nicdark_margin20">SPORT TRAINING</h4>
-                </div>
-
-                <div class="nicdark_margin20">
-                    <h5 class="white"><i class="icon-pin-outline"></i> Central Park (NY)</h5>
-                    <div class="nicdark_space10"></div>
-                    <h5 class="white"><i class="icon-clock-1"></i> 9:00 To 14:00</h5>
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                    <div class="nicdark_space20"></div>
-                    <p class="white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tincidunt rutrum.</p>
-                    <div class="nicdark_space20"></div>
-                    <a href="#" class="nicdark_press nicdark_btn nicdark_bg_orangedark white nicdark_radius nicdark_shadow medium">CHECK IT</a>
-                </div>
-
-            </div>
-            <!--archive1-->
-
-        </div>
+       
 
         <div class="nicdark_space50"></div>
 
@@ -324,161 +131,56 @@
         </div>
 
 
+        @foreach (var profile in Model.ProfileDisplayModels)
+        {
+            <div class="grid grid_6">
 
-        <div class="grid grid_6">
+                <div class="nicdark_archive1 nicdark_bg_orange nicdark_radius nicdark_shadow">
 
-            <div class="nicdark_archive1 nicdark_bg_orange nicdark_radius nicdark_shadow">
+                    <div class="nicdark_textevidence nicdark_width_percentage40 nicdark_width100_responsive" style="height: 200px">
+                       
 
-                <div class="nicdark_textevidence nicdark_width_percentage40 nicdark_width100_responsive">
-                    <img alt="" class="nicdark_radius_left nicdark_opacity" src="~/Content/img/team/img1.jpg">
-                </div>
-
-                <div class="nicdark_textevidence nicdark_width_percentage50 nicdark_width100_responsive">
-                    <div class="nicdark_margin20">
-
-                        <h4 class="white"><a class="white" href="#">JULIETTE LIGHT</a></h4>
-                        <div class="nicdark_space20"></div>
-                        <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                        <div class="nicdark_space20"></div>
-                        <p class="white">Lorem ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet.</p>
-                        <div class="nicdark_space20"></div>
-                        <a href="#" class="white nicdark_btn"><i class="icon-graduation-cap-1"></i> Know Me :)</a>
-
+                            @{
+                                var imgSrc = "";
+                                if (profile.Photo != null)
+                                {
+                                    var base64 = Convert.ToBase64String(@profile.Photo);
+                                    imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                                }
+                                else
+                                {
+                                    var image = new Bitmap(Mhotivo.Implement.Properties.Resources.default_avatar);
+                                    var defaultAvatar = new MemoryStream();
+                                    image.Save(defaultAvatar, System.Drawing.Imaging.ImageFormat.Png);
+                                    var base64 = Convert.ToBase64String(defaultAvatar.ToArray());
+                                    imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                                }
+                            }
+                            <img alt="" src="@imgSrc" style="max-height: 100%; max-width: 100%;"  />
+                        
                     </div>
-                </div>
 
-                <div class="nicdark_textevidence nicdark_width_percentage10 nicdark_displaynone_responsive">
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_space5"></div>
-                    <a title="CURRICULUM" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_orangedark nicdark_radius_circle white"><i class="icon-download-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="DOCUMENTS" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_orangedark nicdark_radius_circle white"><i class="icon-attach-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="COURSES" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_orangedark nicdark_radius_circle white"><i class="icon-mic-outline"></i></a>
-                    <div class="nicdark_space20"></div>
+                    <div class="nicdark_textevidence nicdark_width_percentage50 nicdark_width100_responsive">
+                        <div class="nicdark_margin20">
+
+                            <h4 class="white"><a class="white" href="#">@Html.DisplayFor(model => profile.FullName)</a></h4>
+                            <div class="nicdark_space20"></div>
+                            <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
+                            <div class="nicdark_space20"></div>
+                            <p class="white"><font color="WHITE">@Html.Raw(profile.Description)</font></p>
+                            <div class="nicdark_space20"></div>
+                        </div>
+                    </div>
+
+                    
+
                 </div>
 
             </div>
+        }
 
-        </div>
-
-        <div class="grid grid_6">
-
-            <div class="nicdark_archive1 nicdark_bg_blue nicdark_radius nicdark_shadow">
-
-                <div class="nicdark_textevidence nicdark_width_percentage40 nicdark_width100_responsive">
-                    <img alt="" class="nicdark_radius_left nicdark_opacity" src="~/Content/img/team/img2.jpg">
-                </div>
-
-                <div class="nicdark_textevidence nicdark_width_percentage50 nicdark_width100_responsive">
-                    <div class="nicdark_margin20">
-
-                        <h4 class="white"><a class="white" href="#">JENNY MGRAYAN</a></h4>
-                        <div class="nicdark_space20"></div>
-                        <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                        <div class="nicdark_space20"></div>
-                        <p class="white">Lorem ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet.</p>
-                        <div class="nicdark_space20"></div>
-                        <a href="#" class="white nicdark_btn"><i class="icon-graduation-cap-1"></i> Know Me :)</a>
-
-                    </div>
-                </div>
-
-                <div class="nicdark_textevidence nicdark_width_percentage10 nicdark_displaynone_responsive">
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_space5"></div>
-                    <a title="CURRICULUM" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_bluedark nicdark_radius_circle white"><i class="icon-download-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="DOCUMENTS" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_bluedark nicdark_radius_circle white"><i class="icon-attach-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="COURSES" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_bluedark nicdark_radius_circle white"><i class="icon-mic-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="grid grid_6">
-
-            <div class="nicdark_archive1 nicdark_bg_yellow nicdark_radius nicdark_shadow">
-
-                <div class="nicdark_textevidence nicdark_width_percentage40 nicdark_width100_responsive">
-                    <img alt="" class="nicdark_radius_left nicdark_opacity" src="~/Content/img/team/img3.jpg">
-                </div>
-
-                <div class="nicdark_textevidence nicdark_width_percentage50 nicdark_width100_responsive">
-                    <div class="nicdark_margin20">
-
-                        <h4 class="white"><a class="white" href="#">MARGARET GREY</a></h4>
-                        <div class="nicdark_space20"></div>
-                        <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                        <div class="nicdark_space20"></div>
-                        <p class="white">Lorem ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet.</p>
-                        <div class="nicdark_space20"></div>
-                        <a href="#" class="white nicdark_btn"><i class="icon-graduation-cap-1"></i> Know Me :)</a>
-
-                    </div>
-                </div>
-
-                <div class="nicdark_textevidence nicdark_width_percentage10 nicdark_displaynone_responsive">
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_space5"></div>
-                    <a title="CURRICULUM" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_yellowdark nicdark_radius_circle white"><i class="icon-download-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="DOCUMENTS" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_yellowdark nicdark_radius_circle white"><i class="icon-attach-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="COURSES" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_yellowdark nicdark_radius_circle white"><i class="icon-mic-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="grid grid_6">
-
-            <div class="nicdark_archive1 nicdark_bg_violet nicdark_radius nicdark_shadow">
-
-                <div class="nicdark_textevidence nicdark_width_percentage40 nicdark_width100_responsive">
-                    <img alt="" class="nicdark_radius_left nicdark_opacity" src="~/Content/img/team/img4.jpg">
-                </div>
-
-                <div class="nicdark_textevidence nicdark_width_percentage50 nicdark_width100_responsive">
-                    <div class="nicdark_margin20">
-
-                        <h4 class="white"><a class="white" href="#">NICK HOPE</a></h4>
-                        <div class="nicdark_space20"></div>
-                        <div class="nicdark_divider left small"><span class="nicdark_bg_white nicdark_radius"></span></div>
-                        <div class="nicdark_space20"></div>
-                        <p class="white">Lorem ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet, ipsum dolor sit amet.</p>
-                        <div class="nicdark_space20"></div>
-                        <a href="#" class="white nicdark_btn"><i class="icon-graduation-cap-1"></i> Know Me :)</a>
-
-                    </div>
-                </div>
-
-                <div class="nicdark_textevidence nicdark_width_percentage10 nicdark_displaynone_responsive">
-                    <div class="nicdark_space20"></div>
-                    <div class="nicdark_space5"></div>
-                    <a title="CURRICULUM" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_violetdark nicdark_radius_circle white"><i class="icon-download-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="DOCUMENTS" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_violetdark nicdark_radius_circle white"><i class="icon-attach-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                    <a title="COURSES" href="#" class="nicdark_rotate nicdark_tooltip nicdark_btn_icon small nicdark_bg_violetdark nicdark_radius_circle white"><i class="icon-mic-outline"></i></a>
-                    <div class="nicdark_space20"></div>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="nicdark_space50"></div>
-
-
+      
+    <div class="nicdark_space50"></div>
     </div>
     <!--end nicdark_container-->
 

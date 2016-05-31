@@ -14,15 +14,8 @@ namespace Mhotivo.ParentSite.Controllers
     public class HomeworkController : Controller
     {
         //Bunch of unused repositories. Delete?
-        private readonly IAcademicCourseRepository _academicCourseRepository;
-        private readonly IAcademicYearRepository _academicYearRepository;
-        private readonly IHomeworkRepository _homeworkRepository;
-        private readonly IGradeRepository _gradeRepository;
-        private readonly ICourseRepository _courseRepository;
         public static IStudentRepository StudentRepository;
-        private readonly ISessionManagementService _sessionManagementService;
         public static ISecurityService SecurityService;
-        private readonly ITutorRepository _tutorRepository;
         public static List<long> StudentsId;
 
         public HomeworkController(IHomeworkRepository homeworkRepository,
@@ -31,15 +24,8 @@ namespace Mhotivo.ParentSite.Controllers
             ISessionManagementService sessionManagementService,
             ISecurityService securityService, ITutorRepository tutorRepository)
         {
-            _homeworkRepository = homeworkRepository;
-            _academicYearRepository = academicYearRepository;
-            _gradeRepository = gradeRepository;
-            _courseRepository = courseRepository;
-            _academicCourseRepository = academicCourseRepository;
             StudentRepository = studentRepository;
-            _sessionManagementService = sessionManagementService;
             SecurityService = securityService;
-            _tutorRepository = tutorRepository;
         }
         [AuthorizeNewUser]
         public ActionResult Index(long student = -1)

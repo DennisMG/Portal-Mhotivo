@@ -193,6 +193,7 @@
     <Compile Include="Controllers\EducationLevelController.cs" />
     <Compile Include="Controllers\ContactInformationController.cs" />
     <Compile Include="Controllers\EnrollController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeworkController.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Controllers\NewUserController.cs" />
     <Compile Include="Controllers\NotificationCommentController.cs" />
     <Compile Include="Controllers\PersonalMessageController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\TutorController.cs" />
@@ -222,12 +224,16 @@
     <Compile Include="Models\ContactInformationModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\EnrollModel.cs" />
+    <Compile Include="Models\EventDisplayModel.cs" />
+    <Compile Include="Models\EventRegisterModel.cs" />
     <Compile Include="Models\GradeModel.cs" />
     <Compile Include="Models\HomeworkModel.cs" />
     <Compile Include="Models\DataImportModel.cs" />
     <Compile Include="Models\MessageCommentModel.cs" />
     <Compile Include="Models\NotificationCommentModel.cs" />
     <Compile Include="Models\PersonalMessageDisplayModel.cs" />
+    <Compile Include="Models\ProfileDisplayModel.cs" />
+    <Compile Include="Models\ProfileRegisterModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\NotificationModel.cs" />
@@ -245,6 +251,7 @@
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\summernote-bs3.css" />
     <Content Include="Content\summernote.css" />
@@ -402,6 +409,7 @@
     <Content Include="Scripts\jquery.tagsinput.css" />
     <Content Include="Scripts\jquery.tagsinput.js" />
     <Content Include="Scripts\jquery.tagsinput.min.js" />
+    <Content Include="Scripts\jquery.timepicker.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -549,6 +557,10 @@
     <Content Include="Views\NotificationComment\Add.cshtml" />
     <Content Include="Views\NotificationComment\Create.cshtml" />
     <Content Include="Views\PersonalMessage\Index.cshtml" />
+    <None Include="Views\Event\Create.cshtml" />
+    <None Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Profile\Create.cshtml" />
+    <None Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mhotivo.Data\Mhotivo.Data.csproj">

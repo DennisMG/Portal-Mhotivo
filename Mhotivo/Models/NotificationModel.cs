@@ -6,6 +6,7 @@ namespace Mhotivo.Models
 {
     public class NotificationRegisterModel
     {
+        private bool _sendEmail = true;
         [Required(ErrorMessage = "Debe Ingresar un Titulo")]
         [Display(Name = "Titulo")]
         public string Title { get; set; }
@@ -20,7 +21,12 @@ namespace Mhotivo.Models
         public NotificationType NotificationType { get; set; }
 
         [Display(Name = "Enviar Notificacion por correo?")]
-        public bool SendEmail { get; set; }
+        public bool SendEmail
+        {
+            get { return _sendEmail; }
+
+            set { _sendEmail = value; }
+        }
         
         [Required(ErrorMessage = "Debe selecionar una opcion.")]
         public long Id1 { get; set; }

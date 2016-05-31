@@ -153,61 +153,78 @@
                 <span class="menu-text"> Mensajes Personales </span>
             </a>
         </li>
-
-        <li id="DataImport">
-            <i class="icon-archive"></i>
-            <span class="menu-text">Importador de Datos</span>
+        <li id="Administrativo">
+            <i class="icon-bell"></i>
+            <span class="menu-text">Portal Administrativo</span>
             <ul class="nav nav-list">
-                <li></li>
-                @*<li>
-                        <a href="/DataImport">
-                            <i class="icon-blank"></i>
-                            <span class="menu-text">Configuracion </span>
-                        </a>
-                    </li>*@
                 <li>
-                    <a href="/DataImport">
+                    <a href="~/Event/">
                         <i class="icon-blank"></i>
-                        <span class="menu-text"> Importar Datos </span>
+                        <span class="menu-text"> Eventos </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Profile/">
+                        <i class="icon-blank"></i>
+                        <span class="menu-text"> Perfiles </span>
+                    </a>
+                </li>
+           </ul>
+            </li>
+                <li id="DataImport">
+                    <i class="icon-archive"></i>
+                    <span class="menu-text">Importador de Datos</span>
+                    <ul class="nav nav-list">
+                        <li></li>
+                        @*<li>
+                                <a href="/DataImport">
+                                    <i class="icon-blank"></i>
+                                    <span class="menu-text">Configuracion </span>
+                                </a>
+                            </li>*@
+                        <li>
+                            <a href="/DataImport">
+                                <i class="icon-blank"></i>
+                                <span class="menu-text"> Importar Datos </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            }
+            else
+            {
+            <ul class="nav nav-list">
+                <li>
+                    <a href="~/Notification/">
+                        <i class="icon-bell-alt"></i>
+                        <span class="menu-text"> Notificaciones </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/PersonalMessage/">
+                        <i class="icon-bell-alt"></i>
+                        <span class="menu-text"> Mensajes Personales </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Homework">
+                        <i class="icon-bell-alt"></i>
+                        <span class="menu-text"> Tareas </span>
                     </a>
                 </li>
             </ul>
-        </li>
-    </ul>
-}
-else
-{
-    <ul class="nav nav-list">
-        <li>
-            <a href="~/Notification/">
-                <i class="icon-bell-alt"></i>
-                <span class="menu-text"> Notificaciones </span>
-            </a>
-        </li>
-        <li>
-            <a href="~/PersonalMessage/">
-                <i class="icon-bell-alt"></i>
-                <span class="menu-text"> Mensajes Personales </span>
-            </a>
-        </li>
-        <li>
-            <a href="/Homework">
-                <i class="icon-bell-alt"></i>
-                <span class="menu-text"> Tareas </span>
-            </a>
-        </li>
-    </ul>
-}
-<script type="text/javascript">
-    window.onload = function () {
+            }
+            <script type="text/javascript">
+                window.onload = function () {
 
-        //choose one of these options
+                    //choose one of these options
 
-        //option 1 - no auto-child-collapse
-        //compactMenu('someID',false,'&plusmn; ');
+                    //option 1 - no auto-child-collapse
+                    //compactMenu('someID',false,'&plusmn; ');
 
-        //option 2 - auto-child-collapse
-        compactMenu('MainMenu', true, '');
+                    //option 2 - auto-child-collapse
+                    compactMenu('MainMenu', true, '');
 
-    }
-</script>
+                }
+            </script>
