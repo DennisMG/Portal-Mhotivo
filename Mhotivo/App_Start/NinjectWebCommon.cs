@@ -87,6 +87,7 @@ namespace Mhotivo
             kernel.Bind<IPrivilegeRepository>().To<PrivilegeRepository>().InRequestScope();
             kernel.Bind<IEventRepository>().To<EventRepository>().InRequestScope();
             kernel.Bind<IProfileRepository>().To<ProfileRepository>().InRequestScope();
+            kernel.Bind<ISliderRepository>().To<SliderRepository>().InRequestScope();
         }        
     }
 }

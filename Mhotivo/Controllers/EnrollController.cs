@@ -57,10 +57,12 @@ namespace Mhotivo.Controllers
         }
 
         [AuthorizeAdminDirector]
-        public ActionResult Index(int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
             ViewBag.GradeId = -1;
             _viewMessageLogic.SetViewMessageIfExist();
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             var user = _userRepository.GetById(Convert.ToInt64(_sessionManagementService.GetUserLoggedId()));
             var isDirector = user.Role.Name.Equals("Director");
             var grades = isDirector
@@ -85,6 +87,15 @@ namespace Mhotivo.Controllers
                     Grade = academicGrade.Grade.Name,
                     Section = academicGrade.Section
                 }));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    model = model.OrderByDescending(s => s.FullName).ToList();
+                    break;
+                default:  // Name ascending 
+                    model = model.OrderBy(s => s.FullName).ToList();
+                    break;
             }
             const int pageSize = 10;
             var pageNumber = (page ?? 1);

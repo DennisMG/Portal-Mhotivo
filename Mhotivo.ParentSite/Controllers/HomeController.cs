@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using Mhotivo.Data.Entities;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.ParentSite.Models;
 
@@ -13,12 +15,16 @@ namespace Mhotivo.ParentSite.Controllers
         private readonly ISecurityService _securityService;
         private readonly IProfileRepository _profileRepository;
         private readonly IEventRepository _eventRepository;
+        private static ISliderRepository _sliderRepository;
 
-        public HomeController(ISecurityService securityService, IProfileRepository profileRepository, IEventRepository eventRepository)
+        public HomeController(ISecurityService securityService, IProfileRepository profileRepository
+            , IEventRepository eventRepository
+            , ISliderRepository sliderRepository)
         {
             _securityService = securityService;
             _profileRepository = profileRepository;
             _eventRepository = eventRepository;
+            _sliderRepository = sliderRepository;
         }
 
         [AllowAnonymous]
@@ -63,6 +69,13 @@ namespace Mhotivo.ParentSite.Controllers
         {
             var userName = _securityService.GetUserLoggedName();
             return Content(userName);
+        }
+
+
+        public static List<Slider> GetAllSliderPhotos()
+        {
+            var sliderPhotos = _sliderRepository.GetAllSliderPhotos().ToList();
+            return sliderPhotos;
         }
     }
 }

@@ -19,9 +19,7 @@ namespace Mhotivo.ParentSite.Controllers
         public static List<long> StudentsId;
 
         public HomeworkController(IHomeworkRepository homeworkRepository,
-            IAcademicCourseRepository academicCourseRepository, IAcademicYearRepository academicYearRepository,
-            IGradeRepository gradeRepository, ICourseRepository courseRepository, IStudentRepository studentRepository,
-            ISessionManagementService sessionManagementService,
+            IAcademicCourseRepository academicCourseRepository, IAcademicYearRepository academicYearRepository, ICourseRepository courseRepository, IStudentRepository studentRepository,
             ISecurityService securityService, ITutorRepository tutorRepository)
         {
             StudentRepository = studentRepository;

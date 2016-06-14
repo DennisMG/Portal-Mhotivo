@@ -1,4 +1,6 @@
-﻿@using Mhotivo.Implement
+﻿@using Mhotivo.Data.Entities
+@using Mhotivo.Implement
+@using Mhotivo.ParentSite.Controllers
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -138,22 +140,29 @@
             <section class="nicdark_section">
                 <div class="tp-banner-container">
                     <div class="nicdark_slide1">
-
+                        @{
+                            IEnumerable<Slider> allSliderPhotos = HomeController.GetAllSliderPhotos();
+                        }
                         <ul>
-                            <!--start first-->
-                            <li data-transition="fade" data-slotamount="7" data-masterspeed="500" data-saveperformance="on">
+                            @foreach (var sliderPhoto in @allSliderPhotos)
+                            {
+                                <li data-transition="fade" data-slotamount="7" data-masterspeed="500" data-saveperformance="on">
 
-                                <img src="/Content/img/slide/img4.jpg" alt="" data-lazyload="/Content/img/slide/img4.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+                                    @{
+                                        var imgSrc = "";
+                                        if (sliderPhoto.Photo != null)
+                                        {
+                                            var base64 = Convert.ToBase64String(sliderPhoto.Photo);
+                                            imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                                        }
+                                    }
 
-                            </li>
-                            <!--end first-->
-                            <!--start second-->
-                            <li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on">
 
-                                <img src="/Content/img/slide/img0.jpg" alt="" data-lazyload="/Content/img/slide/img0.jpg" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                                    <img src="@imgSrc" alt="" data-lazyload="@imgSrc" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
 
-                            </li>
-                            <!--end second-->
+                                </li>
+                                        }
+                           
                         </ul>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
                 <div class="pagination-centered">
                     
                     <div class="control-group">
-                        @Html.TextAreaFor(x => x.CommentText, new { @class = "form-control", @style = "resize: none; width: 90%", placeholder = "Escriba su mensaje aquí", required = "required", rows = "5", maxlength = "250"})
+                        @Html.TextAreaFor(x => x.CommentText, new { @class = "form-control", @style = "resize: none; width: 90%", placeholder = "Escriba su mensaje aquí", required = "required", rows = "5", maxlength = "1000"})
                         <br/>
                         <p class="text-error">@Html.ValidationMessageFor(model => model.CommentText)</p>
 

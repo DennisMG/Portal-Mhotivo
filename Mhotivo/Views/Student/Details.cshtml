@@ -20,9 +20,9 @@
         Editar
     </a>
 
-    <a href="~/Student/Index" class="btn btn-small">
-        Regresar
-    </a>
+    <script>
+        document.write('<a class="btn btn-small" href="' + document.referrer + '">Regresar</a>');
+    </script>
 </p>
 <hr />
 <div id="address" style="width: 500px;">
@@ -123,10 +123,9 @@
     <a href="~/Student/Edit/@Html.DisplayFor(model => model.Id)" data-dismiss="modal" class="btn btn-small btn-primary">
         Editar
     </a>
-
-    <a href="~/Student/Index" class="btn btn-small">
-        Regresar
-    </a>
+    <script>
+        document.write('<a class="btn btn-small" href="' + document.referrer + '">Regresar</a>');
+    </script>
 </p>
 
 <!-- Modal -->

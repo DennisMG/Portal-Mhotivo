@@ -58,6 +58,7 @@
     <Compile Include="Interfaces\IPrivilegeRepository.cs" />
     <Compile Include="Interfaces\IProfileRepository.cs" />
     <Compile Include="Interfaces\IRoleRepository.cs" />
+    <Compile Include="Interfaces\ISliderRepository.cs" />
     <Compile Include="Interfaces\ITeacherRepository.cs" />
     <Compile Include="Interfaces\INotificationRepository.cs" />
     <Compile Include="Interfaces\ITutorRepository.cs" />

@@ -76,6 +76,7 @@ namespace Mhotivo.ParentSite
             kernel.Bind<IRoleRepository>().To<RoleRepository>().InRequestScope();
             kernel.Bind<IProfileRepository>().To<ProfileRepository>().InRequestScope();
             kernel.Bind<IEventRepository>().To<EventRepository>().InRequestScope();
+            kernel.Bind<ISliderRepository>().To<SliderRepository>().InRequestScope();
         }
     }
 }

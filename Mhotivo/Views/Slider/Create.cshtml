@@ -1,0 +1,47 @@
+﻿@model Mhotivo.Models.SliderRegisterModel
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div id="body" class="modal-body" style="max-height: 500px;">
+
+    <fieldset>
+        <legend class="pagination-centered">Agregar una foto</legend>
+        @using (Html.BeginForm("Add", "Slider", FormMethod.Post, new { enctype = "multipart/form-data", id = "Form", @class = "form-horizontal", @Style = "margin:0;" }))
+        {
+
+            <div class="pagination-centered">
+
+                <div id="Photo">
+                    @{
+                        var imgSrc = "";
+                        if (Model.Photo != null)
+                        {
+                            var base64 = Convert.ToBase64String(Model.Photo);
+                            imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                        }
+                    }
+                    @Html.HiddenFor(model => model.Photo)
+                    <img height="150" width="150" src="@imgSrc" />
+
+                </div>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.UploadPhoto, new { type = "file" })<br />
+                    @Html.ValidationMessageFor(model => model.UploadPhoto)
+                </div>
+                <button type="submit" class="btn btn-small btn-primary">
+                    <i class="icon-ok"></i>
+                    Agregar
+                </button>
+            </div>
+
+
+        }
+    </fieldset>
+
+</div>
+
+
+
+
+

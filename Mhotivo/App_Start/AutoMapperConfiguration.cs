@@ -37,6 +37,7 @@ namespace Mhotivo
             MapAdministrativeModels();
             MapEventModels();
             MapProfileModels();
+            MapSliderModels();
         }
 
         private static void MapAcademicYearModels()
@@ -381,6 +382,12 @@ namespace Mhotivo
         {
             Mapper.CreateMap<Profile, ProfileDisplayModel>();
             Mapper.CreateMap<ProfileRegisterModel, Profile>();
+        }
+
+        public static void MapSliderModels()
+        {
+            Mapper.CreateMap<Slider, SliderDisplayModel>();
+            Mapper.CreateMap<SliderRegisterModel, Slider>();
         }
     }
 }

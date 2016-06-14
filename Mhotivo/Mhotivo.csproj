@@ -204,6 +204,7 @@
     <Compile Include="Controllers\NotificationCommentController.cs" />
     <Compile Include="Controllers\PersonalMessageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SliderController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\TutorController.cs" />
@@ -234,6 +235,8 @@
     <Compile Include="Models\PersonalMessageDisplayModel.cs" />
     <Compile Include="Models\ProfileDisplayModel.cs" />
     <Compile Include="Models\ProfileRegisterModel.cs" />
+    <Compile Include="Models\SliderDisplayModel.cs" />
+    <Compile Include="Models\SliderRegisterModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\NotificationModel.cs" />
@@ -561,6 +564,8 @@
     <None Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
     <None Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Slider\Index.cshtml" />
+    <Content Include="Views\Slider\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mhotivo.Data\Mhotivo.Data.csproj">

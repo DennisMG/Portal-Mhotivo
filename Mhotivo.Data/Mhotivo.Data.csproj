@@ -74,6 +74,7 @@
     <Compile Include="Entities\Privilege.cs" />
     <Compile Include="Entities\Profile.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Slider.cs" />
     <Compile Include="Entities\Teacher.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\NotificationComment.cs" />

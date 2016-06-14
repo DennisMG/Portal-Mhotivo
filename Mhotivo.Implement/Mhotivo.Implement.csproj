@@ -110,6 +110,7 @@
     <Compile Include="Repositories\PeopleWithUserRepository.cs" />
     <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\SliderRepository.cs" />
     <Compile Include="Repositories\TeacherRepository.cs" />
     <Compile Include="Repositories\NotificationRepository.cs" />
     <Compile Include="Repositories\TutorRepository.cs" />

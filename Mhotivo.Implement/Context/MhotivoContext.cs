@@ -27,5 +27,6 @@ namespace Mhotivo.Implement.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Slider> SliderPhotos { get; set; }
     }
 }

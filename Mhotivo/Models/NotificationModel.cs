@@ -77,6 +77,10 @@ namespace Mhotivo.Models
 
         [Display(Name = "Aprobada?")]
         public bool Approved { get; set; }
+
+        [Display(Name = "Mensaje")]
+        [AllowHtml]
+        public string Message { get; set; }
     }
 
     public class NotificationEditModel

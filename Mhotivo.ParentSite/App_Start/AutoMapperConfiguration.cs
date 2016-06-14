@@ -21,6 +21,7 @@ namespace Mhotivo.ParentSite
             Mapper.CreateMap<Event, EventDisplayModel>()
                .ForMember(p => p.EventDate, o => o.MapFrom(src => src.EventDate.ToShortDateString()))
                .ForMember(p => p.ScheduleTime, o => o.MapFrom(src => src.StartTime.ToString() + " - " + src.FinishTime.ToString()));
+           
         }
     }
 }
