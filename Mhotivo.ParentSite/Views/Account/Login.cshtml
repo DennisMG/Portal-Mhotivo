@@ -175,14 +175,15 @@
             <i class="fa fa-user"></i>
             <input id="pass" type="password" name="Password" placeholder="Contraseña" required/>
             <i class="fa fa-key"></i>
-            <button>
-                <span class="state">Log in</span>
-            </button>
+            @Html.ActionLink("Olvide contraseña", "Index", "LostPassword",null, null)
+             <button>
+                    <span class="state">Log in</span>
+                </button>
 
-            @Html.ValidationSummary(true)
-        }
+                @Html.ValidationSummary(true)
+                }
 
-    </div>
+</div>
 
 </div>
 

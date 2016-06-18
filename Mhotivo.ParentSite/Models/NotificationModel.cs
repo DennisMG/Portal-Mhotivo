@@ -8,7 +8,7 @@ namespace Mhotivo.ParentSite.Models
         public string Title { get; set; }
         public string NotificationCreator { get; set; }
         public string Message { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime CreationDate { get; set; }
         public int CommentsAmount { get; set; }
     }
 }

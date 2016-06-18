@@ -195,6 +195,7 @@
     <Compile Include="Authorization\VerifyEmail.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomErrorController.cs" />
+    <Compile Include="Controllers\LostPasswordController.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeworkController.cs" />
@@ -406,6 +407,7 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Shared\_LayoutSmall.cshtml" />
     <Content Include="Views\CustomError\Index.cshtml" />
+    <Content Include="Views\LostPassword\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

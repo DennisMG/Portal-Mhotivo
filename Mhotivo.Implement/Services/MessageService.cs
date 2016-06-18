@@ -18,6 +18,10 @@ namespace Mhotivo.Implement.Services
             return EmailBaseMessage + "que se ha hecho un nuevo comentario en la notificación \"" + nombreNotificacion + "\" "  + AdministrativeUrlPage;
         }
 
+        public static string NotificarTarea(string title)
+        {
+            return EmailBaseMessage + "ha asignado una nueva tarea en el portal con el titulo "+"\""+ title + "\" " + ParentUrlPage;
+        }
         public static string ConstruirMensaje(Role role)
         {
             if (role.Name.Equals("Tutor"))

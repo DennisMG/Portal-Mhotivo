@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Mhotivo.App_Data;
 using Mhotivo.Authorizations;
+using Mhotivo.Implement.Services;
 using PagedList;
 
 namespace Mhotivo.Controllers
@@ -19,17 +20,19 @@ namespace Mhotivo.Controllers
 
         private readonly IAcademicCourseRepository _academicCourseRepository;
         private readonly ISessionManagementService _sessionManagement;
+        private readonly IStudentRepository _studentRepository;
         private readonly IHomeworkRepository _homeworkRepository;
         private readonly ViewMessageLogic _viewMessageLogic;
         public long TeacherId = -1;
 
         public HomeworkController(IHomeworkRepository homeworkRepository,
-            IAcademicCourseRepository academicCourseRepository, ISessionManagementService sessionManagement)
+            IAcademicCourseRepository academicCourseRepository, ISessionManagementService sessionManagement, IStudentRepository studentRepository)
         {
             _homeworkRepository = homeworkRepository;
             _viewMessageLogic = new ViewMessageLogic(this);
             _academicCourseRepository = academicCourseRepository;
             _sessionManagement = sessionManagement;
+            _studentRepository = studentRepository;
         }
 
         [AuthorizeTeacher]
@@ -90,6 +93,15 @@ namespace Mhotivo.Controllers
             const string title = "Tarea agregada";
             string content = "La tarea " + toCreate.Title + " ha sido agregado exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
+            var studentsTutors =
+                _studentRepository.Filter(
+                    x => x.MyGrade != null && x.MyGrade.CoursesDetails.Any(y => y.Id == toCreate.AcademicCourse.Id))
+                    .ToList();
+            foreach (var studentTutor in studentsTutors)
+            {
+                var tutorUser = studentTutor.Tutor1.User;
+                MailgunEmailService.SendEmailToUser(tutorUser, MessageService.NotificarTarea(toCreate.Title));
+            }
             return RedirectToAction("Index");
         }
 

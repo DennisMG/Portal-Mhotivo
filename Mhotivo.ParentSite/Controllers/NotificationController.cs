@@ -92,7 +92,7 @@ namespace Mhotivo.ParentSite.Controllers
             var notificationsModel = notifications.Select(Mapper.Map<Notification, NotificationModel>).ToList();
 
 
-            notificationsModel = notificationsModel.OrderByDescending(x => x.Created).ToList();
+            notificationsModel = notificationsModel.OrderByDescending(x => x.CreationDate).ToList();
 
             return View(notificationsModel);
         }
@@ -149,6 +149,9 @@ namespace Mhotivo.ParentSite.Controllers
                 if (!user.Email.Equals(loggedUserEmail))
                     MailgunEmailService.SendEmailToUser(user, MessageService.ConstruirMensaje(user.Role, selectedNotification.Title));
             }
+            var creatorUser = selectedNotification.NotificationCreator.User;
+            if (!loggedUserEmail.Equals(creatorUser.Email))
+                MailgunEmailService.SendEmailToUser(creatorUser, MessageService.ConstruirMensaje(creatorUser.Role, selectedNotification.Title));
             return RedirectToAction("Index");
         }
     }

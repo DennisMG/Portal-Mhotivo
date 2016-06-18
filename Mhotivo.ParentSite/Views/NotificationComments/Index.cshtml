@@ -45,7 +45,7 @@
     <div class="grid grid_8">
         <div class="nicdark_textevidence nicdark_bg_orange nicdark_radius nicdark_shadow">
             <div class="nicdark_size_big">
-                <p class="white"><i class="icon-calendar-1 nicdark_marginright10"></i>@Model.Item1.Created.ToShortDateString() <span class="nicdark_margin010">·</span> <i class="icon-user-1 nicdark_marginright10"></i>ADMIN <span class="nicdark_margin010">·</span> </p>
+                <p class="white"><i class="icon-calendar-1 nicdark_marginright10"></i>@Model.Item1..ToShortDateString() <span class="nicdark_margin010">·</span> <i class="icon-user-1 nicdark_marginright10"></i>ADMIN <span class="nicdark_margin010">·</span> </p>
             </div>
             <i class="icon-info-outline nicdark_iconbg right medium orange"></i>
         </div>
@@ -89,11 +89,11 @@
                                 <img alt="" class="nicdark_displaynone_ipadpotr nicdark_radius_circle nicdark_absolute" style="width: 50px;" src=@imgSrc.ToString()>
                                 <div class="nicdark_activity nicdark_marginleft70 nicdark_disable_marginleft_ipadpotr">
                                     <div class="nicdark_space20"></div>
-                                    <h4 class="subtitle greydark">@item.Tutor: @item.CreationDate.ToShortDateString() a las @item.CreationDate.ToShortTimeString()</h4>
+                                    <h4 style="color:black" class="subtitle greydark">@item.Tutor: @item.CreationDate.ToShortDateString() a las @item.CreationDate.ToShortTimeString()</h4>
                                     <div class="nicdark_space20"></div>
                                 </div>
                             </div>
-                            <p>@item.CommentText</p>
+                            <p style="color:black">@item.CommentText</p>
                             <div class="nicdark_space20"></div>
 
                         </div>
