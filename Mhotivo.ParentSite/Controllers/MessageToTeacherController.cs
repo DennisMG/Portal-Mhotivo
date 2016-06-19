@@ -80,17 +80,16 @@ namespace Mhotivo.ParentSite.Controllers
                 var loggedUserEmail = System.Web.HttpContext.Current.Session["loggedUserEmail"].ToString();
                 var  loggedTutor = _tutorRepository.Filter(y => y.User.Email == loggedUserEmail).FirstOrDefault();
                 var teacher = _teacherRepository.Filter(x => x.User.Email == model.To).ToList().FirstOrDefault();
-
+            
+                if (teacher == null) return RedirectToAction("Index");
                 var newNotification = new Notification(model.Subject, model.Message, loggedTutor, teacher,
                     NotificationType.Personal, _academicYearRepository.GetCurrentAcademicYear())
                 {
                     Approved = true,
                     SendEmail = true
                 };
+                newNotification.RecipientUsers.Add(teacher.User);
                 _notificationRepository.Create(newNotification);
-
-
-                if (teacher == null) return RedirectToAction("Index");
                 MailgunEmailService.SendEmailToUser(teacher.User, MessageService.ConstruirMensaje(teacher.User.Role));
                 ViewBag.Message = "Mensaje Enviado!";
             }
@@ -98,7 +97,7 @@ namespace Mhotivo.ParentSite.Controllers
             {
                 ViewBag.Message = "Mensaje No Enviado!";
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Notification", new { filter= "Personal" });
         }
     }
 }
