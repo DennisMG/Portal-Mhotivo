@@ -10,7 +10,9 @@
 @Html.Partial("~/Views/Shared/_MessageArea.cshtml")
 <h2>Fotos Registradas</h2>
 
-<a class="toEdit btn btn-small btn-primary" style="float: right" data-toggle="modal" role="button" data-target="#EditModal" id="/Slider/Add">Agregar Foto</a>
+<a class="toEdit btn btn-small btn-primary" style="float: right;" data-toggle="modal" role="button" data-target="#EditModal" id="/Slider/Add">Agregar Foto</a>
+<div class="space"></div>
+<div class="space"></div>
 <div class="space"></div>
 @if (!Model.Any())
 {
@@ -60,7 +62,7 @@ else
                     </td>
                     <td>
                         <a class="toDelete" role="button" id="@Html.DisplayFor(modelItem => item.Id)_Val"><i class="icon-trash bigger-120"></i></a>
-                        @using (Html.BeginForm("Delete", "Event", new { id = Html.DisplayFor(modelItem => item.Id) }, FormMethod.Post,
+                        @using (Html.BeginForm("Delete", "Slider", new { id = Html.DisplayFor(modelItem => item.Id) }, FormMethod.Post,
                         new { id = "Form_" + Html.DisplayFor(modelItem => item.Id) + "_Val", style = "display: none" }))
                         {
                         }

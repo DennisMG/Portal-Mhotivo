@@ -73,5 +73,16 @@ namespace Mhotivo.Controllers
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [AuthorizeAdminDirector]
+        public ActionResult Delete(long id)
+        {
+            const string title = "La foto se ha eliminado exitosamente";
+            _sliderRepository.Delete(id);
+            var content = "";
+            _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
+            return RedirectToAction("Index");
+        }
     }
 }
