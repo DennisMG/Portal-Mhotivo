@@ -254,6 +254,7 @@
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\img\mhotivo\mhotivo.jpg" />
     <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\summernote-bs3.css" />

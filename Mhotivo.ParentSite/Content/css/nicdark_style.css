@@ -157,9 +157,9 @@ select.big { font-size: 17px; padding: 15px 10%; }
 .nicdark_parallax_img3 { background:url(../img/slide/img3.jpg) 50% 0 fixed; background-size:cover; }
 .nicdark_parallax_img1 { background:url(../img/slide/img1.jpg) 50% 0 fixed; background-size:cover; }
 
-.nicdark_parallaxx_img7 { background: url(../img/parallax/img7.jpg) 50% 0 fixed; background-size:cover; }
+.nicdark_parallaxx_img7 { background: url(../img/mhotivo/alumnos.jpg) 50% 0 fixed; background-size:cover; }
 
-.nicdark_parallaxx_img-teachers-1 { background: url(../img/parallax/img-teachers-1.jpg) 50% 0 fixed; background-size:cover; }
+.nicdark_parallaxx_img-teachers-1 { background: url("../img/mhotivo/panoramica.jpg")50% 0 fixed; background-size:cover; }
 
 /*END CLASS FOR PARALLAX SECTION*/
 
