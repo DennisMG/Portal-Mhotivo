@@ -30,6 +30,7 @@ else
                 <th>Nombre Completo</th>
                 <th>Foto</th>
                 <th>Descripción</th>
+                <th>Editar</th>
                 <th>Borrar</th>
             </tr>
         </thead>
@@ -65,6 +66,9 @@ else
                         </div>
                     </td>
                     <td>@Html.Raw(item.Description)</td>
+                    <td>
+                       <a href="~/Profile/Edit/@Html.DisplayFor(modelItem => item.Id)"><i class="icon-edit bigger-120"></i></a>
+                    </td>
                     <td>
                         <a class="toDelete" role="button" id="@Html.DisplayFor(modelItem => item.Id)_Val"><i class="icon-trash bigger-120"></i></a>
                         @using (Html.BeginForm("Delete", "Profile", new { id = Html.DisplayFor(modelItem => item.Id) }, FormMethod.Post,

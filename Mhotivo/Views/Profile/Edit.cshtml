@@ -1,0 +1,104 @@
+﻿@model Mhotivo.Models.ProfileEditModel
+
+@{
+    ViewBag.Title = "Editar Estudiante";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.hotkeys.min.js"></script>
+<script src="~/Scripts/bootstrap-tagsinput.min.js"></script>
+<link href="~/Content/bootstrap-tagsinput.css" rel="stylesheet" />
+<script src="~/Scripts/typeahead.js"></script>
+
+
+<link href="~/Content/summernote-bs3.css" rel="stylesheet" />
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+
+<div id="body" class="modal-body" style="max-height: 500px;">
+    @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new
+    {
+        id = "Form"
+        ,
+        @class = "form-horizontal"
+        ,
+        @Style = "margin:0;"
+        ,
+        enctype = "multipart/form-data"
+        ,
+        method = "post"
+    }))
+    {
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Editar Perfil</legend>
+            <p>Nombre Completo:</p>@Html.EditorFor(model => model.FullName)
+            @Html.HiddenFor(model => model.Id)
+            <p class="text-error">
+                @Html.ValidationMessageFor(model => model.FullName)
+                @Html.ValidationMessageFor(model => model.Description)
+            </p>
+            <div id="Photo">
+                @{
+                    var imgSrc = "";
+                    if (Model.Photo != null)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Photo);
+                        imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+                    }
+                }
+                @Html.HiddenFor(x => x.Photo)
+                <img height="150" width="150" src="@imgSrc"/>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    @Html.LabelFor(model => model.Photo)
+                </div>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.FilePicture, new {type = "file"})<br/>
+                    @Html.ValidationMessageFor(model => model.FilePicture)
+                </div>
+            </div>
+
+            <div class="space"></div>
+            @Html.HiddenFor(model => model.Description)
+            <div class="space"></div>
+            <div class="space"></div>
+            <div id="htmlMessage"></div>
+            <div class="modal-footer">
+                <a href="~/Student/Index" data-dismiss="modal" class="btn btn-small">
+                    <i class="icon-remove"></i>
+                    Cancelar
+                </a>
+                <button type="submit" class="btn btn-small btn-primary">
+                    <i class="icon-ok"></i>
+                    Actualizar
+                </button>
+            </div>
+        </fieldset>
+    }
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#htmlMessage').summernote();
+
+        $('#htmlMessage').summernote('code', "@Html.Raw(Model.Description)");
+                });
+
+                $("#Form").submit(function (event) {
+                    var sHTML = $('#htmlMessage').summernote('code');
+                    $('#Description').val(sHTML);
+
+                    // alert("Handler for .submit() called. : <br />" + $('#Message').val());
+                    //event.preventDefault();
+                });
+
+
+</script>

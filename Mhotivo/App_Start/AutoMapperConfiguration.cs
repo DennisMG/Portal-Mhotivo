@@ -382,6 +382,8 @@ namespace Mhotivo
         {
             Mapper.CreateMap<Profile, ProfileDisplayModel>();
             Mapper.CreateMap<ProfileRegisterModel, Profile>();
+            Mapper.CreateMap<Profile, ProfileEditModel>().ReverseMap();
+            
         }
 
         public static void MapSliderModels()

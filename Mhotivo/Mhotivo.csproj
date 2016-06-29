@@ -234,6 +234,7 @@
     <Compile Include="Models\NotificationCommentModel.cs" />
     <Compile Include="Models\PersonalMessageDisplayModel.cs" />
     <Compile Include="Models\ProfileDisplayModel.cs" />
+    <Compile Include="Models\ProfileEditModel.cs" />
     <Compile Include="Models\ProfileRegisterModel.cs" />
     <Compile Include="Models\SliderDisplayModel.cs" />
     <Compile Include="Models\SliderRegisterModel.cs" />
@@ -564,6 +565,7 @@
     <None Include="Views\Event\Create.cshtml" />
     <None Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
     <None Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Slider\Index.cshtml" />
     <Content Include="Views\Slider\Create.cshtml" />

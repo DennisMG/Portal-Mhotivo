@@ -31,9 +31,17 @@ namespace Mhotivo.Implement.Services
             return EmailBaseMessage + NotificationMessage + AdministrativeUrlPage;
         }
 
-        public static string NotificationMessage = "ha recibido una nueva notificacion en el portal ";
+        public static string NotificationMessage = "ha recibido una nueva notificación en el portal ";
         public static string EmailBaseMessage = ",<br><br>Se le comunica que ";
         public static string AdministrativeUrlPage = "porfavor ingrese a:<br><br> http://www.mhotivo.tk/Account/Login?ReturnUrl=%2f <br><br>Atentamente,<br><br>Fundación Mhotivo <br><p style=\"font-size:12px;line-height:16px;font-family:Helvetica,Arial,sans-serif;color:#999;\"> Por favor, NO responda a este mensaje, es un envío automático</p></html>";
         public static string ParentUrlPage = "porfavor ingrese a:<br><br> http://padres.mhotivo.tk/Account/Login <br><br>Atentamente,<br><br>Fundación Mhotivo <br><p style=\"font-size:12px;line-height:16px;font-family:Helvetica,Arial,sans-serif;color:#999;\"> Por favor, NO responda a este mensaje, es un envío automático</p></html>";
+
+        public static string ApproveMessage()
+        {
+            return EmailBaseMessage + "ha recibido una nueva notificación que requiere ser aprovada " +
+                   AdministrativeUrlPage;
+        }
+
+
     }
 }

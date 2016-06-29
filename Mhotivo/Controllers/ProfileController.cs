@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Mhotivo.Authorizations;
-using Mhotivo.Data.Entities;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.Logic.ViewMessage;
 using Mhotivo.Models;
@@ -24,6 +23,7 @@ namespace Mhotivo.Controllers
             _profileRepository = profileRepository;
             _viewMessageLogic = new ViewMessageLogic(this);
         }
+
         //
         // GET: /Profile/
 
@@ -58,7 +58,6 @@ namespace Mhotivo.Controllers
                     using (var binaryReader = new BinaryReader(profileRegistered.UploadPhoto.InputStream))
                     {
                         profile.Photo = binaryReader.ReadBytes(profileRegistered.UploadPhoto.ContentLength);
-
                     }
                 }
             }
@@ -97,5 +96,61 @@ namespace Mhotivo.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [HttpGet]
+        [AuthorizeAdminDirector]
+        public ActionResult Edit(long id)
+        {
+            var profile = _profileRepository.GetById(id);
+            var profileModel = Mapper.Map<Profile, ProfileEditModel>(profile);
+            return View("Edit", profileModel);
+        }
+
+        [HttpPost]
+        [AuthorizeAdminDirector]
+        public ActionResult Edit(ProfileEditModel modelProfile)
+        {
+            var validImageTypes = new[]
+            {
+                "image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png"
+            };
+            if (modelProfile.FilePicture != null && modelProfile.FilePicture.ContentLength > 0)
+            {
+                if (!validImageTypes.Contains(modelProfile.FilePicture.ContentType))
+                {
+                    ModelState.AddModelError("FilePicture", "Por favor seleccione entre una imagen GIF, JPG o PNG");
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (modelProfile.FilePicture != null)
+                    {
+                        using (var binaryReader = new BinaryReader(modelProfile.FilePicture.InputStream))
+                        {
+                            modelProfile.Photo = binaryReader.ReadBytes(modelProfile.FilePicture.ContentLength);
+                        }
+                    }
+                    var profile = _profileRepository.GetById(modelProfile.Id);
+                    Mapper.Map(modelProfile, profile);
+                    _profileRepository.Update(profile);
+                    const string title = "Perfil Actualizado";
+                    var content = "El perfil de" + profile.FullName + " ha sido actualizado exitosamente.";
+                    _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
+                }
+                catch (Exception e)
+                {
+                    const string title = "Error";
+                    var content = "El perfil no se actualizó.";
+                    _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.ErrorMessage);
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
+

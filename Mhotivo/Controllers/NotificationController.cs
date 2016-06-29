@@ -9,6 +9,7 @@ using Mhotivo.Implement.Utils;
 using Mhotivo.Logic.ViewMessage;
 using Mhotivo.Models;
 using Mhotivo.Data.Entities;
+using Mhotivo.Implement.Services;
 using Mhotivo.Interface.Interfaces;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Office.Interop.Excel;
@@ -145,8 +146,17 @@ namespace Mhotivo.Controllers
             eventNotification.NotificationCreator = _userRepository.GetById(Convert.ToInt64(_sessionManagement.GetUserLoggedId())).UserOwner.Id;
             eventNotification.AcademicYear = _academicYearRepository.GetCurrentAcademicYear().Id;
             var notificationIdentity = Mapper.Map<Notification>(eventNotification);
-            notificationIdentity.Approved = _sessionManagement.GetUserLoggedRole().Equals("Administrador");
+            var approved = _sessionManagement.GetUserLoggedRole().Equals("Administrador");
+            notificationIdentity.Approved = approved;
             notificationIdentity = _notificationRepository.Create(notificationIdentity);
+            var users = _userRepository.Filter(x => x.Role.Name == "Administrador");
+            if (!approved)
+            {
+                foreach (var user in users)
+                {
+                    MailgunEmailService.SendEmailToUser(user, MessageService.ApproveMessage());
+                }
+            }
             _notificationHandlerService.SendAllPending();
             const string title = "Notificación Agregada";
             var content = "La notificacion " + notificationIdentity.Title + " ha sido agregada exitosamente.";

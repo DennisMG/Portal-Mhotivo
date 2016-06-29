@@ -55,8 +55,10 @@
         <div class="nicdark_space10"></div>
         <div class="nicdark_divider left big"><span class="nicdark_bg_yellow nicdark_radius"></span></div>
         <div class="nicdark_space10"></div>
-        <p><span class="white nicdark_dropcap nicdark_bg_yellow nicdark_radius nicdark_shadow">></span>@Html.Raw(@Model.Item1.Message)</p>
-
+        <span class="white nicdark_dropcap">></span>
+        <div class="nicdark_marginleft10" style="font-size: 18px; color:white; width: 50em; height: 05em; overflow-y: auto; overflow-x: auto; white-space: nowrap;">
+            @Html.Raw(@Model.Item1.Message)
+        </div>
         <div class="nicdark_space50"></div>
         <div class="grid grid_4"></div>
         <div class="grid grid_8">
@@ -93,7 +95,7 @@
                                     <div class="nicdark_space20"></div>
                                 </div>
                             </div>
-                            <p style="color:black">@item.CommentText</p>
+                            <p style="color: black; width: 50em; height: 05em; overflow-y: auto; overflow-x: auto; white-space: nowrap;">@item.CommentText</p>
                             <div class="nicdark_space20"></div>
 
                         </div>
