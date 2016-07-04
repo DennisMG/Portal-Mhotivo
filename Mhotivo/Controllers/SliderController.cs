@@ -10,6 +10,7 @@ using Mhotivo.Interface.Interfaces;
 using Mhotivo.Logic.ViewMessage;
 using Mhotivo.Models;
 using PagedList;
+using System.Web.Helpers;
 
 namespace Mhotivo.Controllers
 {
@@ -53,10 +54,13 @@ namespace Mhotivo.Controllers
             {
                 if (photoRegistered.UploadPhoto != null)
                 {
-                    using (var binaryReader = new BinaryReader(photoRegistered.UploadPhoto.InputStream))
+                    WebImage img = new WebImage(photoRegistered.UploadPhoto.InputStream);
+                    if (img.Width > 3500 || img.Height > 1750)
                     {
-                        sliderPhoto.Photo = binaryReader.ReadBytes(photoRegistered.UploadPhoto.ContentLength);
+                        img.Resize(3500, 1750);
                     }
+
+                    sliderPhoto.Photo = img.GetBytes();
                 }
             }
             catch (Exception)

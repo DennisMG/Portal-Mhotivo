@@ -10,6 +10,7 @@ using Mhotivo.Logic.ViewMessage;
 using Mhotivo.Models;
 using PagedList;
 using Profile = Mhotivo.Data.Entities.Profile;
+using System.Web.Helpers;
 
 namespace Mhotivo.Controllers
 {
@@ -55,10 +56,13 @@ namespace Mhotivo.Controllers
             {
                 if (profileRegistered.UploadPhoto != null)
                 {
-                    using (var binaryReader = new BinaryReader(profileRegistered.UploadPhoto.InputStream))
+                    WebImage img = new WebImage(profileRegistered.UploadPhoto.InputStream);
+                    if (img.Width > 200 || img.Height > 200)
                     {
-                        profile.Photo = binaryReader.ReadBytes(profileRegistered.UploadPhoto.ContentLength);
+                        img.Resize(200, 200);
                     }
+
+                    profile.Photo = img.GetBytes();
                 }
             }
             catch (Exception)
@@ -130,10 +134,13 @@ namespace Mhotivo.Controllers
                 {
                     if (modelProfile.FilePicture != null)
                     {
-                        using (var binaryReader = new BinaryReader(modelProfile.FilePicture.InputStream))
+                        WebImage img = new WebImage(modelProfile.FilePicture.InputStream);
+                        if (img.Width > 200 || img.Height > 200)
                         {
-                            modelProfile.Photo = binaryReader.ReadBytes(modelProfile.FilePicture.ContentLength);
+                            img.Resize(200, 200);
                         }
+
+                        modelProfile.Photo = img.GetBytes();
                     }
                     var profile = _profileRepository.GetById(modelProfile.Id);
                     Mapper.Map(modelProfile, profile);

@@ -562,11 +562,11 @@
     <Content Include="Views\NotificationComment\Add.cshtml" />
     <Content Include="Views\NotificationComment\Create.cshtml" />
     <Content Include="Views\PersonalMessage\Index.cshtml" />
-    <None Include="Views\Event\Create.cshtml" />
-    <None Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
-    <None Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Slider\Index.cshtml" />
     <Content Include="Views\Slider\Create.cshtml" />
   </ItemGroup>
