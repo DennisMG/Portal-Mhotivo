@@ -12,9 +12,9 @@
 <link href="~/Content/bootstrap-tagsinput.css" rel="stylesheet" />
 <script src="~/Scripts/typeahead.js"></script>
 
-<link href="~/Content/summernote.css" rel="stylesheet" />
 <link href="~/Content/summernote-bs3.css" rel="stylesheet" />
-<script src="~/Scripts/summernote.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
 
 
 
@@ -66,12 +66,26 @@
 <script type="text/javascript">
 
                 $(document).ready(function () {
-                    $('#htmlMessage').summernote();
+                    $('#htmlMessage').summernote({
+                        callbacks: {
+                            onPaste: function (e) {
+                                var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+
+                                e.preventDefault();
+
+                                // Firefox fix
+                                setTimeout(function () {
+                                    document.execCommand('insertText', false, bufferText);
+                                }, 10);
+                            }
+                        }
+                    });
+
                     $("#datepicker").datepicker();
                 });
 
                 $("#Form").submit(function (event) {
-                    var sHTML = $('#htmlMessage').code();
+                    var sHTML = $('#htmlMessage').summernote('code');
                     $('#Description').val(sHTML);
 
                     // alert("Handler for .submit() called. : <br />" + $('#Message').val());

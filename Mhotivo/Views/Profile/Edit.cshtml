@@ -70,7 +70,7 @@
             <div class="space"></div>
             <div id="htmlMessage"></div>
             <div class="modal-footer">
-                <a href="~/Student/Index" data-dismiss="modal" class="btn btn-small">
+                <a href="~/Profile/Index" data-dismiss="modal" class="btn btn-small">
                     <i class="icon-remove"></i>
                     Cancelar
                 </a>
@@ -87,7 +87,20 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('#htmlMessage').summernote();
+        $('#htmlMessage').summernote({
+            callbacks: {
+                onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+
+                    e.preventDefault();
+
+                    // Firefox fix
+                    setTimeout(function () {
+                        document.execCommand('insertText', false, bufferText);
+                    }, 10);
+                }
+            }
+        });
 
         $('#htmlMessage').summernote('code', "@Html.Raw(Model.Description)");
                 });
