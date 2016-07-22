@@ -104,7 +104,7 @@
                                                             <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => homeworkModel.Points)<br />
                                                         </div>
                                                         <p>
-                                                            @Html.DisplayFor(modelItem => homeworkModel.Description)
+                                                            @Html.Raw(homeworkModel.Description)
                                                         </p>
                                                         <br />
                                                     </div>
@@ -148,7 +148,7 @@
                                                             <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => currentHomework.Points)<br />
                                                         </div>
                                                         <p>
-                                                            @Html.DisplayFor(modelItem => currentHomework.Description)
+                                                            @Html.Raw(currentHomework.Description)
                                                         </p>
                                                         <br />
                                                     </div>
@@ -192,7 +192,7 @@
                                                             <i class="fa fa-plus-square" style="color: limegreen"></i> Puntaje: @Html.DisplayFor(modelItem => futureHomework.Points)<br />
                                                         </div>
                                                         <p>
-                                                            @Html.DisplayFor(modelItem => futureHomework.Description)
+                                                            @Html.Raw(futureHomework.Description)
                                                         </p>
                                                         <br />
                                                     </div>
