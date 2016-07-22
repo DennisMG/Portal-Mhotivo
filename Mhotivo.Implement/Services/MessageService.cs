@@ -43,5 +43,11 @@ namespace Mhotivo.Implement.Services
         }
 
 
+        public static string ChangePasswordMessage(string temporalPassword)
+        {
+            return EmailBaseMessage +
+                   "se le genero un contraseña temporal para poder ingresar al portal, una vez se ingrese al portal, se le va a solicitar cambiar la contraseña a una de su preferencia. La contraseña temporal es: " +
+                   temporalPassword + " <br>" + ParentUrlPage;
+        }
     }
 }

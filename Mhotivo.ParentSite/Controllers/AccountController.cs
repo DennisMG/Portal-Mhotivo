@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web.Mvc;
+using Mhotivo.Implement.Services;
 using Mhotivo.Interface.Interfaces;
 using Mhotivo.ParentSite.Authorization;
 using Mhotivo.ParentSite.Models;
@@ -13,12 +15,14 @@ namespace Mhotivo.ParentSite.Controllers
         private readonly ISessionManagementService _sessionManagementService;
         private readonly ITutorRepository _tutorRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordGenerationService _passwordGenerationService;
 
-        public AccountController(ISessionManagementService sessionManagementService, ITutorRepository tutorRepository, IUserRepository userRepository)
+        public AccountController(ISessionManagementService sessionManagementService, ITutorRepository tutorRepository, IUserRepository userRepository, IPasswordGenerationService passwordGenerationService)
         {
             _sessionManagementService = sessionManagementService;
             _tutorRepository = tutorRepository;
             _userRepository = userRepository;
+            _passwordGenerationService = passwordGenerationService;
         }
 
         // GET: /Account/
@@ -100,6 +104,30 @@ namespace Mhotivo.ParentSite.Controllers
             user.IsUsingDefaultPassword = false;
             _userRepository.Update(user);
             return RedirectToAction("Index", "Home");
+        }
+
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult RecoverPassword()
+        {
+            return View(new LostPasswordModel());
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult RecoverPassword(LostPasswordModel model)
+        {
+            var user = _userRepository.Filter(x => x.Email.Equals(model.Email)).FirstOrDefault();
+            if (user == null) return RedirectToAction("Index", "Home");
+            var password = _passwordGenerationService.GenerateTemporaryPassword();
+            user.Password = password;
+            user.HashPassword();
+            user.DefaultPassword = user.Password;
+            user.IsUsingDefaultPassword = true;
+            _userRepository.Update(user);
+            MailgunEmailService.SendEmailToUser(user,MessageService.ChangePasswordMessage(password));
+            return RedirectToAction("LogIn", "Account");
         }
     }
 }

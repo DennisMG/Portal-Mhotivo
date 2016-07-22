@@ -60,6 +60,7 @@ namespace Mhotivo.ParentSite
             kernel.Bind<MhotivoContext>().ToSelf().InRequestScope();
             kernel.Bind<IAcademicYearRepository>().To<AcademicYearRepository>().InRequestScope();
             kernel.Bind<INotificationRepository>().To<NotificationRepository>().InRequestScope();
+            kernel.Bind<IPasswordGenerationService>().To<RandomPasswordGenerationService>().InRequestScope();
             kernel.Bind<IPeopleRepository>().To<PeopleRepository>().InRequestScope();
             kernel.Bind<ISessionManagementService>().To<SessionManagementService>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
