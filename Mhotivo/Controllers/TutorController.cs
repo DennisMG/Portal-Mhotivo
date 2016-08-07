@@ -215,6 +215,7 @@ namespace Mhotivo.Controllers
         [AuthorizeAdminDirector]
         public ActionResult Create()
         {
+            _viewMessageLogic.SetViewMessageIfExist();
             var items = ((Gender[])Enum.GetValues(typeof(Gender))).Select(c => new SelectListItem
             {
                 Text = c.GetEnumDescription(),

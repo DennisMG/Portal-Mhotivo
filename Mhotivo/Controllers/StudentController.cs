@@ -218,6 +218,7 @@ namespace Mhotivo.Controllers
         [AuthorizeAdminDirector]
         public ActionResult Add()
         {
+            _viewMessageLogic.SetViewMessageIfExist();
             ViewBag.Tutor1Id = new SelectList(_tutorRepository.Query(x => x).OrderBy(x => x.FullName), "Id", "FullName");
             var items = ((Gender[])Enum.GetValues(typeof(Gender))).Select(c => new SelectListItem
             {

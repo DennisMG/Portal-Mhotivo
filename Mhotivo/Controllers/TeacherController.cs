@@ -246,7 +246,7 @@ namespace Mhotivo.Controllers
             teacherModel.User = newUser;
             _teacherRepository.Update(teacherModel);
             const string title = "Maestro Agregado";
-            var content = "El maestro " + teacherModel.FullName + "ha sido agregado exitosamente.";
+            var content = "El maestro " + teacherModel.FullName + " ha sido agregado exitosamente.";
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index");
         }
