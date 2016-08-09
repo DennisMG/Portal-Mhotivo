@@ -66,6 +66,9 @@ namespace Mhotivo.Models
         [Display(Name = "Creador")]
         public string NotificationCreator { get; set; }
 
+        [Display(Name = "Destinatario")]
+        public string PeopleDirectedTo { get; set; }
+
         [Display(Name = "Fecha de Creacion")]
         public string CreationDate { get; set; }
 

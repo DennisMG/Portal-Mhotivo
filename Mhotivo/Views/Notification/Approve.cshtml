@@ -24,6 +24,7 @@ else
             <tr>
                 <th>@Html.DisplayNameFor(model => model.First().Title)</th>
                 <th>@Html.DisplayNameFor(model => model.First().NotificationCreator)</th>
+                <th>@Html.DisplayNameFor(model => model.First().PeopleDirectedTo)</th>
                 <th>@Html.DisplayNameFor(model => model.First().Message)</th>
                 <th>@Html.DisplayNameFor(model => model.First().CreationDate)</th>
                 <th>Aprobar</th>
@@ -35,6 +36,7 @@ else
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
                     <td>@Html.DisplayFor(modelItem => item.NotificationCreator)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PeopleDirectedTo)</td>
                     <td style="overflow: scroll;">@Html.Raw(item.Message)</td>
                     <td>@Html.DisplayFor(modelItem => item.CreationDate)</td>
                     <td>

@@ -71,7 +71,7 @@ namespace Mhotivo.Controllers
             var notifications = new List<Notification>();
             if (isAdmin)
             {
-                notifications = _notificationRepository.Filter( personal => personal.NotificationType != NotificationType.Personal).OrderByDescending( x => x.CreationDate).ToList();
+                notifications = _notificationRepository.Filter( personal => personal.NotificationType != NotificationType.Personal).ToList();
             }
             else if (isDirector)
             {
@@ -102,7 +102,7 @@ namespace Mhotivo.Controllers
             if (!string.IsNullOrWhiteSpace(searchName))
                 notifications = notifications.ToList().FindAll(x => x.Title.Contains(searchName));
 
-            var notificationsModel = notifications.Select(Mapper.Map<NotificationDisplayModel>);
+            var notificationsModel = notifications.OrderByDescending(i => i.CreationDate).Select(Mapper.Map<NotificationDisplayModel>);
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
             return View(notificationsModel.ToPagedList(pageNumber, pageSize));
@@ -147,6 +147,7 @@ namespace Mhotivo.Controllers
             var notificationIdentity = Mapper.Map<Notification>(eventNotification);
             var approved = _sessionManagement.GetUserLoggedRole().Equals("Administrador");
             notificationIdentity.Approved = approved;
+            notificationIdentity.PeopleDirectedTo = GetDestinationName(notificationIdentity);
             notificationIdentity = _notificationRepository.Create(notificationIdentity);
             var users = _userRepository.Filter(x => x.Role.Name == "Administrador");
             if (!approved)
@@ -162,6 +163,51 @@ namespace Mhotivo.Controllers
             _viewMessageLogic.SetNewMessage(title, content, ViewMessageType.SuccessMessage);
             return RedirectToAction("Index");
         }
+
+        private string GetDestinationName(Notification notification)
+        {
+            switch (notification.NotificationType)
+            {
+                case NotificationType.General:
+                    return "General";
+                case NotificationType.EducationLevel:
+                   var educationLevel =  _educationLevelRepository.GetById(notification.DestinationId);
+                    return "Nivel de educacion: " + educationLevel.Name;
+                case NotificationType.Grade:
+                    var grade = _gradeRepository.GetById(notification.DestinationId);
+                    return "Grado: " + grade.Name;
+                case NotificationType.Section:
+                    var singleGrade =
+                        _academicGradeRepository.Filter(x => x.Id == notification.DestinationId &&
+                                                                 x.AcademicYear.Id == notification.AcademicYear.Id).FirstOrDefault();
+                    if (singleGrade != null)
+                    {
+                        return singleGrade.Grade.Name + " Grado Seccion " + singleGrade.Section;
+                    }
+                    return "";
+                case NotificationType.Course:
+                    var course = _academicCourseRepository.Filter(x => x.Id == notification.DestinationId &&
+                                                                           x.AcademicGrade.AcademicYear.Id ==
+                                                                           notification.AcademicYear.Id).FirstOrDefault();
+                    if (course != null)
+                    {
+                        return course.AcademicGrade.Grade.Name + " " + course.AcademicGrade.Section + " (" +
+                               course.Course.Name + ")";
+                    }
+                    return "";
+                case NotificationType.Student:
+                    var singleStudent = _studentRepository.Filter(x => x.Id == notification.DestinationId).FirstOrDefault();
+                    if (singleStudent != null)
+                    {
+                        return singleStudent.FirstName;
+                    }
+                    return "";
+                default:
+                    return "";
+            }
+        }
+
+
         [AuthorizeNewUser]
         public ActionResult Edit(long id)
         {

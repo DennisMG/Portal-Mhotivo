@@ -34,8 +34,8 @@ else
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.First().Title)</th>
-                <th>@Html.DisplayNameFor(model => model.First().NotificationType)</th>
                 <th>@Html.DisplayNameFor(model => model.First().NotificationCreator)</th>
+                <th>@Html.DisplayNameFor(model => model.First().PeopleDirectedTo)</th>
                 <th>@Html.DisplayNameFor(model => model.First().CreationDate)</th>
                 <th>@Html.DisplayNameFor(model => model.First().SendEmail)</th>
                 <th>@Html.DisplayNameFor(model => model.First().Approved)</th>
@@ -49,8 +49,8 @@ else
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                    <td>@Html.DisplayFor(modelItem => item.NotificationType)</td>
                     <td>@Html.DisplayFor(modelItem => item.NotificationCreator)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PeopleDirectedTo)</td>
                     <td>@Html.DisplayFor(modelItem => item.CreationDate)</td>
                     <td>@Html.DisplayFor(modelItem => item.SendEmail)</td>
                     <td>@Html.DisplayFor(modelItem => item.Approved)</td>

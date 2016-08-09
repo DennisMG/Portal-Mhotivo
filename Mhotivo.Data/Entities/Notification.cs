@@ -54,6 +54,7 @@ namespace Mhotivo.Data.Entities
         public long Id { get; set; }
         public string Title { get; set; }
         public string Message { get; set; }
+        public string PeopleDirectedTo { get; set; }
         public NotificationType NotificationType { get; set; }
         public long DestinationId { get; set; }
         public virtual PeopleWithUser To { get; set; }
@@ -63,7 +64,6 @@ namespace Mhotivo.Data.Entities
         public bool Sent { get; set; }
         public bool SendEmail { get; set; }
         public virtual AcademicYear AcademicYear { get; set; } //used to show only pertinent 
-
         public virtual ICollection<NotificationComment> NotificationComments { get; set; }
         public virtual ICollection<User> RecipientUsers { get; set; }
     }
